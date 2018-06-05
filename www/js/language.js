@@ -99,7 +99,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    // home
 
 	    // lista catalogo
-	    this.titCatalogo= "Catalogo FR";
+	    this.titCatalogo= "Catalogo FR orlando";
 
 	    //dettaglio catalogo
 
