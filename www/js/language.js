@@ -92,9 +92,9 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	this.setFrench = function() {
 	    this.logiBtLabel = "Entrèe";
 	    this.registerBtLabel= "Registre";
-	    this.fbBtLabel = "Login with Facebook";
-	    this.gplusBtLabel = "Login with Google+";
-	    this.newRegisterBtLabel= "Nuova registrazione";
+	    this.fbBtLabel = "Login avec Facebook";
+	    this.gplusBtLabel = "Login avec Google+";
+	    this.newRegisterBtLabel= "Nouvelle Registration";
 	    
 	    // home
 
