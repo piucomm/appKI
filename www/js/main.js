@@ -91,6 +91,8 @@ var app = {
             function () { console.log('Error getting language\n'); }
         );
 
+        app.messages = new MessageTranslation();
+
         app.winHeight = $(window).height();
 
         app.dealerObj = new DealersOfficine(); // inizializzo l'oggetto per la classe dealers/officine
@@ -109,7 +111,6 @@ var app = {
         if(localStorage.getItem('login') == 0 || localStorage.getItem('login') == null) { // il login in localStorage è false, devo fare il login se ho connessione...
             $('body').html(this.loginTpl());
 
-            $('.btCheckConn').on('click', this.setConn);
             $('#btNewRegistration').on('click', this.renderRegisterView);
             $('#login').on('click', this.checkLogin);
 
@@ -130,7 +131,6 @@ var app = {
             this.initMenu(); // inizializzo il menu laterale
 
             app.headerHeight = $('.header').outerHeight();
-            //console.log("app.winHeight "+app.winHeight+" - app.headerHeight "+app.headerHeight);
 
             $('.homeBlock').innerHeight(app.winHeight - 100);
             $('.menu-lista').height(app.winHeight - 100); 
@@ -281,7 +281,7 @@ var app = {
                     break;
                 case "#pages4":  // pagina Catalogo
                     $('body').html(self.catalogList());
-                    context = { pageName: Messages.titCatalogo};
+                    context = { pageName: app.messages.titCatalogo};
                     $('.header').html(self.mainHeader(context));
 
                     if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
@@ -573,20 +573,15 @@ var app = {
         localStorage.setItem( "language", this.id);
         switch (this.id) {
             case "it-IT":
-                setItalian();
-                break;
+                app.messages.setItalian();break;
             case "en-EN":
-                setEnglish();
-                break;
+                app.messages.setEnglish();break;
             case "fr-FR":
-                setFrench();
-                break;
+                app.messages.setFrench();break;
             case "es-ES":
-                setSpanish();
-                break;
+                app.messages.setSpanish();break;
             case "de-DE":
-                setDeutch();
-                break;
+                app.messages.setDeutch();break;
         }
 
         $( "ul.flag-list li" ).each(function() {
@@ -595,55 +590,13 @@ var app = {
 
         $("#"+this.id).addClass( "actual" );
 
-        $("#login").html(Messages.logiBtLabel);
-        $("#btNewRegistration").html(Messages.newRegisterBtLabel);
-        console.log(" cambio lingua "+localStorage.getItem( "language"));
+        $("#login").html(app.messages.logiBtLabel);
+        $("#btFbLogin").html(app.messages.fbBtLabel);
+        $("#btGplusLogin").html(app.messages.gplusBtLabel);
+        $("#btNewRegistration").html(app.messages.newRegisterBtLabel);
+        //console.log(" cambio lingua "+localStorage.getItem( "language"));
         
     },
 
 };
 
-
-var Messages = {
-    logiBtLabel: "entra",
-    registerBtLabel: "Registrati",
-    newRegisterBtLabel: "Nuova registrazione",
-    titCatalogo: "Catalogo"
-}
-
-function setItalian(){
-    Messages.logiBtLabel = "Entra";
-    Messages.registerBtLabel = "Registrati";
-    Messages.newRegisterBtLabel = "Nuova registrazione";
-    Messages.titCatalogo= "Catalogo";
-}
-
-function setEnglish(){
-    Messages.logiBtLabel = "Enter";
-    Messages.registerBtLabel = "Register";
-    Messages.newRegisterBtLabel = "New registration";
-    Messages.titCatalogo= "Catalogue";
-}
-
-function setDeutch(){
-    Messages.logiBtLabel = "Anmeldung";
-    Messages.registerBtLabel = "Register";
-    Messages.newRegisterBtLabel = "New registration";
-    Messages.titCatalogo= "Catalogo DE";
-}
-
-
-function setSpanish(){
-    Messages.logiBtLabel = "Entrar";
-    Messages.registerBtLabel= "Registrati";
-    Messages.newRegisterBtLabel= "Nuova registrazione";
-    Messages.titCatalogo= "Catalogo ES";
-}
-
-
-function setFrench(){
-    Messages.logiBtLabel = "Entrèe";
-    Messages.registerBtLabel= "Registre";
-    Messages.newRegisterBtLabel= "Nuova registrazione";
-    Messages.titCatalogo= "Catalogo FR";
-}
