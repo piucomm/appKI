@@ -59,28 +59,28 @@
             
             <ul class="menu-lista" >
                 <li><button onclick="location.href='#';" id="menuDxHome" >
-                Home </button></li>
+                {{{menu0}}}</button></li>
                 <li><button onclick="location.href='#pages4';" id="menuDxCatalogo" >
-                Prodotti</button></li>
+                {{{menu1}}}</button></li>
                 <li><button onclick="location.href='#pages1';" id="menuDxPage1" >
-                KatoImer</button></li>
+                {{{menu2}}}</button></li>
                 <li><button onclick="location.href='#pages2';" id="menuDxPage2" >
-                Mamot </button></li>
+                {{{menu3}}}</button></li>
                 <li><button onclick="location.href='#pages3';" id="menuDxRicerca" >
-                Ricerca dealer/officine</button></li> <!-- solo online -->
+                {{{menu4}}}</button></li> <!-- solo online -->
                 <li><button onclick="location.href='#news';" id="menuDxNews" >
-                News/Eventi/Promo</button></li> <!-- solo online -->
+                {{{menu5}}}</button></li> <!-- solo online -->
                 <li><button onclick="location.href='#faq';" id="menuDxFAQ" >
-                FAQ</button></li>
+                {{{menu6}}}</button></li>
                 <li><button onclick="location.href='#contatti';" id="menuDxContatti" >
-                Contatti</button></li>
+                {{{menu7}}}</button></li>
                 <li><button onclick="location.href='#help';" id="menuDxHelp" >
-                Assistenza</button></li>
+                {{{menu8}}}</button></li>
                 <li><button onclick="location.href='https://www.youtube.com/user/IHIMERspa';" id="menuDxYoutube" >
-                YouTube channel</button></li>
+                {{{menu9}}}</button></li>
                 <li><button onclick="location.href='#userprofile';" id="menuDxUser" >
-                Area utente</button></li>
-                <li><button id="menuDxLogout" >Logout</button></li>
+                {{{menu10}}}</button></li>
+                <li><button id="menuDxLogout" >{{{menu11}}}</button></li>
             </ul>
         </div>
     </script>
@@ -301,26 +301,12 @@
         <div class='header'></div>
 
         <div class="content-page internal-page scroll" >
-            <h2>Pagina statica 1</h2>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In suscipit aliquam erat, a euismod tortor mattis id. In lacinia pretium ipsum et ornare. Aliquam iaculis pharetra fringilla. In et arcu quis nibh fermentum luctus. Pellentesque semper facilisis ante, non mollis nisi finibus eget. Donec nec facilisis nisi, vel varius orci. Mauris accumsan a sem nec interdum. Donec commodo tortor eget tortor sollicitudin aliquet eget sit amet eros. Nullam at libero massa.
-
-            Quisque feugiat velit a ligula ultricies volutpat. Proin sit amet sapien pellentesque nunc facilisis hendrerit ut vitae sem. Curabitur vel sem in arcu rutrum fermentum. Etiam at lectus venenatis, gravida ante ac, vestibulum quam. Maecenas sed tortor et libero iaculis pellentesque. Vivamus lorem augue, rhoncus a nulla in, pretium scelerisque felis. Vestibulum maximus ante mattis, lacinia leo non, iaculis nunc. Etiam porta, orci facilisis pharetra tincidunt, ante sapien varius ligula, in ullamcorper nunc sapien id sapien. Proin blandit erat justo, nec porttitor sem lobortis sit amet. Etiam congue orci sit amet neque pretium, in eleifend libero iaculis.
+            <h2>{{{pageTitle}}}</h2>
+            {{{pageContent}}}
         </div>
 
     </script>
 
-    <script id="page2" type="text/x-handlebars-template">
-        
-        <div id="main-menu" class="main-menu"></div>
-
-        <div class='header'></div>
-        
-        <div class="content-page internal-page scroll" >
-            <h2>Pagina statica 2</h2>
-            Vestibulum maximus ante mattis, lacinia leo non, iaculis nunc. Etiam porta, orci facilisis pharetra tincidunt, ante sapien varius ligula, in ullamcorper nunc sapien id sapien. Proin blandit erat justo, nec porttitor sem lobortis sit amet. Etiam congue orci sit amet neque pretium, in eleifend libero iaculis.
-        </div>
-
-    </script>
 
     <script src="lib/jquery-1.8.2.min.js"></script>
      <script src="js/language.js"></script>

@@ -23,7 +23,7 @@ var app = {
         this.employeeTpl = Handlebars.compile($("#details-dealer-tpl").html());
 
         this.staticPage1 = Handlebars.compile($("#page1").html());
-        this.staticPage2 = Handlebars.compile($("#page2").html());
+        // this.staticPage2 = Handlebars.compile($("#page2").html());
 
         this.catalogList = Handlebars.compile($("#cataloglist-tpl").html());
 
@@ -106,6 +106,8 @@ var app = {
     renderHomeView: function() {
 
         console.log('renderHomeView '+localStorage.getItem('login')+' lin: '+localStorage.getItem('language')+' haveConn '+localStorage.getItem('isConn'));
+        app.setLanguage(localStorage.getItem('language')); // setto la lingua corrente
+
         app.catalog = new CatalogoItems();
 
         if(localStorage.getItem('login') == 0 || localStorage.getItem('login') == null) { // il login in localStorage è false, devo fare il login se ho connessione...
@@ -134,6 +136,8 @@ var app = {
 
             $('.homeBlock').innerHeight(app.winHeight - 100);
             $('.menu-lista').height(app.winHeight - 100); 
+
+            $("#btSearchDealer").html(app.messages.btSearchDealer);
 
             console.log("Home check conn "+localStorage.getItem( "language")+" conn "+localStorage.getItem('isConn'));
             
@@ -270,19 +274,23 @@ var app = {
             $('.main-menu').removeClass('hover-menu');
             switch(hash) {
                 case "#pages1":  // pagina KatoImer
-                    $('body').html(self.staticPage1());
-                    context = { pageName: "KatoImer"};
-                    $('.header').html(self.mainHeader(context));
+                    contextP = { pageTitle: app.messages.titKato,
+                                pageContent: app.messages.textKato };
+                    $('body').html(self.staticPage1(contextP));
+                    contextH = { pageName: "KatoImer"};
+                    $('.header').html(self.mainHeader(contextH));
                     break;
                 case "#pages2":  // pagina Mamot
-                    $('body').html(self.staticPage2());
-                    context = { pageName: "Mamot"};
-                    $('.header').html(self.mainHeader(context));
+                    contextP = { pageTitle: app.messages.titMamot,
+                                pageContent: app.messages.textMamot };
+                    $('body').html(self.staticPage1(contextP));
+                    contextH = { pageName: "Mamot" };
+                    $('.header').html(self.mainHeader(contextH));
                     break;
                 case "#pages4":  // pagina Catalogo
                     $('body').html(self.catalogList());
-                    context = { pageName: app.messages.titCatalogo};
-                    $('.header').html(self.mainHeader(context));
+                    contextH = { pageName: app.messages.titCatalogo};
+                    $('.header').html(self.mainHeader(contextH));
 
                     if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
                         app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list-int"); // carico il catalogo nella lingua corrente
@@ -394,6 +402,18 @@ var app = {
             context = {
                 loginName: localStorage.getItem('email'), 
                 loginRole: userRole,
+                menu0: app.messages.menu0,
+                menu1: app.messages.menu1,
+                menu2: app.messages.menu2,
+                menu3: app.messages.menu3,
+                menu4: app.messages.menu4,
+                menu5: app.messages.menu5,
+                menu6: app.messages.menu6,
+                menu7: app.messages.menu7,
+                menu8: app.messages.menu8,
+                menu9: app.messages.menu9,
+                menu10: app.messages.menu10,
+                menu11: app.messages.menu11
             };
         }
 
@@ -597,6 +617,22 @@ var app = {
         //console.log(" cambio lingua "+localStorage.getItem( "language"));
         
     },
+
+    setLanguage:function(lin) {
+        localStorage.setItem( "language", lin);
+        switch (lin) {
+            case "it-IT":
+                app.messages.setItalian();break;
+            case "en-EN":
+                app.messages.setEnglish();break;
+            case "fr-FR":
+                app.messages.setFrench();break;
+            case "es-ES":
+                app.messages.setSpanish();break;
+            case "de-DE":
+                app.messages.setDeutch();break;
+        }
+    }
 
 };
 
