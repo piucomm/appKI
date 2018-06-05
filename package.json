@@ -1,0 +1,61 @@
+{
+  "name": "com.piucomm.orla",
+  "version": "1.0.0",
+  "displayName": "helloworld",
+  "cordova": {
+    "platforms": [
+      "browser",
+      "ios",
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-battery-status": {},
+      "cordova-plugin-camera": {
+        "CAMERA_USAGE_DESCRIPTION": " ",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+      },
+      "cordova-plugin-media-capture": {
+        "CAMERA_USAGE_DESCRIPTION": " ",
+        "MICROPHONE_USAGE_DESCRIPTION": " ",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+      },
+      "cordova-plugin-device": {},
+      "cordova-plugin-dialogs": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": " "
+      },
+      "cordova-plugin-globalization": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-vibration": {},
+      "cordova-plugin-facebook4": {
+        "APP_ID": "2073847212937339",
+        "APP_NAME": "katoimer",
+        "ANDROID_SDK_VERSION": "4.+"
+      },
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.428188435311-vhk6b8hhtr9lhmiobs9d9cil5nlkh7l2",
+        "WEB_APPLICATION_CLIENT_ID": "428188435311-vhk6b8hhtr9lhmiobs9d9cil5nlkh7l2.apps.googleusercontent.com"
+      },
+      "cordova-plugin-whitelist": {}
+    }
+  },
+  "dependencies": {
+    "cordova-android": "^7.0.0",
+    "cordova-browser": "^5.0.3",
+    "cordova-ios": "^4.5.4",
+    "cordova-plugin-battery-status": "~1.2.4",
+    "cordova-plugin-camera": "~2.4.1",
+    "cordova-plugin-device": "~1.1.6",
+    "cordova-plugin-dialogs": "~1.3.3",
+    "cordova-plugin-facebook4": "^2.1.0",
+    "cordova-plugin-geolocation": "~2.4.3",
+    "cordova-plugin-globalization": "~1.0.7",
+    "cordova-plugin-googleplus": "^5.3.0",
+    "cordova-plugin-inappbrowser": "~1.7.1",
+    "cordova-plugin-media-capture": "~1.4.3",
+    "cordova-plugin-network-information": "~1.3.3",
+    "cordova-plugin-vibration": "~2.1.5",
+    "cordova-plugin-whitelist": "^1.3.3"
+  }
+}
