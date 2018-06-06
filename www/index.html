@@ -133,13 +133,30 @@
     <script id="register-tpl" type="text/x-handlebars-template">
         <div class='header'></div>
 
-        <div class="formBlock" >
-            <input id="emailIscritto" type="email" placeholder="email@domain.com" /><br/>
-            <input id="passwordIscritto" type="password" placeholder="password" /><br/><br/>
-            <button id="registerOspite"  class="rounded-button">Registrami come ospite</button><br/><br/>
-            <div id="serviceMessageRegister" ></div>
-            <button id="backHome" class="rounded-button">Torna indietro</button><br/><br/>
+        <div class="bottoneScelta">
+            <button class="button megaBt ospite" id="btOspite">Ospite</button>
+            <button class="button megaBt proprietario" id="btProprietario">Proprietario</button>
         </div>
+
+        <div class="formBlock" >
+            <div id="serviceMessageRegister" >
+                <div class="preloader5">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <label for="emailIscritto" >Email *</label>
+            <input id="emailIscritto" type="text" placeholder="email@domain.com" /><br/>
+            <label for="passwordIscritto" >Password *</label>
+            <input id="passwordIscritto" type="password" /><br/>
+            <label for="passwordIscritto2" >Ripeti Password *</label>
+            <input id="passwordIscritto2" type="password" /><br/>
+            <button id="registerOspite"  class="rounded-button">Registrami come ospite</button><br/>
+
+        </div>
+
 
     </script>
 

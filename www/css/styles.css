@@ -337,21 +337,25 @@ body {
 
     .formBlock label {
         font-size: 0.9rem;
-        font-weight: normal;
-        color: #999999;
+        font-weight: bold;
+        color: #333333;
         padding-left: 2%;
         margin-bottom: 4px;
         display: block;
     }
 
-    .loginBlock input[type="email"], .loginBlock input[type="password"], .formBlock input[type="email"], .formBlock input[type="password"]{
-        font-size:1.1rem;
+    .loginBlock input[type="email"], .loginBlock input[type="password"], .formBlock input[type="email"] {
+        font-size:1rem;
+        font-family: sans-serif;
+        color: #333333;
         padding: 8px 10px;
-        border: 1px solid #ddd;
+        border: 0px;
+        border-bottom: 1px solid #ddd;
         margin-bottom:10px;
+        text-align: center;
     }
 
-    .formBlock input[type="text"], .formBlock textarea {
+    .formBlock input[type="text"], .formBlock textarea, .formBlock input[type="password"] {
         padding: 8px 2%;
         border: 0px;
         border-bottom: 1px solid #ddd;
@@ -816,7 +820,16 @@ li {
         background-color: #3399cc; color: #ffffff;
     }
 
-        .button.megaBt.officine, .button.megaBt.dealers {
+    .button.megaBt.ospite:hover {
+        background-color: #0d1d41; color: #ffffff;
+    }
+
+    .button.megaBt.proprietario:hover {
+        background-color: #fab14a; color: #ffffff;
+    }
+
+
+        .button.megaBt.officine, .button.megaBt.dealers,.button.megaBt.ospite, .button.megaBt.proprietario {
             background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #cccccc) );
             background:-moz-linear-gradient( center top, #dfdfdf 5%, #cccccc 100% );
             filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#cccccc');
@@ -831,6 +844,14 @@ li {
 
         .button.megaBt.dealers.active {
             background: #3399cc; color: #ffffff;
+        }
+
+        .button.megaBt.ospite.active {
+            background: #0d1d41; color: #ffffff;
+        }   
+
+        .button.megaBt.proprietario.active {
+            background: #fab14a; color: #ffffff;
         }
 
     .hamburger {

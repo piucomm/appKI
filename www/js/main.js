@@ -159,8 +159,29 @@ var app = {
 
     renderRegisterView: function() {
         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
-        console.log("Registrazione");
         $('body').html(app.registerTpl());
+
+        contextH = { pageName: app.messages.newRegisterBtLabel, backUrl: "#" };
+        $('.header').html(app.mainHeader(contextH));
+        $("#serviceMessageRegister .preloader5").hide();
+
+        $('#btOspite').addClass("active");
+        $('#btProprietario').removeClass("active");
+
+        // add classe active su bottone scelta tipo di dato
+        $('#btOspite').on('click', function(){
+            $('#btProprietario').removeClass("active");
+            $(this).addClass("active");
+            // app.typeOfItem = "dealers";
+            // app.dealerObj.showAllItems("dealers", app.sortOfItem, app.viewOfItem);
+        });
+        $('#btProprietario').on('click', function(){
+            $('#btOspite').removeClass("active");
+            $(this).addClass("active");
+            // app.dealerObj.showAllItems("officine", app.sortOfItem, app.viewOfItem);
+            // app.typeOfItem = "officine", "distance";
+        });        
+        
         $('#registerOspite').on('click', app.addIscritto);
         $('#backHome').on('click', function(){app.renderHomeView()});
     },
@@ -348,12 +369,6 @@ var app = {
                     $("#serviceMessageRequest .preloader5").hide();
                     $('#sendRequest').on('click', app.addRequest);
                     break;
-                case "#register":  // pagina registrazione nuovo utente
-                    $('body').html(self.registerTpl());
-                    contextH = { pageName: app.messages.newRegisterBtLabel, backUrl: "#" };
-                    $('.header').html(self.mainHeader(contextH));
-                    break;
-
                 default:
                     $('body').html(self.homeTpl());
                     contextH = { };
