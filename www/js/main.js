@@ -560,6 +560,8 @@ var app = {
                 beforeSend: function(){ $("#serviceMessageRequest .preloader5").show(); },
                 success: function(data){
                     $("#serviceMessageRequest .preloader5").hide();
+                    $("#oggettoRequest").val("");
+                    $("#txtRequest").val("");
                     if(data.status==1) {
                         $("#serviceMessageRequest").html(data.mess);
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash

@@ -336,7 +336,7 @@ body {
     }
 
     .formBlock label {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         font-weight: normal;
         color: #999999;
         padding-left: 2%;
@@ -345,7 +345,7 @@ body {
     }
 
     .loginBlock input[type="email"], .loginBlock input[type="password"], .formBlock input[type="email"], .formBlock input[type="password"]{
-        font-size:1rem;
+        font-size:1.1rem;
         padding: 8px 10px;
         border: 1px solid #ddd;
         margin-bottom:10px;
@@ -359,7 +359,7 @@ body {
         width: 96%;
         box-shadow: none;
         background: #ffffff;
-        font-size:0.8rem;
+        font-size:0.9rem;
         font-family: sans-serif;
         color: #333333;
     }
@@ -376,7 +376,7 @@ body {
         color: #fff;
         background: #0d1d41;
         text-transform: uppercase;
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         font-weight: bold;
         padding: 8px 16px;
         border: 0px solid #ddd;
@@ -389,7 +389,7 @@ body {
 
 #serviceMessageLogin {
     padding: 2px 4px;
-    font-size:0.9rem;
+    font-size:1rem;
     color: #666666;
     font-weight: bold;
 }
