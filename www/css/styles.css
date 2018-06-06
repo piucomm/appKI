@@ -80,6 +80,42 @@ body {
         margin: 22px 0px 6px;
     }
 
+    .arrow {
+        border: solid #ffffff;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        vertical-align: middle;
+    }
+        .header-button.arrow {
+            margin: 30px 14px;
+            padding: 6px;
+        }
+
+    .arrow.right {
+        transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+    }
+
+    .arrow.left {
+        transform: rotate(135deg);
+        -ms-transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+    }
+
+    .arrow.up {
+        transform: rotate(-135deg);
+        -ms-transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+    }
+
+    .arrow.down {
+        transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+    }
+
 .barraTitle {
     background: #ecedf2;
     padding: 8px 12px;
@@ -173,7 +209,7 @@ body {
 
 
     /* LISTA ITEM */
-    ul.category-list, ul.employee-list {
+    ul.category-list, ul.employee-list, ul.catalog-list-int  {
         list-style-type: none;
         margin:0px;
         padding: 0px;
@@ -184,7 +220,7 @@ body {
         border-bottom: 0px;
     }
 
-        ul.category-list li {
+        ul.category-list li, ul.catalog-list-int li {
             border: none;
             background: #ffffff;
             padding:12px 10px;
@@ -196,7 +232,7 @@ body {
             font-weight: bold;
         }
 
-            ul.category-list li small {
+            ul.category-list li small, ul.catalog-list-int li small {
                 display: block;
                 font-size: 11px;
                 font-weight: normal;
@@ -233,11 +269,16 @@ body {
                     color: #ff9933;
                 }
 
-        ul.category-list li:last-child, ul.dealers-list li:last-child {
+        ul.category-list li:last-child, ul.dealers-list li:last-child, ul.catalog-list-int li:last-child {
             /*border-bottom: 1px solid #545454;*/
         }
 
         ul.category-list li a, ul.category-list li a:hover, ul.category-list li a:visited {
+            color: #0d1d41;
+            text-decoration: none;
+        }
+
+        ul.catalog-list-int li a, ul.catalog-list-int li a:hover, ul.catalog-list-int li a:visited {
             color: #0d1d41;
             text-decoration: none;
         }
@@ -556,7 +597,7 @@ li {
         text-decoration: none;
         text-align:center;
         font-size: 22px;
-        padding:16px 12px;
+        padding:20px 12px;
         width:24px;
         height:24px;
     }
@@ -582,7 +623,7 @@ li {
 #main-menu-dx {
     display:table-cell;
     background: rgba(13,29,65,1);
-    padding: 14px 3% 6px;
+    padding: 18px 3% 6px;
     vertical-align: top;
 }
 
@@ -757,7 +798,7 @@ li {
 
     .hamburger {
         background-color:#0d1d41;
-        padding: 30px 10px 0px 4px; 
+        padding: 28px 10px 0px 4px; 
         text-align:center;
     }
 

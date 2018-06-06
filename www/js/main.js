@@ -132,6 +132,9 @@ var app = {
 
             this.initMenu(); // inizializzo il menu laterale
 
+            contextH = { };
+            $('.header').html(this.mainHeader(contextH));
+
             app.headerHeight = $('.header').outerHeight();
 
             $('.homeBlock').innerHeight(app.winHeight - 100);
@@ -256,7 +259,7 @@ var app = {
         var matchMenu = hash.match(app.mainMenuURL);
         var matchMenuClose = hash.match(app.mainMenuURLClose);
 
-        var context = {pageName: ""};
+        var context = {pageName: "", backUrl: "#"};
 
         if(matchMenuClose) {
             $('.main-menu').removeClass('hover-menu');
@@ -277,19 +280,19 @@ var app = {
                     contextP = { pageTitle: app.messages.titKato,
                                 pageContent: app.messages.textKato };
                     $('body').html(self.staticPage1(contextP));
-                    contextH = { pageName: "KatoImer"};
+                    contextH = { pageName: "KatoImer", backUrl: "#" };
                     $('.header').html(self.mainHeader(contextH));
                     break;
                 case "#pages2":  // pagina Mamot
                     contextP = { pageTitle: app.messages.titMamot,
                                 pageContent: app.messages.textMamot };
                     $('body').html(self.staticPage1(contextP));
-                    contextH = { pageName: "Mamot" };
+                    contextH = { pageName: "Mamot", backUrl: "#"  };
                     $('.header').html(self.mainHeader(contextH));
                     break;
                 case "#pages4":  // pagina Catalogo
                     $('body').html(self.catalogList());
-                    contextH = { pageName: app.messages.titCatalogo};
+                    contextH = { pageName: app.messages.titCatalogo, backUrl: "#" };
                     $('.header').html(self.mainHeader(contextH));
 
                     if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
@@ -301,6 +304,8 @@ var app = {
                     break;
                 case "#register":  // pagina registrazione nuovo utente
                     $('body').html(self.registerTpl());
+                    contextH = { pageName: app.messages.newRegisterBtLabel, backUrl: "#" };
+                    $('.header').html(self.mainHeader(contextH));
                     break;
                 case "#pages3": // pagina dealers/officine
 
@@ -333,26 +338,29 @@ var app = {
                     // });
 
                     $('.search-key').on('keyup', $.proxy(self.findByName, this));
-                     context = { pageName: "Ricerca dealer/officine"};
-                    $('.header').html(self.mainHeader(context));
+                    contextH = { pageName: "Ricerca dealer/officine", backUrl: "#" };
+                    $('.header').html(self.mainHeader(contextH));
                     
                     break;
                 default:
                     $('body').html(self.homeTpl());
+                    contextH = { };
+                    $('.header').html(self.mainHeader(contextH));
             }
             
-        } else if (matchDetails) {
+        } else if (matchDetails) { // pagina dettaglio dealer
             var matchParams = hash.match(/iditem=(\d+)/)
             if (matchParams) {
                 var itemID = matchParams[1];
             }
             console.log("match details "+itemID);
-            this.dealerObj.findById(app.typeOfItem,Number(itemID), function(employee) {
-                $('body').html(self.employeeTpl(employee));
-                context = { pageName: "Dettaglio Dealers"};
-                $('.header').html(self.mainHeader(context));
+            this.dealerObj.findById(app.typeOfItem,Number(itemID), function(deal) {
+                $('body').html(self.employeeTpl(deal));
+                contextH = { pageName: "Dettaglio Dealers", backUrl: "#pages3" };
+                $('.header').html(self.mainHeader(contextH));
             });
-        } else if (matchCat) {
+
+        } else if (matchCat) { // pagina categoria catalogo
             console.log("categoria ");
             var matchParamsId = hash.match(/idcat=(\d+)/)
             if (matchParamsId) {
@@ -363,12 +371,12 @@ var app = {
                 var catTit = matchParamsTit[1]; //.replace(/%20/g, "-");
             }
 
-            context1 = { idCat: catID};
-            context2 = { pageName: catTit}; // titolo pagina
-            $('body').html(self.categoryPage(context1));
-            $('.header').html(self.mainHeader(context2));
+            contextH = { pageName: catTit, backUrl: "#" }; // titolo pagina categoria
+            $('body').html(self.categoryPage());
+            $('.header').html(self.mainHeader(contextH));
             app.catalog.getListItems(localStorage.getItem( "language"), catID); // carico gli items di quella categoria
-        } else if (matchItem) {
+
+        } else if (matchItem) { // pagina dettaglio prodotto
             console.log("item ");
             var matchParamsId = hash.match(/iditem=(\d+)/)
             if (matchParamsId) {
@@ -378,11 +386,16 @@ var app = {
             if (matchParamsTit) {
                 var catTit = matchParamsTit[1]; //.replace(/%20/g, "-");
             }
+            var matchParamsIDcat = hash.match(/idcat=(\d+)/)
+            if (matchParamsIDcat) {
+                var catId = matchParamsIDcat[1]; //.replace(/%20/g, "-");
+            }
+
             context1 = { idItem: itemID};
-            context2 = { pageName: catTit}; // titolo pagina
+            contextH = { pageName: catTit, backUrl: "#cat1?idcat="+catId+"&titcat="+catTit }; // titolo pagina prodotto
             $('body').html(self.itemPage(context1));
-            $('.header').html(self.mainHeader(context2));
-            app.catalog.getItem(localStorage.getItem( "language"), itemID); // carico l'item
+            $('.header').html(self.mainHeader(contextH));
+            app.catalog.getItem(localStorage.getItem( "language"), itemID, catID); // carico l'item
         }
     },
 

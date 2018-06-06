@@ -87,15 +87,17 @@
 
     <script id="main-header" type="text/x-handlebars-template">
         <div class='contHeader'>
-            <a href='#' class="header-button header-button-left"><</a>
+            {{#if backUrl}}
+            <a href='{{backUrl}}' class="header-button header-button-left arrow left"></a>{{/if}}
             <a href='#menu/' class="hamburger header-button header-button-right" >
                 <div></div><div></div><div></div>
             </a>
             <h1><img src="img/logo-header-neg.png" class="logo-header" /></h1>
         </div>
+        {{#if pageName}}
         <div class='barraTitle'>
-            {{pageName}}
-        </div>
+            {{{pageName}}}
+        </div>{{/if}}
     </script>
 
 
@@ -132,9 +134,7 @@
 
     <script id="register-tpl" type="text/x-handlebars-template">
 
-        <div class='header'>
-            <h1><img src="img/logo-header-neg.png" class="logo-header" /></h1>
-        </div>
+        <div class='header'></div>
 
         <div class="iscrizioneBlock" >
             <input id="emailIscritto" type="email" placeholder="email@domain.com" /><br/>
@@ -150,14 +150,7 @@
 
         <div id="main-menu" class="main-menu"></div>
 
-        <div class='header'>
-            <a href='#menu/' class="hamburger header-button header-button-right" >
-                <div></div>
-                <div></div>
-                <div></div>
-            </a>
-            <h1><img src="img/logo-header-neg.png" class="logo-header" /></h1>
-        </div>
+        <div class='header'></div>
         
         <div class="content-page homeBlock" >
 

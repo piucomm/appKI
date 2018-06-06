@@ -53,7 +53,7 @@ var CatalogoItems = function(successCallback, errorCallback) {
                 for (var i = 0; i < dataCatalog.length; i++) {
                     $('ul.category-list').append(
                     $('<li>').append(
-                        $('<a>').attr('href','#item1?iditem='+dataCatalog[i].id).append(
+                        $('<a>').attr('href','#item1?iditem='+dataCatalog[i].id+'&idcat='+dataCatalog[i].id_cat+'&titcat='+dataCatalog[i].titolo_cat).append(
                             dataCatalog[i].titolo),
                         $('<small>').append(dataCatalog[i].sottotitolo)
                     )); 
@@ -71,8 +71,8 @@ var CatalogoItems = function(successCallback, errorCallback) {
         }); 
     }
 
-    this.getItem = function(lin, iditem) {
-        var dataString="lang="+lin+"&item="+iditem+"&type=item";
+    this.getItem = function(lin, iditem, idcat) {
+        var dataString="lang="+lin+"&item="+iditem+"&idcat="+idcat+"&type=item";
         $.ajax({
             type: 'POST',
             url: 'https://app.katoimer.com/appadmin/catalogApp.php',
