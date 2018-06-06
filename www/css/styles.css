@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    font-family: source-sans-pro, sans-serif;
+    font-family: sans-serif;
     font-size: 16px;
     background: #ffffff;
     margin: 0;
@@ -534,6 +534,7 @@ li {
     -webkit-transition-duration: .375s;
     -o-transition-duration: .375s;
     display:table;
+    background-color: rgba(0,0,0,0.1);
 }
 
     #main-menu.hover-menu {
@@ -555,7 +556,7 @@ li {
         text-decoration: none;
         text-align:center;
         font-size: 22px;
-        padding:12px;
+        padding:16px 12px;
         width:24px;
         height:24px;
     }
@@ -581,7 +582,7 @@ li {
 #main-menu-dx {
     display:table-cell;
     background: rgba(13,29,65,1);
-    padding: 8px 3%;
+    padding: 14px 3% 6px;
     vertical-align: top;
 }
 
@@ -630,11 +631,10 @@ li {
     }
 
     #main-menu-dx ul.menu-lista li button {
-        font-family: sans-serif;
         border: 0px;
         background: none;
         padding: 12px 0px;
-        font: 400 14px system-ui;
+        font: 400 14px sans-serif; /* system-ui */
         color: #fff;
         width: 100%;
         display: block;
