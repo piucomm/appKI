@@ -72,11 +72,11 @@
                 {{{menu5}}}</button></li> <!-- solo online -->
                 <li><button onclick="location.href='#faq';" id="menuDxFAQ" >
                 {{{menu6}}}</button></li>
-                <li><button onclick="location.href='#contatti';" id="menuDxContatti" >
+                <li><button onclick="location.href='#pages5';" id="menuDxContatti" >
                 {{{menu7}}}</button></li>
-                <li><button onclick="location.href='#help';" id="menuDxHelp" >
+                <li><button onclick="location.href='#pages6';" id="menuDxHelp" >
                 {{{menu8}}}</button></li>
-                <li><button onclick="location.href='https://www.youtube.com/user/IHIMERspa';" id="menuDxYoutube" >
+                <li><button onclick="window.open('https://www.youtube.com/user/IHIMERspa');" id="menuDxYoutube" >
                 {{{menu9}}}</button></li>
                 <li><button onclick="location.href='#userprofile';" id="menuDxUser" >
                 {{{menu10}}}</button></li>
@@ -102,7 +102,6 @@
 
 
     <script id="login-tpl" type="text/x-handlebars-template">
-
         <div class='header large-header' >
             <h1><img src="img/logo-header-neg.png" class="logo-header" /></h1>
         </div>
@@ -129,14 +128,12 @@
                 <li ><div id="fr-FR">FR</div></li>
             </ul>
         </div>
-
     </script>
 
     <script id="register-tpl" type="text/x-handlebars-template">
-
         <div class='header'></div>
 
-        <div class="iscrizioneBlock" >
+        <div class="formBlock" >
             <input id="emailIscritto" type="email" placeholder="email@domain.com" /><br/>
             <input id="passwordIscritto" type="password" placeholder="password" /><br/><br/>
             <button id="registerOspite"  class="rounded-button">Registrami come ospite</button><br/><br/>
@@ -147,9 +144,7 @@
     </script>
 
     <script id="home-tpl" type="text/x-handlebars-template">
-
         <div id="main-menu" class="main-menu"></div>
-
         <div class='header'></div>
         
         <div class="content-page homeBlock" >
@@ -163,17 +158,18 @@
         </div>
 
         <div class='footer-button' id='footer-button'>
+            <div class="preloader5 white">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <ul class="catalog-list" >
             </ul>
         </div>
-
     </script>
 
-
     <script id="search-tpl" type="text/x-handlebars-template">
-
         <div id="main-menu" class="main-menu"></div>
-
         <div class='header'></div>
 
         <div class="bottoneScelta">
@@ -191,25 +187,11 @@
             <ul class='dealers-list'></ul>
             <div id="dealers-map" ></div>
         </div>
-
-
     </script>
 
 
-    <!-- <script id="employee-li-tpl" type="text/x-handlebars-template"> -->
-        <!-- {{#.}} -->
-    <!-- <li><a href="#employees/{{this.id}}"> -->
-            <!-- {{this.nome}} {{this.email}} -->
-            <!-- <br/><small> -->
-            <!-- {{this.lat}} {{this.long}} {{this.distance}} -->
-        <!-- </small></a></li> -->
-        <!-- {{/.}} -->
-    <!-- </script> -->
-
     <script id="details-dealer-tpl" type="text/x-handlebars-template">
-        
         <div id="main-menu" class="main-menu"></div>
-
         <div class='header'></div>
 
         <div class="content-page" >
@@ -238,22 +220,17 @@
     </script>
 
     <script id="cataloglist-tpl" type="text/x-handlebars-template">
-        
         <div id="main-menu" class="main-menu"></div>
-
         <div class='header'></div>
 
         <div class="content-page" >
             <ul class="catalog-list-int" >
             </ul>
         </div>
-
     </script>
 
     <script id="catalogPage" type="text/x-handlebars-template">
-        
         <div id="main-menu" class="main-menu"></div>
-
         <div class='header'></div>
 
         <div class="content-page" >
@@ -261,14 +238,10 @@
             
             <ul class="category-list"></ul>
         </div>
-
     </script>
 
-
     <script id="itemPage" type="text/x-handlebars-template">
-        
         <div id="main-menu" class="main-menu"></div>
-
         <div class='header'></div>
 
         <div class="content-page itemBlock internal-page scroll" >
@@ -283,19 +256,57 @@
             <button id="btManuale" class="rounded-button tratto">Richiedi manuale operatore</button>
 
         </div>
-
     </script>
 
-
     <script id="page1" type="text/x-handlebars-template">
-        
         <div id="main-menu" class="main-menu"></div>
-
         <div class='header'></div>
 
         <div class="content-page internal-page scroll" >
             <h2>{{{pageTitle}}}</h2>
             {{{pageContent}}}
+        </div>
+    </script>
+
+    <script id="contactPage" type="text/x-handlebars-template">
+        <div id="main-menu" class="main-menu"></div>
+        <div class='header'></div>
+
+        <div class="content-page itemBlock internal-page scroll" >
+            <h2>{{{pageTitle}}}</h2>
+            {{{pageContent}}}
+
+            <button id="btManuale" class="rounded-button tratto" onclick="window.open('http://www.katoimer.com');" >www.katoimer.com</button>
+
+        </div>
+    </script>
+
+    <script id="assistenzaPage" type="text/x-handlebars-template">
+        <div id="main-menu" class="main-menu"></div>
+        <div class='header'></div>
+
+        <div class="formBlock" >
+
+            <h2>{{{pageTitle}}}</h2>
+
+            <div id="serviceMessageRequest" >
+                <div class="preloader5">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <label for="emailRequest" >Email *</label>
+            <input id="emailRequest" type="text" disabled=disable ><br/>
+            <label for="oggettoRequest" >Oggetto *</label>
+            <input id="oggettoRequest" type="text" ><br/>
+            <label for="txtRequest" >Testo richiesta *</label>
+            <textarea id="txtRequest" class="txtRequest" ></textarea><br/>
+            <small>* campi obbligatori</small><br/>
+
+            <button id="sendRequest"  class="rounded-button">Invia richiesta</button><br/>
+            
         </div>
 
     </script>

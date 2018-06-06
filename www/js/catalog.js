@@ -9,11 +9,10 @@ var CatalogoItems = function(successCallback, errorCallback) {
             dataType: "json",
             crossDomain: true,
             cache: false,
-            beforeSend: function(){ //$("#footer-button").html('Charging catalogue...');
+            beforeSend: function(){ $("#footer-button .preloader5").show();
         	},
             success: function (response){ 
-                console.log("Catalog query... success");
-
+                $("#footer-button .preloader5").hide();
 		        dataCatalog = JSON.parse(response.data);
 		        for (var i = 0; i < dataCatalog.length; i++) {
 		            $(''+divFather).append(
@@ -28,7 +27,7 @@ var CatalogoItems = function(successCallback, errorCallback) {
 
             },
             error: function(error){
-                //alert(response.success);
+                $("#footer-button .preloader5").hide();
                 console.log("Errore AJAX - getListCatalog "+error);
                 // window.location = "main.html";
             }

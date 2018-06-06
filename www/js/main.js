@@ -23,7 +23,8 @@ var app = {
         this.employeeTpl = Handlebars.compile($("#details-dealer-tpl").html());
 
         this.staticPage1 = Handlebars.compile($("#page1").html());
-        // this.staticPage2 = Handlebars.compile($("#page2").html());
+        this.staticContactPage = Handlebars.compile($("#contactPage").html());
+        this.staticAssistenzaPage = Handlebars.compile($("#assistenzaPage").html());
 
         this.catalogList = Handlebars.compile($("#cataloglist-tpl").html());
 
@@ -290,25 +291,7 @@ var app = {
                     contextH = { pageName: app.messages.menu3, backUrl: "#"  };
                     $('.header').html(self.mainHeader(contextH));
                     break;
-                case "#pages4":  // pagina Catalogo
-                    $('body').html(self.catalogList());
-                    contextH = { pageName: app.messages.titCatalogo, backUrl: "#" };
-                    $('.header').html(self.mainHeader(contextH));
-
-                    if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
-                        app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list-int"); // carico il catalogo nella lingua corrente
-                    } else {
-                        // versione locale del catalogo
-                        // app.db.transaction(app.sqlStorage.getCatData());
-                    }
-                    break;
-                case "#register":  // pagina registrazione nuovo utente
-                    $('body').html(self.registerTpl());
-                    contextH = { pageName: app.messages.newRegisterBtLabel, backUrl: "#" };
-                    $('.header').html(self.mainHeader(contextH));
-                    break;
                 case "#pages3": // pagina dealers/officine
-
                     app.dealerObj.ajaxCallDealer("dealers"); // ajax call per dealer/officine
                     app.dealerObj.ajaxCallDealer("officine"); // ajax call per dealer/officine
 
@@ -331,17 +314,46 @@ var app = {
                     $('.btListMap').on('click', function(){
                         app.viewOfItem = "map";
                         app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, "map");
-
                     });
-                    // this.dealerObj.showAllID(function(employees){
-                    //     $('.dealer-list').html(self.employeeLiTpl(employees));
-                    // });
-
+   
                     $('.search-key').on('keyup', $.proxy(self.findByName, this));
                     contextH = { pageName: app.messages.menu4, backUrl: "#" };
                     $('.header').html(self.mainHeader(contextH));
-                    
                     break;
+                case "#pages4":  // pagina Catalogo
+                    $('body').html(self.catalogList());
+                    contextH = { pageName: app.messages.titCatalogo, backUrl: "#" };
+                    $('.header').html(self.mainHeader(contextH));
+
+                    if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
+                        app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list-int"); // carico il catalogo nella lingua corrente
+                    } else {
+                        // versione locale del catalogo
+                        // app.db.transaction(app.sqlStorage.getCatData());
+                    }
+                    break;
+                case "#pages5":  // pagina Contatti
+                    contextP = { pageTitle: "KATO IMER S.p.A.",
+                                pageContent: app.messages.txtContatti };
+                    $('body').html(self.staticContactPage(contextP));
+                    contextH = { pageName: app.messages.menu7, backUrl: "#"  };
+                    $('.header').html(self.mainHeader(contextH));
+                    break;
+                case "#pages6":  // pagina Assistenza
+                    contextP = { pageTitle: "Inviaci la tua richiesta"};
+                    $('body').html(self.staticAssistenzaPage(contextP));
+                    contextH = { pageName: app.messages.menu8, backUrl: "#"  };
+                    $('.header').html(self.mainHeader(contextH));
+                    $('#emailRequest').val(localStorage.getItem('email'));
+                    $("#serviceMessageRequest .preloader5").hide();
+                    $('#sendRequest').on('click', app.addRequest);
+                    break;
+                case "#register":  // pagina registrazione nuovo utente
+                    $('body').html(self.registerTpl());
+                    contextH = { pageName: app.messages.newRegisterBtLabel, backUrl: "#" };
+                    $('.header').html(self.mainHeader(contextH));
+                    break;
+
                 default:
                     $('body').html(self.homeTpl());
                     contextH = { };
@@ -513,7 +525,7 @@ var app = {
                         $("#serviceMessageRegister").html(data.mess);
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
                         app.renderHomeView();
-                        $("#serviceMessageLogin").html('Registrazione effettuata con successo!');
+                        $("#serviceMessageLogin").html(app.messages.ackAjaxIscritto);
                     } else if(data.status==0) {
                         console.log("iscrizione error... ");
                         $("#registerOspite").html('Registrami');
@@ -521,13 +533,49 @@ var app = {
                     }
                 },
                 error: function() {
-                    $("#serviceMessageRegister").html("Errore ajax iscrizione...");
+                    $("#serviceMessageRegister").html(app.messages.nackAjax001);
                 }
             });
 
         } else {
-            console.log("Iscrizione campi error... ");
-            $("#serviceMessageRegister").html('I campi non possono essere vuoti...');
+            $("#serviceMessageRegister").html(app.messages.emptyField);
+        }
+    },
+
+    // invia richiesta assistenza
+    addRequest: function() {
+        var emailRequest=$("#emailRequest").val();
+        var oggettoRequest=$("#oggettoRequest").val();
+        var txtRequest=$("#txtRequest").val();
+        var dataString="email="+emailRequest+"&oggetto="+oggettoRequest+"&testo="+txtRequest;
+        if($.trim(emailRequest).length>0 && $.trim(oggettoRequest).length>0 && $.trim(txtRequest).length>0)
+        {
+            $.ajax({
+                type: "POST",
+                url: 'https://app.katoimer.com/appadmin/addRequestApp.php',
+                data: dataString,
+                dataType: "json",
+                crossDomain: true,
+                cache: false,
+                beforeSend: function(){ $("#serviceMessageRequest .preloader5").show(); },
+                success: function(data){
+                    $("#serviceMessageRequest .preloader5").hide();
+                    if(data.status==1) {
+                        $("#serviceMessageRequest").html(data.mess);
+                        history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
+                        $("#serviceMessageLogin").html(app.messages.ackAjaxRequest);
+                    } else if(data.status==0) {
+                        $("#serviceMessageRequest").html('Error: '+data.mess);
+                    }
+                },
+                error: function() {
+                    $("#serviceMessageRequest .preloader5").hide();
+                    $("#serviceMessageRequest").html(app.messages.nackAjax001);
+                }
+            });
+
+        } else {
+            $("#serviceMessageRequest").html(app.messages.emptyField);
         }
     },
 

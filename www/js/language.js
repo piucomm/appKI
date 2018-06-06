@@ -39,7 +39,17 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    //MA.MO.T.
 	    this.titMamot = "L'estensione di garanzia";
 	    this.textMamot = "<p><strong>Massima serenità</strong></p><p>Per avere sempre la massima serenit&agrave; anche dopo la scadenza della garanzia convenzionale (1&deg; anno), &egrave; sufficiente chiedere al concessionario KATO IMER di fiducia le informazioni sul programma di estensione della garanzia MA.MO.T. e lavorare in totale sicurezza e tranquillit&agrave; fino a un massimo di 5 anni dall&rsquo;acquisto. Grazie alla sicurezza di potersi avvalere per molti anni dell&rsquo;esperienza di tecnici autorizzati e di ricambi originali, le macchine KATO IMER si riveleranno certamente un ottimo investimento.</p><p><strong>Un'ampia gamma di possibilità</strong></p><p>La copertura assicurativa MA.MO.T. &egrave; acquistabile per tutte le macchine nuove. &Egrave; possibile lavorare senza preoccupazioni e protetti dai rischi di dover sostenere spese derivanti da riparazioni impreviste.</p><p><strong>La copertura annuale</strong></p><p>Il programma MA.MO.T. consente di far riparare i guasti di natura elettrica, idraulica e/o meccanica, causati da rottura improvvisa e accidentale di uno o pi&ugrave; componenti.</p><p><strong>Centri Assistenza autorizzati KATO IMER</strong></p><p>Il servizio di garanzia &egrave; valido e viene riconosciuto presso tutti i Centri di Assistenza autorizzati KATO IMER.</p><p>Tutte le condizioni di garanzia sono contenute nella polizza assicurativa.</p>";
+
 	    //contatti
+	    this.txtContatti = "<strong>Sede Legale, Uffici e Stabilimento</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Tel.: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Commerciale:</strong><br/>marketing@katoimer.com<br/><strong>Service:</strong><br/>service@katoimer.com<br/><strong>Parts:</strong><br/>parts@katoimer.com<br/><br/><br/>";
+
+	    // messaggi richieste ajax/check form 
+	    this.sendAjax = "Invio richiesta...";
+	    this.ackAjaxRequest = "Richiesta inviata correttamente";
+	    this.ackAjaxIscritto = "Iscrizione effettuata correttamente";
+	    this.nackAjax001 = "Errore interno COD: 001"; // errore sending ajax request
+	    this.nackAjax002 = "Errore interno COD: 002"; // errore sending ajax request
+	    this.emptyField = "I campi * non possono essere vuoti.";
 	}
 
 	this.setEnglish = function() {
@@ -83,6 +93,16 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.textMamot = "<p><strong>Maximum assurance</strong></p><p>To enjoy maximum assurance even once the standard warranty expires (1st year), simply ask your usual KATO IMER dealer for information on the MA.MO.T. warranty extension scheme and work in full safety and assurance up to a maximum of 5 years following your purchase. Thanks to the assurance of being able to avail of the experience of authorised technicians and original parts for many years, KATO IMER machinery would certainly prove to be an excellent investment.</p><p><strong>A broad range of possibilities</strong></p><p>MA.MO.T. insurance coverage can be purchased for all new machines. You can work worry-free and protected against the risk of having to take on expenses stemming from unexpected repairs.</p><p><strong>Annual coverage</strong></p><p>The MA.MO.T. scheme includes electrical, hydraulic and/or mechanical failures caused by the unexpected and accidental breakage of one or more parts.</p><p><strong>Authorised KATO IMER Assistance Centres</strong></p><p>The warranty service is valid and recognised by all KATO IMER authorised Assistance Centres.</p><p>All of the warranty conditions are contained in the insurance policy.</p>";
 
 	    //contatti
+	    this.txtContatti = "<strong>Head Offices, Sales and Plant</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Phone: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Sales:</strong><br/>marketing@katoimer.com<br/><strong>Service:</strong><br/>service@katoimer.com<br/><strong>Parts:</strong><br/>parts@katoimer.com<br/><br/><br/>";
+
+	    // messaggi richieste ajax/check form 
+	    this.sendAjax = "Sending request...";
+	    this.ackAjaxRequest = "Request correctly sended";
+	    this.ackAjaxIscritto = "Subscriction ";
+	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
+	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
+	    this.emptyField = "* Required fields";
+
 	}
 
 	this.setDeutch = function() {
@@ -127,6 +147,16 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.textMamot = "<p><strong>Massima serenità</strong></p><p>Per avere sempre la massima serenit&agrave; anche dopo la scadenza della garanzia convenzionale (1&deg; anno), &egrave; sufficiente chiedere al concessionario KATO IMER di fiducia le informazioni sul programma di estensione della garanzia MA.MO.T. e lavorare in totale sicurezza e tranquillit&agrave; fino a un massimo di 5 anni dall&rsquo;acquisto. Grazie alla sicurezza di potersi avvalere per molti anni dell&rsquo;esperienza di tecnici autorizzati e di ricambi originali, le macchine KATO IMER si riveleranno certamente un ottimo investimento.</p><p><strong>Un'ampia gamma di possibilità</strong></p><p>La copertura assicurativa MA.MO.T. &egrave; acquistabile per tutte le macchine nuove. &Egrave; possibile lavorare senza preoccupazioni e protetti dai rischi di dover sostenere spese derivanti da riparazioni impreviste.</p><p><strong>La copertura annuale</strong></p><p>Il programma MA.MO.T. consente di far riparare i guasti di natura elettrica, idraulica e/o meccanica, causati da rottura improvvisa e accidentale di uno o pi&ugrave; componenti.</p><p><strong>Centri Assistenza autorizzati KATO IMER</strong></p><p>Il servizio di garanzia &egrave; valido e viene riconosciuto presso tutti i Centri di Assistenza autorizzati KATO IMER.</p><p>Tutte le condizioni di garanzia sono contenute nella polizza assicurativa.</p>";
 
 	    //contatti
+	    this.txtContatti = "<strong>Head Offices, Sales and Plant</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Phone: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Sales:</strong><br/>marketing@katoimer.com<br/><strong>Service:</strong><br/>service@katoimer.com<br/><strong>Parts:</strong><br/>parts@katoimer.com<br/><br/><br/>";
+
+		// messaggi richieste ajax/check form 
+	    this.sendAjax = "Sending request...";
+	    this.ackAjaxRequest = "Request correctly sended";
+	    this.ackAjaxIscritto = "Subscriction ";
+	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
+	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
+	    this.emptyField = "* Required fields";
+
 	}
 
 
@@ -172,6 +202,16 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.textMamot = "<p><strong>Massima serenità</strong></p><p>Per avere sempre la massima serenit&agrave; anche dopo la scadenza della garanzia convenzionale (1&deg; anno), &egrave; sufficiente chiedere al concessionario KATO IMER di fiducia le informazioni sul programma di estensione della garanzia MA.MO.T. e lavorare in totale sicurezza e tranquillit&agrave; fino a un massimo di 5 anni dall&rsquo;acquisto. Grazie alla sicurezza di potersi avvalere per molti anni dell&rsquo;esperienza di tecnici autorizzati e di ricambi originali, le macchine KATO IMER si riveleranno certamente un ottimo investimento.</p><p><strong>Un'ampia gamma di possibilità</strong></p><p>La copertura assicurativa MA.MO.T. &egrave; acquistabile per tutte le macchine nuove. &Egrave; possibile lavorare senza preoccupazioni e protetti dai rischi di dover sostenere spese derivanti da riparazioni impreviste.</p><p><strong>La copertura annuale</strong></p><p>Il programma MA.MO.T. consente di far riparare i guasti di natura elettrica, idraulica e/o meccanica, causati da rottura improvvisa e accidentale di uno o pi&ugrave; componenti.</p><p><strong>Centri Assistenza autorizzati KATO IMER</strong></p><p>Il servizio di garanzia &egrave; valido e viene riconosciuto presso tutti i Centri di Assistenza autorizzati KATO IMER.</p><p>Tutte le condizioni di garanzia sono contenute nella polizza assicurativa.</p>";
 
 	    //contatti
+	    this.txtContatti = "<strong>Head Offices, Sales and Plant</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Phone: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Sales:</strong><br/>marketing@katoimer.com<br/><strong>Service:</strong><br/>service@katoimer.com<br/><strong>Parts:</strong><br/>parts@katoimer.com<br/><br/><br/>";
+	
+		// messaggi richieste ajax/check form 
+	    this.sendAjax = "Sending request...";
+	    this.ackAjaxRequest = "Request correctly sended";
+	    this.ackAjaxIscritto = "Subscriction ";
+	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
+	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
+	    this.emptyField = "* Required fields";
+
 	}
 
 	this.setFrench = function() {
@@ -216,6 +256,16 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.textMamot = "<p><strong>Massima serenità</strong></p><p>Per avere sempre la massima serenit&agrave; anche dopo la scadenza della garanzia convenzionale (1&deg; anno), &egrave; sufficiente chiedere al concessionario KATO IMER di fiducia le informazioni sul programma di estensione della garanzia MA.MO.T. e lavorare in totale sicurezza e tranquillit&agrave; fino a un massimo di 5 anni dall&rsquo;acquisto. Grazie alla sicurezza di potersi avvalere per molti anni dell&rsquo;esperienza di tecnici autorizzati e di ricambi originali, le macchine KATO IMER si riveleranno certamente un ottimo investimento.</p><p><strong>Un'ampia gamma di possibilità</strong></p><p>La copertura assicurativa MA.MO.T. &egrave; acquistabile per tutte le macchine nuove. &Egrave; possibile lavorare senza preoccupazioni e protetti dai rischi di dover sostenere spese derivanti da riparazioni impreviste.</p><p><strong>La copertura annuale</strong></p><p>Il programma MA.MO.T. consente di far riparare i guasti di natura elettrica, idraulica e/o meccanica, causati da rottura improvvisa e accidentale di uno o pi&ugrave; componenti.</p><p><strong>Centri Assistenza autorizzati KATO IMER</strong></p><p>Il servizio di garanzia &egrave; valido e viene riconosciuto presso tutti i Centri di Assistenza autorizzati KATO IMER.</p><p>Tutte le condizioni di garanzia sono contenute nella polizza assicurativa.</p>";
 
 	    //contatti
+	    this.txtContatti = "<strong>Head Offices, Sales and Plant</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Phone: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Sales:</strong><br/>marketing@katoimer.com<br/><strong>Service:</strong><br/>service@katoimer.com<br/><strong>Parts:</strong><br/>parts@katoimer.com<br/><br/><br/>";
+
+		// messaggi richieste ajax/check form 
+	    this.sendAjax = "Sending request...";
+	    this.ackAjaxRequest = "Request correctly sended";
+	    this.ackAjaxIscritto = "Subscriction ";
+	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
+	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
+	    this.emptyField = "* Required fields";
+	    
 	}
 
 }

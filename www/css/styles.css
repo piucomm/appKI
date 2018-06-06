@@ -298,12 +298,12 @@ body {
         padding: 10px;
     }
 
-    .content-page h2 {
+    .content-page h2, .formBlock h2 {
         text-align:left;
         font-size: 1.4rem;
         line-height: 1.8rem;
         font-weight: bold;
-        padding: 4px 10px 10px 0px;
+        padding: 4px 10px 6px 0px;
     }
 
     .content-page a.buttonLink {
@@ -326,33 +326,70 @@ body {
 
 /* LOGIN PAGE */
 
-.loginBlock, .iscrizioneBlock {
+.loginBlock, .formBlock {
     text-align:center;
     padding: 16px  10px;
 }
 
-    .loginBlock input[type="email"], .loginBlock input[type="password"], .iscrizioneBlock input[type="email"], .iscrizioneBlock input[type="password"]{
-        font-size: 16px;
+    .formBlock {
+        text-align:left;
+    }
+
+    .formBlock label {
+        font-size: 0.8rem;
+        font-weight: normal;
+        color: #999999;
+        padding-left: 2%;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+    .loginBlock input[type="email"], .loginBlock input[type="password"], .formBlock input[type="email"], .formBlock input[type="password"]{
+        font-size:1rem;
         padding: 8px 10px;
         border: 1px solid #ddd;
         margin-bottom:10px;
     }
 
-    .loginBlock button.rounded-button, .iscrizioneBlock button.rounded-button, .homeBlock button.rounded-button, .itemBlock button.rounded-button {
-        font-size: 16px;
-        padding: 6px 16px;
-        border: 0px solid #ddd;
-        -webkit-border-radius: 3px; 
-        -moz-border-radius: 3px; 
-        border-radius: 3px;
-        margin-bottom:10px;
+    .formBlock input[type="text"], .formBlock textarea {
+        padding: 8px 2%;
+        border: 0px;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 10px;
+        width: 96%;
+        box-shadow: none;
+        background: #ffffff;
+        font-size:0.8rem;
+        font-family: sans-serif;
+        color: #333333;
+    }
+
+        .formBlock textarea { 
+            height: 100px;
+        }
+
+        .formBlock input[type="text"]:disabled {
+            background: #efefef;
+        }
+
+    .loginBlock button.rounded-button, .formBlock button.rounded-button, .homeBlock button.rounded-button, .itemBlock button.rounded-button {
         color: #fff;
         background: #0d1d41;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        font-weight: bold;
+        padding: 8px 16px;
+        border: 0px solid #ddd;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        margin-top: 10px;
     }
 
 #serviceMessageLogin {
     padding: 2px 4px;
-    font-size: 14px;
+    font-size:0.9rem;
     color: #666666;
     font-weight: bold;
 }
@@ -847,4 +884,56 @@ h2 {
 li>a.tappable-active {
     color: #fff;
     background-color: #4286f5;
+}
+
+#serviceMessageRequest {
+    display: block;
+    color: #999;
+    font-weight: bold;
+    font-size: 0.8rem;
+    line-height: 2rem;
+}
+
+/* PRELOADER */
+
+.preloader5 {
+   display:inline-block;
+   font-size:0px;
+   padding:0px;
+}
+.preloader5 span {
+   vertical-align:middle;
+   border-radius:100%;
+   background:#000000;
+   display:inline-block;
+   width:10px;
+   height:10px;
+   margin:3px 2px;
+   -webkit-animation:preloader5 0.8s linear infinite alternate;
+   animation:preloader5 0.8s linear infinite alternate;
+}
+
+    .preloader5.white span {
+       background:#ffffff;
+    }
+
+.preloader5 span:nth-child(1) {
+   -webkit-animation-delay:-0.8;
+   animation-delay:-0.8s;
+}
+.preloader5 span:nth-child(2) {
+   -webkit-animation-delay:-0.53333s;
+   animation-delay:-0.53333s;
+}
+.preloader5 span:nth-child(3) {
+   -webkit-animation-delay:-0.26666s;
+   animation-delay:-0.26666s;
+}
+@keyframes preloader5 {
+   from {transform: scale(0, 0);}
+   to {transform: scale(1, 1);}
+}
+@-webkit-keyframes preloader5 {
+   from {-webkit-transform: scale(0, 0);}
+   to {-webkit-transform: scale(1, 1);}
 }
