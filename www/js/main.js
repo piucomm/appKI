@@ -280,14 +280,14 @@ var app = {
                     contextP = { pageTitle: app.messages.titKato,
                                 pageContent: app.messages.textKato };
                     $('body').html(self.staticPage1(contextP));
-                    contextH = { pageName: "KatoImer", backUrl: "#" };
+                    contextH = { pageName: app.messages.menu2, backUrl: "#" };
                     $('.header').html(self.mainHeader(contextH));
                     break;
                 case "#pages2":  // pagina Mamot
                     contextP = { pageTitle: app.messages.titMamot,
                                 pageContent: app.messages.textMamot };
                     $('body').html(self.staticPage1(contextP));
-                    contextH = { pageName: "Mamot", backUrl: "#"  };
+                    contextH = { pageName: app.messages.menu3, backUrl: "#"  };
                     $('.header').html(self.mainHeader(contextH));
                     break;
                 case "#pages4":  // pagina Catalogo
@@ -338,7 +338,7 @@ var app = {
                     // });
 
                     $('.search-key').on('keyup', $.proxy(self.findByName, this));
-                    contextH = { pageName: "Ricerca dealer/officine", backUrl: "#" };
+                    contextH = { pageName: app.messages.menu4, backUrl: "#" };
                     $('.header').html(self.mainHeader(contextH));
                     
                     break;
@@ -356,19 +356,19 @@ var app = {
             console.log("match details "+itemID);
             this.dealerObj.findById(app.typeOfItem,Number(itemID), function(deal) {
                 $('body').html(self.employeeTpl(deal));
-                contextH = { pageName: "Dettaglio Dealers", backUrl: "#pages3" };
+                contextH = { backUrl: "#pages3" };
                 $('.header').html(self.mainHeader(contextH));
             });
 
         } else if (matchCat) { // pagina categoria catalogo
-            console.log("categoria ");
+            
             var matchParamsId = hash.match(/idcat=(\d+)/)
             if (matchParamsId) {
                 var catID = matchParamsId[1];
             }
-            var matchParamsTit = hash.match(/titcat=(\S+)/)
+            var matchParamsTit = hash.match(/titcat=(\D+)/)
             if (matchParamsTit) {
-                var catTit = matchParamsTit[1]; //.replace(/%20/g, "-");
+                var catTit = matchParamsTit[1].toString(); //.replace(/%20/g, "-");
             }
 
             contextH = { pageName: catTit, backUrl: "#" }; // titolo pagina categoria
@@ -382,7 +382,7 @@ var app = {
             if (matchParamsId) {
                 var itemID = matchParamsId[1];
             }
-            var matchParamsTit = hash.match(/titcat=(\S+)/)
+            var matchParamsTit = hash.match(/titcat=(\D+)/)
             if (matchParamsTit) {
                 var catTit = matchParamsTit[1]; //.replace(/%20/g, "-");
             }
