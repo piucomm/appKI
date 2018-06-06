@@ -49,12 +49,12 @@
 <body>
 
     <script id="main-menu-tpl" type="text/x-handlebars-template" >
+        <div id="main-menu-close">
+            <a class="menuClose" href='#menuclose/'></a>
+        </div>
         <div id="main-menu-dx" class="main-menu-dx" >
-            <div class="userTable">
-                <div class="userName">{{loginName}}</div>
-                <a class="menuClose" href='#menuclose/'>X</a>
-            </div>
-
+            
+            <div class="userName">{{trimString loginName}}</div>
             <div class="userRole {{loginRole}}">{{loginRole}}</div>
             
             <ul class="menu-lista" >
@@ -321,6 +321,16 @@
     async defer></script>
 
     <script type="text/javascript">
+        Handlebars.registerHelper('trimString', function(passedString) {
+            var theString = passedString;
+            var numChars = 12;
+            if(passedString.length > numChars){
+                theString = passedString.substring(0,numChars);
+                theString += "...";
+            }
+            return new Handlebars.SafeString(theString)
+        });
+
         app.initialize();
     </script>
 </body>

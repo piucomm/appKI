@@ -248,26 +248,6 @@ body {
         }
 
 
-#main-menu {
-    z-index: 1000; 
-    position:fixed;
-    width:60%; 
-    top: 0; 
-    right: -65%; 
-    background: rgba(13,29,65,1); 
-    padding: 0px 8px 0px 8px; 
-    height: 100%; 
-    color: #fff;
-    -moz-transition-duration: .375s;
-    -webkit-transition-duration: .375s;
-    -o-transition-duration: .375s;
-}
-
-    #main-menu.hover-menu {
-        right: 0%;
-    }
-
-
 .content-page {
     text-align:left;
     padding: 0px;
@@ -540,43 +520,88 @@ li {
     padding: 10px;
 }
 
+/* MAIN MENU */
+
+#main-menu {
+    z-index: 1000; 
+    position:fixed;
+    width:100%; 
+    top: 0; 
+    right: -100%; 
+    height: 100%; 
+    color: #fff;
+    -moz-transition-duration: .375s;
+    -webkit-transition-duration: .375s;
+    -o-transition-duration: .375s;
+    display:table;
+}
+
+    #main-menu.hover-menu {
+        right: 0%;
+    }
+
+
+#main-menu-close {
+    display:table-cell;
+    width:24px;
+    height:24px;
+    padding-left: 20%;
+}
+
+    #main-menu-close a.menuClose {
+        display: inline-block;
+        color: #ffffff;
+        background: rgba(13,29,65,1); 
+        text-decoration: none;
+        text-align:center;
+        font-size: 22px;
+        padding:12px;
+        width:24px;
+        height:24px;
+    }
+
+    #main-menu-close a.menuClose:before, #main-menu-close a.menuClose:after {
+      position: absolute;
+      content: ' ';
+      height: 26px;
+      width: 3px;
+      background-color: #fff;
+    }
+    #main-menu-close a.menuClose:before {
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    #main-menu-close a.menuClose:after {
+        -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
 #main-menu-dx {
-    width:100%;
-    display: inline-block;
+    display:table-cell;
+    background: rgba(13,29,65,1);
+    padding: 8px 3%;
+    vertical-align: top;
 }
 
-#main-menu-dx div.userTable {
-    width:100%;
-    display: table;
-    margin-top: 14px;
 
-}
-
-    #main-menu-dx div.userTable .userName {
-        display: table-cell;
-        font-size: 18px;
+    #main-menu-dx .userName {
+        width:100%;
+        display: block;
+        font-size: 16px;
         padding: 2px 0px;
         color: #fff;
     }
 
-        #main-menu-dx .userRole {
-            display: block;
-            text-transform: uppercase;
-            font-size: 12px;
-            padding: 5px 0px;
-            color: #cccccc;
-        }
-
-
-    #main-menu-dx div.userTable a.menuClose {
-        display: table-cell;
-        width:40px;
-        color: #ffffff;
-        text-decoration: none;
-        text-align:center;
-        font-size: 22px;
+    #main-menu-dx .userRole {
+        display: block;
+        width:100%;
+        text-transform: uppercase;
+        font-size: 11px;
+        padding: 5px 0px;
+        color: #cccccc;
     }
-
 
     #main-menu-dx .userRole.Proprietario {
         color: #fab14a;

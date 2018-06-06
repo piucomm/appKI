@@ -360,7 +360,7 @@ var app = {
             }
             var matchParamsTit = hash.match(/titcat=(\S+)/)
             if (matchParamsTit) {
-                var catTit = matchParamsTit[1].replace(/%20/g, "-");
+                var catTit = matchParamsTit[1]; //.replace(/%20/g, "-");
             }
 
             context1 = { idCat: catID};
@@ -376,7 +376,7 @@ var app = {
             }
             var matchParamsTit = hash.match(/titcat=(\S+)/)
             if (matchParamsTit) {
-                var catTit = matchParamsTit[1].replace(/%20/g, "-");
+                var catTit = matchParamsTit[1]; //.replace(/%20/g, "-");
             }
             context1 = { idItem: itemID};
             context2 = { pageName: catTit}; // titolo pagina
@@ -421,7 +421,11 @@ var app = {
         $('.main-menu').html(self.mainMenu(context));
         $('#main-menu').height(app.winHeight);
         
-        $('.menu-lista').height(app.winHeight - 100); 
+        $('.menu-lista').height(app.winHeight - 100);
+
+        $("#main-menu-close").click(function(){
+            location.href="#menuclose/";
+        });
 
         $("#menuDxLogout").click(function(){
             localStorage.setItem("login", 0);
