@@ -23,6 +23,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.gplusBtLabel = "Login con Google+";
 	    this.newRegisterBtLabel = "Nuova registrazione";
 	    
+		// registrazione
+		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
 	    // home
 
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
@@ -50,6 +52,15 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjax001 = "Errore interno COD: 001"; // errore sending ajax request
 	    this.nackAjax002 = "Errore interno COD: 002"; // errore sending ajax request
 	    this.emptyField = "I campi * non possono essere vuoti.";
+	    this.pwNotEqual = "Le password non coincidono.";
+
+	    this.userAlreadyReg = "Utente già registrato";
+	    this.nackToken = "Token non riconosciuto";
+
+	    // privacy marketing push label
+	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
+	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
+	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
 	}
 
 	this.setEnglish = function() {
@@ -75,6 +86,9 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.gplusBtLabel = "Login with Google+";
 	    this.newRegisterBtLabel = "New registration";
 	    
+		// registrazione
+		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
+
 	    // home
 	    this.btSearchDealer = "Search Dealers/Officine";
 
@@ -102,7 +116,15 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
 	    this.emptyField = "* Required fields";
+	    this.pwNotEqual = "Passwords are not equal";
 
+	    this.userAlreadyReg = "User already registered";
+	    this.nackToken = "Token not allowed";
+	    
+	    // privacy marketing push label
+	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
+	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
+	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
 	}
 
 	this.setDeutch = function() {
@@ -128,9 +150,11 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.fbBtLabel = "Login with Facebook";
 	    this.gplusBtLabel = "Login with Google+";
 	    this.newRegisterBtLabel = "New registration";
-	    
-	    // home
+	    	    
+		// registrazione
+		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
 
+	    // home
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
 
 	    // lista catalogo
@@ -156,7 +180,15 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
 	    this.emptyField = "* Required fields";
+	    this.pwNotEqual = "Passwords are not equal";
 
+		this.userAlreadyReg = "User already registered";
+	    this.nackToken = "Token not allowed";
+	    
+	    // privacy marketing push label
+	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
+	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
+	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
 	}
 
 
@@ -183,9 +215,11 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.fbBtLabel = "Login with Facebook";
 	    this.gplusBtLabel = "Login with Google+";
 	    this.newRegisterBtLabel= "Nuova registrazione";
+
+		// registrazione
+		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
 	    
 	    // home
-
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
 
 	    // lista catalogo
@@ -211,7 +245,15 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
 	    this.emptyField = "* Required fields";
+	    this.pwNotEqual = "Passwords are not equal";
 
+	    this.userAlreadyReg = "User already registered";
+	    this.nackToken = "Token not allowed";
+	    
+	    // privacy marketing push label
+	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
+	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
+	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
 	}
 
 	this.setFrench = function() {
@@ -230,16 +272,17 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.menu10 = "User profile";
 		this.menu11 = "Logout";
 
-
 		// pagina login
 	    this.logiBtLabel = "Entrèe";
 	    this.registerBtLabel= "Registre";
 	    this.fbBtLabel = "Login with Facebook";
 	    this.gplusBtLabel = "Login with Google+";
 	    this.newRegisterBtLabel= "Nuova registrazione";
-	    
-	    // home
+	    	    
+		// registrazione
+		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
 
+	    // home
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
 
 	    // lista catalogo
@@ -265,7 +308,15 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
 	    this.emptyField = "* Required fields";
+	    this.pwNotEqual = "Passwords are not equal";
+
+	    this.userAlreadyReg = "User already registered";
+	    this.nackToken = "Token not allowed";
 	    
+	    // privacy marketing push label
+	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
+	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
+	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
 	}
 
 }

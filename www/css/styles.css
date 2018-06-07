@@ -15,6 +15,15 @@ body {
     text-transform: none;
 }
 
+a, a:visited {
+    color: #0d1d41;
+    text-decoration: underline;
+}
+
+    a:hover {
+        color: #ccc;
+        text-decoration: none;
+    }
 
 .header {
     background: #0d1d41;
@@ -328,7 +337,7 @@ body {
 
 .loginBlock, .formBlock {
     text-align:center;
-    padding: 16px  10px;
+    padding: 10px 10px;
 }
 
     .formBlock {
@@ -908,6 +917,14 @@ li>a.tappable-active {
 }
 
 #serviceMessageRequest {
+    display: block;
+    color: #999;
+    font-weight: bold;
+    font-size: 0.8rem;
+    line-height: 2rem;
+}
+
+#serviceMessageRegister {
     display: block;
     color: #999;
     font-weight: bold;

@@ -11,6 +11,8 @@ var app = {
 
         this.bindEvents();
 
+        this.tokenAppKato = "sae45v4b64566(Ad3";
+
         this.mainMenu = Handlebars.compile($("#main-menu-tpl").html());
         this.mainHeader = Handlebars.compile($("#main-header").html());
 
@@ -31,9 +33,7 @@ var app = {
         this.categoryPage = Handlebars.compile($("#catalogPage").html());
         this.itemPage = Handlebars.compile($("#itemPage").html());
 
-
         //app.catalog.getListCatalog(localStorage.getItem( "language"), "catalog-list-int"); // carico il catalogo nella lingua corrente
-
 
         //REGEXP per routing
         this.detailsPage = /^#pages(\d{1,})/;
@@ -159,10 +159,16 @@ var app = {
 
     renderRegisterView: function() {
         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
-        $('body').html(app.registerTpl());
+        context = { messOwner: app.messages.ownerAlertLabel,
+                     labelPrivacy: app.messages.labelPrivacy,
+                     labelMarketing: app.messages.labelMarketing,
+                     labelPush: app.messages.labelPush}
+        $('body').html(app.registerTpl(context));
 
         contextH = { pageName: app.messages.newRegisterBtLabel, backUrl: "#" };
-        $('.header').html(app.mainHeader(contextH));
+        $(".header").html(app.mainHeader(contextH));
+        $(".formOspite").show();
+        $(".formProprietario").hide();
         $("#serviceMessageRegister .preloader5").hide();
 
         $('#btOspite').addClass("active");
@@ -172,18 +178,27 @@ var app = {
         $('#btOspite').on('click', function(){
             $('#btProprietario').removeClass("active");
             $(this).addClass("active");
+            $(".formOspite").show();
+            $(".formProprietario").hide();
             // app.typeOfItem = "dealers";
             // app.dealerObj.showAllItems("dealers", app.sortOfItem, app.viewOfItem);
         });
         $('#btProprietario').on('click', function(){
             $('#btOspite').removeClass("active");
             $(this).addClass("active");
+            $(".formOspite").hide();
+            $(".formProprietario").show();
             // app.dealerObj.showAllItems("officine", app.sortOfItem, app.viewOfItem);
             // app.typeOfItem = "officine", "distance";
         });        
         
-        $('#registerOspite').on('click', app.addIscritto);
-        $('#backHome').on('click', function(){app.renderHomeView()});
+        $('#registerOspite').on('click', function(){
+            app.addRegistrazione('ospite');
+        }); 
+        $('#registerProprietario').on('click', function(){
+            app.addRegistrazione('proprietario');
+        }); 
+
     },
 
     getSuccess: function(tx,result) {
@@ -490,7 +505,7 @@ var app = {
                 dataType: "json",
                 crossDomain: true,
                 cache: false,
-                beforeSend: function(){ $("#login").html('Connecting...'); },
+                beforeSend: function(){ $("#login").html(app.messages.sendAjax); },
                 success: function(data){
                     if(data.status=="success") {
                         localStorage.setItem("login", 1);
@@ -508,24 +523,65 @@ var app = {
                     }
                 },
                 error: function() {
-                    $("#serviceMessageLogin").html("Errore ajax login...");
+                    $("#serviceMessageLogin").html(app.messages.nackAjax001);
                 }
             });
 
         } else {
             localStorage.setItem("login", 0);
             console.log("login field error... ");
-            $("#serviceMessageLogin").html('I campi non possono essere vuoti...');
+            $("#serviceMessageLogin").html(app.messages.emptyField);
         }
     },
 
-    // check if user can be logged
-    addIscritto: function() {
-        var email=$("#emailIscritto").val();
-        var password=$("#passwordIscritto").val();
-        var dataString="email="+email+"&password="+password+"&ospite=1&stato=1";
-        if($.trim(email).length>0 & $.trim(password).length>0)
-        {
+    // registrazione nuovo utente ospite/proprietario
+    addRegistrazione: function(typeReg) {
+
+        console.log("type reg "+typeReg);
+
+        var email, password, nome, phone, stato, dataString;
+        var flagO = 0, flagP = 0;
+
+        var boolRequestedFields = 0;  // campi obbligatori
+        var boolPasswords = 0;  // password coincidono?
+
+        var messError = "";
+
+        if(typeReg == "ospite") {
+            nome= "";
+            email=$("#emailO").val();
+            phone= "";
+            password=$("#passwordO").val();
+            password2=$("#passwordO2").val();
+            flagO = 1;
+            stato=1; // già attivo
+            if($.trim(email).length>0 & $.trim(password).length>0 & $.trim(password2).length>0 ){
+                boolRequestedFields = 1;
+            }
+        } else if(typeReg == "proprietario") {
+            nome=$("#nomeP").val();
+            email=$("#emailP").val();
+            phone=$("#telP").val();
+            password=$("#passwordP").val();
+            password2=$("#passwordP2").val();
+            flagP = 1;
+            stato=2; // da attivare
+            if($.trim(nome).length>0 & $.trim(email).length>0 & $.trim(password).length>0 & $.trim(password2).length>0 ){
+                boolRequestedFields = 1;
+            }
+        } 
+
+        if($.trim(password) == $.trim(password2)) { 
+            boolPasswords = 1;
+        }
+
+        if(boolRequestedFields != 1){
+            $("#serviceMessageRegister").html(app.messages.emptyField);
+        } else if (boolPasswords != 1) {
+            $("#serviceMessageRegister").html(app.messages.pwNotEqual);
+        } else {
+            dataString="nome="+nome+"&email="+email+"&phone="+phone+"&password="+password+"&ospite="+flagO+"&proprietario="+flagP+"&stato="+stato+"&tokenK="+app.tokenAppKato;
+        
             $.ajax({
                 type: "POST",
                 url: 'https://app.katoimer.com/appadmin/addIscrittoApp.php',
@@ -536,15 +592,13 @@ var app = {
                 beforeSend: function(){ $("#registerOspite").html('Connecting...'); },
                 success: function(data){
                     if(data.status==1) {
-                        console.log("iscrizione ok... "+data.mess);
-                        $("#serviceMessageRegister").html(data.mess);
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
                         app.renderHomeView();
                         $("#serviceMessageLogin").html(app.messages.ackAjaxIscritto);
+                        // in data.mess ho la mail dell'iscritto
                     } else if(data.status==0) {
-                        console.log("iscrizione error... ");
-                        $("#registerOspite").html('Registrami');
-                        $("#serviceMessageRegister").html(data.mess);
+                        messError = app.codifyErr(data.cod)
+                        $("#serviceMessageRegister").html(messError);
                     }
                 },
                 error: function() {
@@ -552,9 +606,8 @@ var app = {
                 }
             });
 
-        } else {
-            $("#serviceMessageRegister").html(app.messages.emptyField);
         }
+
     },
 
     // invia richiesta assistenza
@@ -714,6 +767,19 @@ var app = {
             case "de-DE":
                 app.messages.setDeutch();break;
         }
+    },
+
+    codifyErr: function(errCod){
+        var errmess = "";
+        switch(errCod){
+            case "err01": errmess = app.messages.nackToken;
+            break;
+            case "err02": errmess = app.messages.userAlreadyReg;
+            break;
+            case "err03": errmess = app.messages.emptyField;
+            break;
+        }
+        return errmess;
     }
 
 };

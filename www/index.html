@@ -137,8 +137,7 @@
             <button class="button megaBt ospite" id="btOspite">Ospite</button>
             <button class="button megaBt proprietario" id="btProprietario">Proprietario</button>
         </div>
-
-        <div class="formBlock" >
+        <div class="content-page internal-page">
             <div id="serviceMessageRegister" >
                 <div class="preloader5">
                     <span></span>
@@ -146,16 +145,58 @@
                     <span></span>
                 </div>
             </div>
+        </div>
 
-            <label for="emailIscritto" >Email *</label>
-            <input id="emailIscritto" type="text" placeholder="email@domain.com" /><br/>
-            <label for="passwordIscritto" >Password *</label>
-            <input id="passwordIscritto" type="password" /><br/>
-            <label for="passwordIscritto2" >Ripeti Password *</label>
-            <input id="passwordIscritto2" type="password" /><br/>
+        <div class="formBlock formOspite" >
+
+            <input type="hidden" id="ospite" name="ospite" value="1" />
+
+            <label for="emailO" >Email *</label>
+            <input id="emailO" type="text" placeholder="email@domain.com" /><br/>
+            <label for="passwordO" >Password *</label>
+            <input id="passwordO" type="password" /><br/>
+            <label for="passwordO2" >Ripeti Password *</label>
+            <input id="passwordO2" type="password" /><br/>
+            <hr/>
+            <input type="checkbox" id="privacyCheck" name="privacyCheck" value="1">
+            <label for="privacyCheck">{{{labelPrivacy}}}</label>
+            <input type="checkbox" id="marketingCheck" name="marketingCheck" value="1">
+            <label for="marketingCheck">{{{labelMarketing}}}</label>
+            <input type="checkbox" id="pushCheck" name="pushCheck" value="1">
+            <label for="pushCheck">{{{labelPush}}}</label>
+
             <button id="registerOspite"  class="rounded-button">Registrami come ospite</button><br/>
 
         </div>
+
+        <div class="formBlock formProprietario" style="display:none;" >
+
+            <small>{{{messOwner}}}</small>
+            
+            <input type="hidden" id="proprietario" name="proprietario" value="1" />
+            <label for="nomeP" >Nome *</label>
+            <input id="nomeP" type="text" /><br/>
+            <label for="emailP" >Email *</label>
+            <input id="emailP" type="text" placeholder="email@domain.com" /><br/>
+            <label for="telP" >Telefono</label>
+            <input id="telP" type="text" /><br/>
+            <label for="passwordP" >Password *</label>
+            <input id="passwordP" type="password" /><br/>
+            <label for="passwordP2" >Ripeti Password *</label>
+            <input id="passwordP2" type="password" /><br/>
+            <hr/>
+            <input type="checkbox" id="privacyCheck" name="privacyCheck" value="1">
+            <label for="privacyCheck">{{{labelPrivacy}}}</label>
+            <input type="checkbox" id="marketingCheck" name="marketingCheck" value="1">
+            <label for="marketingCheck">{{{labelMarketing}}}</label>
+            <input type="checkbox" id="pushCheck" name="pushCheck" value="1">
+            <label for="pushCheck">{{{labelPush}}}</label>
+
+            <button id="registerProprietario"  class="rounded-button">Registrami come proprietario</button><br/>
+
+        </div>
+
+
 
 
     </script>
@@ -261,7 +302,7 @@
         <div id="main-menu" class="main-menu"></div>
         <div class='header'></div>
 
-        <div class="content-page itemBlock internal-page scroll" >
+        <div class="content-page itemBlock internal-page" >
             <h2 id="title-item"></h2>
             
             <div id="content-item">
