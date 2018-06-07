@@ -333,6 +333,7 @@ a, a:visited {
             width: 56%;
         }
 
+
 /* LOGIN PAGE */
 
 .loginBlock, .formBlock {
@@ -400,6 +401,26 @@ a, a:visited {
         margin-top: 10px;
     }
 
+
+
+.containerModelli {
+    width:100%;
+    display: table;
+}
+
+    .containerModelli .element { display:table-row; }
+
+    .formBlock input[type="text"].colModello {
+        display:table-cell;
+        width: 35%;
+        margin-right: 12px;
+    }
+
+        .remove, #addModel {
+            display:table-cell;
+        }
+    
+
 #serviceMessageLogin {
     padding: 2px 4px;
     font-size:1rem;
@@ -407,6 +428,8 @@ a, a:visited {
     font-weight: bold;
 }
     
+
+
 
 /* END LOGIN PAGE */
 

@@ -158,12 +158,12 @@
             <label for="passwordO2" >Ripeti Password *</label>
             <input id="passwordO2" type="password" /><br/>
             <hr/>
-            <input type="checkbox" id="privacyCheck" name="privacyCheck" value="1">
-            <label for="privacyCheck">{{{labelPrivacy}}}</label>
-            <input type="checkbox" id="marketingCheck" name="marketingCheck" value="1">
-            <label for="marketingCheck">{{{labelMarketing}}}</label>
-            <input type="checkbox" id="pushCheck" name="pushCheck" value="1">
-            <label for="pushCheck">{{{labelPush}}}</label>
+            <input type="checkbox" id="privacyCheckO" name="privacyCheckO" value="1">
+            <label for="privacyCheckO">{{{labelPrivacy}}}</label>
+            <input type="checkbox" id="marketingCheckO" name="marketingCheckO" value="1">
+            <label for="marketingCheckO">{{{labelMarketing}}}</label>
+            <input type="checkbox" id="pushCheckO" name="pushCheckO" value="1">
+            <label for="pushCheckO">{{{labelPush}}}</label>
 
             <button id="registerOspite"  class="rounded-button">Registrami come ospite</button><br/>
 
@@ -184,20 +184,28 @@
             <input id="passwordP" type="password" /><br/>
             <label for="passwordP2" >Ripeti Password *</label>
             <input id="passwordP2" type="password" /><br/>
+
             <hr/>
-            <input type="checkbox" id="privacyCheck" name="privacyCheck" value="1">
-            <label for="privacyCheck">{{{labelPrivacy}}}</label>
-            <input type="checkbox" id="marketingCheck" name="marketingCheck" value="1">
-            <label for="marketingCheck">{{{labelMarketing}}}</label>
-            <input type="checkbox" id="pushCheck" name="pushCheck" value="1">
-            <label for="pushCheck">{{{labelPush}}}</label>
+            <label>Macchinari in tuo possesso*</label>
+            <div class="containerModelli">
+             <div class="element" id="div_1">
+              <input type="text" placeholder="Modello" id="cod_1" class="colModello" >
+              <input type="text" placeholder="Num. Seriale" id="ser_1" class="colModello" >
+              <div id="addModel" >Aggiungi</div>
+             </div>
+            </div>
+
+            <hr/>
+            <input type="checkbox" id="privacyCheckP" name="privacyCheckP" value="1">
+            <label for="privacyCheckP">{{{labelPrivacy}}}</label>
+            <input type="checkbox" id="marketingCheckP" name="marketingCheckP" value="1">
+            <label for="marketingCheckP">{{{labelMarketing}}}</label>
+            <input type="checkbox" id="pushCheckP" name="pushCheckP" value="1">
+            <label for="pushCheckP">{{{labelPush}}}</label>
 
             <button id="registerProprietario"  class="rounded-button">Registrami come proprietario</button><br/>
 
         </div>
-
-
-
 
     </script>
 

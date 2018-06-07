@@ -191,7 +191,37 @@ var app = {
             // app.dealerObj.showAllItems("officine", app.sortOfItem, app.viewOfItem);
             // app.typeOfItem = "officine", "distance";
         });        
-        
+
+         // Add new macchinario
+        $("#addModel").on('click', function(){
+
+            console.log("add cLick");
+
+            var total_element = $(".element").length; // Finding total number of elements added
+            var lastid = $(".element:last").attr("id"); // last <div> with element class id
+            var split_id = lastid.split("_");
+            var nextindex = Number(split_id[1]) + 1;
+            var max = 15;
+              
+            if(total_element < max ){ // Check total number elements
+               // Adding new div container after last occurance of element class
+               $(".element:last").after("<div class='element' id='div_"+ nextindex +"'></div>");
+               // Adding element to <div>
+               $("#div_" + nextindex).append("<input type='text' placeholder='Cod. Modello' id='cod_"+ nextindex +"' class='colModello'><input type='text' placeholder='Num. Seriale' id='_"+ nextindex +"' class='colModello' ><div id='remove_" + nextindex + "' class='remove'>X</div>");
+              }
+             
+        });
+
+        // Remove macchinario
+        $('.containerModelli').on('click','.remove', function(){
+             
+            var id = this.id;
+            var split_id = id.split("_");
+            var deleteindex = split_id[1];
+
+            $("#div_" + deleteindex).remove();// Remove <div> with id
+        }); 
+
         $('#registerOspite').on('click', function(){
             app.addRegistrazione('ospite');
         }); 
@@ -537,13 +567,12 @@ var app = {
     // registrazione nuovo utente ospite/proprietario
     addRegistrazione: function(typeReg) {
 
-        console.log("type reg "+typeReg);
-
-        var email, password, nome, phone, stato, dataString;
-        var flagO = 0, flagP = 0;
+        var email, password, nome, phone, stato, dataString, arrayModelSerial;
+        var flagO = 0, flagP = 0, authPrivacy = 0, authMarketing = 0, authPush = 0;
 
         var boolRequestedFields = 0;  // campi obbligatori
         var boolPasswords = 0;  // password coincidono?
+        var boolModels = 0; // almeno un modello inserito
 
         var messError = "";
 
@@ -558,6 +587,10 @@ var app = {
             if($.trim(email).length>0 & $.trim(password).length>0 & $.trim(password2).length>0 ){
                 boolRequestedFields = 1;
             }
+            if(document.getElementById("privacyCheckO").checked == true){ authPrivacy = 1; }  // checkbox privacy
+            if(document.getElementById("marketingCheckO").checked == true){ authMarketing = 1; }   // checkbox marketing
+            if(document.getElementById("pushCheckO").checked == true){ authPush = 1; }   // checkbox push
+
         } else if(typeReg == "proprietario") {
             nome=$("#nomeP").val();
             email=$("#emailP").val();
@@ -569,8 +602,25 @@ var app = {
             if($.trim(nome).length>0 & $.trim(email).length>0 & $.trim(password).length>0 & $.trim(password2).length>0 ){
                 boolRequestedFields = 1;
             }
-        } 
+            if(document.getElementById("privacyCheckP").checked == true){ authPrivacy = 1; }  // checkbox privacy
+            if(document.getElementById("marketingCheckP").checked == true){ authMarketing = 1; }   // checkbox marketing
+            if(document.getElementById("pushCheckP").checked == true){ authPush = 1; }   // checkbox push
 
+            var modserValue = new Array();
+            var arrayModelSerial = new Array();
+
+            if($("#cod_1").val() && $("#ser_1").val()){
+                $('.containerModelli').children('.element').each(function () {
+                    $(this).children('input').each(function () {
+                        modserValue.push($(this).val());
+                    });
+                    arrayModelSerial.push(modserValue);
+                    modserValue = new Array();
+                });
+                boolModels = 1;
+            }
+        } 
+        
         if($.trim(password) == $.trim(password2)) { 
             boolPasswords = 1;
         }
@@ -579,8 +629,27 @@ var app = {
             $("#serviceMessageRegister").html(app.messages.emptyField);
         } else if (boolPasswords != 1) {
             $("#serviceMessageRegister").html(app.messages.pwNotEqual);
+        } else if (boolModels != 1) {
+            $("#serviceMessageRegister").html(app.messages.errorNoModels);
+        } else if (authPrivacy != 1) {
+            $("#serviceMessageRegister").html(app.messages.checkPrivacy);
         } else {
-            dataString="nome="+nome+"&email="+email+"&phone="+phone+"&password="+password+"&ospite="+flagO+"&proprietario="+flagP+"&stato="+stato+"&tokenK="+app.tokenAppKato;
+        
+            dataString = { nome: nome,
+                email:  email,
+                phone: phone,
+                password: password,
+                ospite: flagO,
+                proprietario: flagP,
+                stato: stato,
+                checkPriv: authPrivacy,
+                checkMark: authMarketing,
+                checkPush: authPush,
+                arrayModels: arrayModelSerial,
+                tokenK: app.tokenAppKato
+            };
+
+            // dataString="nome="+nome+"&email="+email+"&phone="+phone+"&password="+password+"&ospite="+flagO+"&proprietario="+flagP+"&stato="+stato+"&checkPriv="+authPrivacy+"&checkMark="+authMarketing+"&checkPush="+authPush+"&tokenK="+app.tokenAppKato;
         
             $.ajax({
                 type: "POST",
@@ -589,7 +658,7 @@ var app = {
                 dataType: "json",
                 crossDomain: true,
                 cache: false,
-                beforeSend: function(){ $("#registerOspite").html('Connecting...'); },
+                beforeSend: function(){ $("#serviceMessageLogin").html(app.messages.sendAjax); },
                 success: function(data){
                     if(data.status==1) {
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
@@ -777,6 +846,10 @@ var app = {
             case "err02": errmess = app.messages.userAlreadyReg;
             break;
             case "err03": errmess = app.messages.emptyField;
+            break;
+            case "err04": errmess = app.messages.nackDatabase;
+            break;
+            case "err05": errmess = app.messages.nackPrepareQuery;
             break;
         }
         return errmess;

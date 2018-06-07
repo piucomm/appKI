@@ -25,8 +25,9 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    
 		// registrazione
 		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
-	    // home
+		this.errorNoModels = "Nessun macchinario inserito";
 
+	    // home
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
 
 	    // lista catalogo
@@ -45,7 +46,9 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    //contatti
 	    this.txtContatti = "<strong>Sede Legale, Uffici e Stabilimento</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Tel.: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Commerciale:</strong><br/>marketing@katoimer.com<br/><strong>Service:</strong><br/>service@katoimer.com<br/><strong>Parts:</strong><br/>parts@katoimer.com<br/><br/><br/>";
 
-	    // messaggi richieste ajax/check form 
+	    // messaggi richieste ajax/check form
+	    this.nackDatabase = "Errore nella richiesta al Database";
+	    this.nackPrepareQuery = "Errore preparazione Query";
 	    this.sendAjax = "Invio richiesta...";
 	    this.ackAjaxRequest = "Richiesta inviata correttamente";
 	    this.ackAjaxIscritto = "Iscrizione effettuata correttamente";
@@ -58,6 +61,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackToken = "Token non riconosciuto";
 
 	    // privacy marketing push label
+	    this.checkPrivacy = "Accettazione Privacy obbligatoria";
 	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
 	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
 	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
@@ -88,6 +92,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    
 		// registrazione
 		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
+		this.errorNoModels = "No machinery inserted";
 
 	    // home
 	    this.btSearchDealer = "Search Dealers/Officine";
@@ -110,6 +115,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.txtContatti = "<strong>Head Offices, Sales and Plant</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Phone: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Sales:</strong><br/>marketing@katoimer.com<br/><strong>Service:</strong><br/>service@katoimer.com<br/><strong>Parts:</strong><br/>parts@katoimer.com<br/><br/><br/>";
 
 	    // messaggi richieste ajax/check form 
+	    this.nackDatabase = "Error on Database request";
+	    this.nackPrepareQuery = "Errore preparazione Query";
 	    this.sendAjax = "Sending request...";
 	    this.ackAjaxRequest = "Request correctly sended";
 	    this.ackAjaxIscritto = "Subscriction ";
@@ -120,8 +127,9 @@ var MessageTranslation = function(successCallback, errorCallback) {
 
 	    this.userAlreadyReg = "User already registered";
 	    this.nackToken = "Token not allowed";
-	    
+
 	    // privacy marketing push label
+	    this.checkPrivacy = "Accettazione Privacy obbligatoria";
 	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
 	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
 	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
@@ -153,6 +161,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    	    
 		// registrazione
 		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
+		this.errorNoModels = "No machinery inserted";
 
 	    // home
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
@@ -173,7 +182,9 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    //contatti
 	    this.txtContatti = "<strong>Head Offices, Sales and Plant</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Phone: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Sales:</strong><br/>marketing@katoimer.com<br/><strong>Service:</strong><br/>service@katoimer.com<br/><strong>Parts:</strong><br/>parts@katoimer.com<br/><br/><br/>";
 
-		// messaggi richieste ajax/check form 
+		// messaggi richieste ajax/check form
+		this.nackDatabase = "Error on Database request";
+		this.nackPrepareQuery = "Errore preparazione Query";
 	    this.sendAjax = "Sending request...";
 	    this.ackAjaxRequest = "Request correctly sended";
 	    this.ackAjaxIscritto = "Subscriction ";
@@ -186,6 +197,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackToken = "Token not allowed";
 	    
 	    // privacy marketing push label
+	    this.checkPrivacy = "Accettazione Privacy obbligatoria";
 	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
 	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
 	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
@@ -218,6 +230,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 
 		// registrazione
 		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
+		this.errorNoModels = "No machinery inserted";
 	    
 	    // home
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
@@ -238,7 +251,9 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    //contatti
 	    this.txtContatti = "<strong>Head Offices, Sales and Plant</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Phone: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Sales:</strong><br/>marketing@katoimer.com<br/><strong>Service:</strong><br/>service@katoimer.com<br/><strong>Parts:</strong><br/>parts@katoimer.com<br/><br/><br/>";
 	
-		// messaggi richieste ajax/check form 
+		// messaggi richieste ajax/check form
+		this.nackDatabase = "Error on Database request";
+		this.nackPrepareQuery = "Errore preparazione Query";
 	    this.sendAjax = "Sending request...";
 	    this.ackAjaxRequest = "Request correctly sended";
 	    this.ackAjaxIscritto = "Subscriction ";
@@ -251,6 +266,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackToken = "Token not allowed";
 	    
 	    // privacy marketing push label
+	    this.checkPrivacy = "Accettazione Privacy obbligatoria";
 	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
 	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
 	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
@@ -281,6 +297,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    	    
 		// registrazione
 		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
+		this.errorNoModels = "No machinery inserted";
 
 	    // home
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
@@ -302,6 +319,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.txtContatti = "<strong>Head Offices, Sales and Plant</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Phone: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Sales:</strong><br/>marketing@katoimer.com<br/><strong>Service:</strong><br/>service@katoimer.com<br/><strong>Parts:</strong><br/>parts@katoimer.com<br/><br/><br/>";
 
 		// messaggi richieste ajax/check form 
+		this.nackDatabase = "Error on Database request";
+		this.nackPrepareQuery = "Errore preparazione Query";
 	    this.sendAjax = "Sending request...";
 	    this.ackAjaxRequest = "Request correctly sended";
 	    this.ackAjaxIscritto = "Subscriction ";
@@ -314,6 +333,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackToken = "Token not allowed";
 	    
 	    // privacy marketing push label
+	    this.checkPrivacy = "Accettazione Privacy obbligatoria";
 	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
 	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
 	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
