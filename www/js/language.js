@@ -27,6 +27,17 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
 		this.errorNoModels = "Nessun macchinario inserito";
 
+	    this.nameReg = "Nome";
+	    this.emailReg = "Email";
+	    this.pwReg = "Password";
+	    this.pw2Reg = "Ripeti Password";
+	    this.telReg = "Tel.";
+
+	    this.titleMacchinari = "Macchinari in tuo possesso";
+	    this.labelModelMacchinari = "Modello";
+	    this.labelSerialMacchinari = "Num. Seriale";
+	    this.labelBtAggiungi = "Aggiungi";
+
 	    // home
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
 
@@ -62,9 +73,10 @@ var MessageTranslation = function(successCallback, errorCallback) {
 
 	    // privacy marketing push label
 	    this.checkPrivacy = "Accettazione Privacy obbligatoria";
-	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
+	    this.labelPrivacy = "Autorizzo il <a href=\"#pages9\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
 	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
 	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
+	    this.codeIubendaPrivacy = "30408334";
 	}
 
 	this.setEnglish = function() {
@@ -93,6 +105,17 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		// registrazione
 		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
 		this.errorNoModels = "No machinery inserted";
+
+	    this.nameReg = "Name";
+	    this.emailReg = "Email";
+	    this.pwReg = "Password";
+	    this.pw2Reg = "Repeat Password";
+	    this.telReg = "Phone";
+
+	    this.titleMacchinari = "Macchinari in tuo possesso";
+	    this.labelModelMacchinari = "Model";
+	    this.labelSerialMacchinari = "Serial number";
+	    this.labelBtAggiungi = "Add";
 
 	    // home
 	    this.btSearchDealer = "Search Dealers/Officine";
@@ -130,9 +153,11 @@ var MessageTranslation = function(successCallback, errorCallback) {
 
 	    // privacy marketing push label
 	    this.checkPrivacy = "Accettazione Privacy obbligatoria";
-	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
+	    this.labelPrivacy = "Autorizzo il <a href=\"#pages9\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
 	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
 	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
+	    this.codeIubendaPrivacy = "66974646";
+
 	}
 
 	this.setDeutch = function() {
@@ -162,6 +187,17 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		// registrazione
 		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
 		this.errorNoModels = "No machinery inserted";
+
+	    this.nameReg = "Nome";
+	    this.emailReg = "Email";
+	    this.pwReg = "Password";
+	    this.pw2Reg = "Ripeti Password";
+	    this.telReg = "Tel.";
+
+	    this.titleMacchinari = "Macchinari in tuo possesso";
+	    this.labelModelMacchinari = "Modello";
+	    this.labelSerialMacchinari = "Num. Seriale";
+	    this.labelBtAggiungi = "Aggiungi";
 
 	    // home
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
@@ -198,9 +234,10 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    
 	    // privacy marketing push label
 	    this.checkPrivacy = "Accettazione Privacy obbligatoria";
-	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
+	    this.labelPrivacy = "Autorizzo il <a href=\"#pages9\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
 	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
 	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
+	    this.codeIubendaPrivacy = "86163521";
 	}
 
 
@@ -220,7 +257,6 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.menu10 = "User profile";
 		this.menu11 = "Logout";
 
-
 		// pagina login
 	    this.logiBtLabel = "Entrar";
 	    this.registerBtLabel= "Registrati";
@@ -231,6 +267,17 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		// registrazione
 		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
 		this.errorNoModels = "No machinery inserted";
+
+	    this.nameReg = "Nome";
+	    this.emailReg = "Email";
+	    this.pwReg = "Password";
+	    this.pw2Reg = "Ripeti Password";
+	    this.telReg = "Tel.";
+
+	    this.titleMacchinari = "Macchinari in tuo possesso";
+	    this.labelModelMacchinari = "Modello";
+	    this.labelSerialMacchinari = "Num. Seriale";
+	    this.labelBtAggiungi = "Aggiungi";
 	    
 	    // home
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
@@ -267,9 +314,10 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    
 	    // privacy marketing push label
 	    this.checkPrivacy = "Accettazione Privacy obbligatoria";
-	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
+	    this.labelPrivacy = "Autorizzo il <a href=\"#pages9\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
 	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
 	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
+	    this.codeIubendaPrivacy = "76458544";
 	}
 
 	this.setFrench = function() {
@@ -298,6 +346,17 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		// registrazione
 		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KatoImer...";
 		this.errorNoModels = "No machinery inserted";
+
+	    this.nameReg = "Nome";
+	    this.emailReg = "Email";
+	    this.pwReg = "Password";
+	    this.pw2Reg = "Ripeti Password";
+	    this.telReg = "Tel.";
+
+	    this.titleMacchinari = "Macchinari in tuo possesso";
+	    this.labelModelMacchinari = "Modello";
+	    this.labelSerialMacchinari = "Num. Seriale";
+	    this.labelBtAggiungi = "Aggiungi";
 
 	    // home
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
@@ -334,9 +393,10 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    
 	    // privacy marketing push label
 	    this.checkPrivacy = "Accettazione Privacy obbligatoria";
-	    this.labelPrivacy = "Autorizzo il <a href=\"#\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
+	    this.labelPrivacy = "Autorizzo il <a href=\"#pages9\">trattamento dei miei dati personali</a> presenti nel cv ai sensi del Decreto Legislativo 30 giugno 2003, n. 196 “Codice in materia di protezione dei dati personali” e del GDPR (Regolamento UE 2016/679). ";
 	    this.labelMarketing = "Accetto di ricevere informative marketing da Kato Imer";
 	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
+	    this.codeIubendaPrivacy = "85846522";
 	}
 
 }

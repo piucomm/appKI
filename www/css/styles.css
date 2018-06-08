@@ -931,7 +931,11 @@ h2 {
 .scroll {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-    position: relative;
+    position: absolute;
+    top: 84px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
 }
 
 li>a.tappable-active {
@@ -998,3 +1002,63 @@ li>a.tappable-active {
    from {-webkit-transform: scale(0, 0);}
    to {-webkit-transform: scale(1, 1);}
 }
+
+/* IUBENDA POLICY */
+
+
+#iubenda_policy h1 {
+    font-size: 1.3rem;
+    font-weight: normal;
+    margin: 0px;
+    padding: 0px;
+    text-align: left;
+}
+
+#iubenda_policy h2 {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    text-align: left !important
+}
+
+    #iubenda_policy h2#purposes_data {
+        font-size: 1rem;
+        line-height: 1rem;
+        font-weight: normal;
+        margin: 0px 0px 20px;
+        padding: 0px;
+        text-align: left !important
+    }
+
+#iubenda_policy h3 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0px 0px 10px;
+    padding: 0px;
+    text-align: left !important
+}
+
+#iubenda_policy p {
+    font-size: 0.9rem;
+    line-height: 1rem;
+    font-weight: normal;
+    text-align: left;
+}
+
+    ul.for_boxes.cf, ul.for_boxes {
+        background-color: #ffffff;
+        border-bottom: 0px solid #ffffff;
+    }
+
+    ul.for_boxes.cf li {
+        display: block;
+        border-top: 0px solid #c0c0c0;
+        padding: 5px;
+    }
+
+        ul.for_boxes.cf li {
+            display: block;
+            border-top: 0px solid #c0c0c0;
+            padding: 5px;
+        }

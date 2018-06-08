@@ -129,7 +129,12 @@ var app = {
             $('#es-ES').on('click', this.changedLanguage);
         } else {
             history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
-            $('body').html(this.homeTpl());
+            context = { labelBtRicerca: app.messages.menu4,
+                labelBtAssistenza: app.messages.menu8,
+                labelBtAreaUtente: app.messages.menu10
+            }
+
+            $('body').html(this.homeTpl(context));
 
             this.initMenu(); // inizializzo il menu laterale
 
@@ -160,9 +165,18 @@ var app = {
     renderRegisterView: function() {
         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
         context = { messOwner: app.messages.ownerAlertLabel,
-                     labelPrivacy: app.messages.labelPrivacy,
-                     labelMarketing: app.messages.labelMarketing,
-                     labelPush: app.messages.labelPush}
+                    email: app.messages.emailReg,
+                    password: app.messages.pwReg,
+                    password2: app.messages.pw2Reg,
+                    nome: app.messages.nameReg,
+                    tel: app.messages.telReg,
+                    titleMacchinari: app.messages.titleMacchinari,
+                    labelModelMacchinari: app.messages.labelModelMacchinari,
+                    labelSerialMacchinari: app.messages.labelSerialMacchinari,
+                    labelBtAggiungi: app.messages.labelBtAggiungi,
+                    labelPrivacy: app.messages.labelPrivacy,
+                    labelMarketing: app.messages.labelMarketing,
+                    labelPush: app.messages.labelPush}
         $('body').html(app.registerTpl(context));
 
         contextH = { pageName: app.messages.newRegisterBtLabel, backUrl: "#" };
@@ -402,17 +416,24 @@ var app = {
                     contextP = { pageTitle: "KATO IMER S.p.A.",
                                 pageContent: app.messages.txtContatti };
                     $('body').html(self.staticContactPage(contextP));
-                    contextH = { pageName: app.messages.menu7, backUrl: "#"  };
+                    contextH = { pageName: app.messages.menu7, backUrl: "#" };
                     $('.header').html(self.mainHeader(contextH));
                     break;
                 case "#pages6":  // pagina Assistenza
                     contextP = { pageTitle: "Inviaci la tua richiesta"};
                     $('body').html(self.staticAssistenzaPage(contextP));
-                    contextH = { pageName: app.messages.menu8, backUrl: "#"  };
+                    contextH = { pageName: app.messages.menu8, backUrl: "#" };
                     $('.header').html(self.mainHeader(contextH));
                     $('#emailRequest').val(localStorage.getItem('email'));
                     $("#serviceMessageRequest .preloader5").hide();
                     $('#sendRequest').on('click', app.addRequest);
+                    break;
+                case "#pages9":  // pagina Privacy
+                    var txtPrivacy = app.getPrivacy();
+                    contextP = { pageContent: txtPrivacy };
+                    $('body').html(self.staticPage1(contextP));
+                    contextH = { pageName: "Privacy Policy", backUrl: "#" };
+                    $('.header').html(self.mainHeader(contextH));
                     break;
                 default:
                     $('body').html(self.homeTpl());
@@ -762,7 +783,38 @@ var app = {
         function (msg) {
           alert('error: ' + msg);
         }
-    );
+        );
+    },
+
+    // API per IUBENDA Privacy Policy
+    getPrivacy: function() {
+
+        var privacyContent = "";
+
+        $.ajax({
+            type: "GET",
+            url: "https://www.iubenda.com/api/privacy-policy/"+app.messages.codeIubendaPrivacy,
+            dataType: "json",
+            crossDomain: true,
+            cache: false,
+            async: false,
+            beforeSend: function(){ },
+            success: function(data){
+                if(data.success) {
+                    privacyContent = data.content;
+                } else{
+                    privacyContent = app.messages.nackAjax001+data.error;
+                }
+                
+            },
+            error: function() {
+                privacyContent = app.messages.nackAjax001;
+                
+            }
+        });
+        console.log("privacyContent "+privacyContent);
+        return privacyContent;
+        
     },
 
     // check if there is or not a connection

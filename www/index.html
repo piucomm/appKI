@@ -70,8 +70,6 @@
                 {{{menu4}}}</button></li> <!-- solo online -->
                 <li><button onclick="location.href='#news';" id="menuDxNews" >
                 {{{menu5}}}</button></li> <!-- solo online -->
-                <li><button onclick="location.href='#faq';" id="menuDxFAQ" >
-                {{{menu6}}}</button></li>
                 <li><button onclick="location.href='#pages5';" id="menuDxContatti" >
                 {{{menu7}}}</button></li>
                 <li><button onclick="location.href='#pages6';" id="menuDxHelp" >
@@ -151,11 +149,11 @@
 
             <input type="hidden" id="ospite" name="ospite" value="1" />
 
-            <label for="emailO" >Email *</label>
+            <label for="emailO" >{{{email}}} *</label>
             <input id="emailO" type="text" placeholder="email@domain.com" /><br/>
-            <label for="passwordO" >Password *</label>
+            <label for="passwordO" >{{{password}}} *</label>
             <input id="passwordO" type="password" /><br/>
-            <label for="passwordO2" >Ripeti Password *</label>
+            <label for="passwordO2" >{{{password2}}} *</label>
             <input id="passwordO2" type="password" /><br/>
             <hr/>
             <input type="checkbox" id="privacyCheckO" name="privacyCheckO" value="1">
@@ -174,24 +172,24 @@
             <small>{{{messOwner}}}</small>
             
             <input type="hidden" id="proprietario" name="proprietario" value="1" />
-            <label for="nomeP" >Nome *</label>
+            <label for="nomeP" >{{{nome}}} *</label>
             <input id="nomeP" type="text" /><br/>
-            <label for="emailP" >Email *</label>
+            <label for="emailP" >{{{email}}} *</label>
             <input id="emailP" type="text" placeholder="email@domain.com" /><br/>
-            <label for="telP" >Telefono</label>
+            <label for="telP" >{{{tel}}}</label>
             <input id="telP" type="text" /><br/>
-            <label for="passwordP" >Password *</label>
+            <label for="passwordP" >{{{password}}} *</label>
             <input id="passwordP" type="password" /><br/>
-            <label for="passwordP2" >Ripeti Password *</label>
+            <label for="passwordP2" >{{{password2}}} *</label>
             <input id="passwordP2" type="password" /><br/>
 
             <hr/>
-            <label>Macchinari in tuo possesso*</label>
+            <label>{{{titleMacchinari}}} *</label>
             <div class="containerModelli">
              <div class="element" id="div_1">
-              <input type="text" placeholder="Modello" id="cod_1" class="colModello" >
-              <input type="text" placeholder="Num. Seriale" id="ser_1" class="colModello" >
-              <div id="addModel" >Aggiungi</div>
+              <input type="text" placeholder="{{labelModelMacchinari}}" id="cod_1" class="colModello" >
+              <input type="text" placeholder="{{labelSerialMacchinari}}" id="ser_1" class="colModello" >
+              <div id="addModel" >{{{labelBtAggiungi}}}</div>
              </div>
             </div>
 
@@ -215,9 +213,9 @@
         
         <div class="content-page homeBlock" >
 
-            <a id="btSearchDealer" class="button rounded-button oro" href="#pages3" >Ricerca dealer/officine</a>
-            <a id="btHelp" class="button rounded-button half-size" href="#pages6" >Assistenza</a>
-            <a id="btProfile" class="button rounded-button half-size">Area Utente</a>
+            <a id="btSearchDealer" class="button rounded-button oro" href="#pages3" >{{{labelBtRicerca}}}</a> 
+            <a id="btHelp" class="button rounded-button half-size" href="#pages6" >{{{labelBtAssistenza}}}</a>
+            <a id="btProfile" class="button rounded-button half-size">{{{labelBtAreaUtente}}}</a>
 
             <div id="serviceMessageRegisterHome" ></div>
             <!-- <button class="btCheckConn">Get Network Info</button> -->
@@ -249,7 +247,7 @@
             <div class='search-bar'><input class='search-key' type="search"/></div>
         </div>
         
-        <div class="scroll">
+        <div>
             <ul class='dealers-list'></ul>
             <div id="dealers-map" ></div>
         </div>
@@ -328,8 +326,8 @@
         <div id="main-menu" class="main-menu"></div>
         <div class='header'></div>
 
-        <div class="content-page internal-page scroll" >
-            <h2>{{{pageTitle}}}</h2>
+        <div class="content-page internal-page" >
+            {{#if pageTitle}}<h2>{{{pageTitle}}}</h2>{{/if}}
             {{{pageContent}}}
         </div>
     </script>
@@ -338,7 +336,7 @@
         <div id="main-menu" class="main-menu"></div>
         <div class='header'></div>
 
-        <div class="content-page itemBlock internal-page scroll" >
+        <div class="content-page itemBlock internal-page" >
             <h2>{{{pageTitle}}}</h2>
             {{{pageContent}}}
 
