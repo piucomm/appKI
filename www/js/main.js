@@ -7,8 +7,6 @@ var app = {
 
     initialize: function() {
 
-        console.log('Init data ');
-
         this.bindEvents();
 
         this.tokenAppKato = "sae45v4b64566(Ad3";
@@ -19,6 +17,8 @@ var app = {
         this.loginTpl = Handlebars.compile($("#login-tpl").html()); // pagina login
         this.registerTpl = Handlebars.compile($("#register-tpl").html()); // pagina registrazione
         this.homeTpl = Handlebars.compile($("#home-tpl").html()); // home page
+
+        this.userTpl = Handlebars.compile($("#userprofile-tpl").html()); // profilo utente
 
         this.searchTpl = Handlebars.compile($("#search-tpl").html());
         this.employeeLiTpl = Handlebars.compile($("#employee-li-tpl").html());
@@ -33,8 +33,6 @@ var app = {
         this.categoryPage = Handlebars.compile($("#catalogPage").html());
         this.itemPage = Handlebars.compile($("#itemPage").html());
 
-        //app.catalog.getListCatalog(localStorage.getItem( "language"), "catalog-list-int"); // carico il catalogo nella lingua corrente
-
         //REGEXP per routing
         this.detailsPage = /^#pages(\d{1,})/;
         this.detailsURL = /^#dealoff(\d{1,})/;
@@ -42,7 +40,7 @@ var app = {
         this.itemURL = /^#item(\d{1,})/;
         this.prodURL = /^#prod(\d{1,})/;
 
-        this.catalogoPage = /^#catalogo/;
+        this.userPage = /^#userprofile/;
 
         this.mainMenuURL = /^#menu\//;
         this.mainMenuURLClose = /^#menuclose\//;
@@ -57,8 +55,6 @@ var app = {
         this.map = "";
 
         this.registerEvents();
-
-        console.log('END Init data ');
         
     },
 
@@ -86,27 +82,20 @@ var app = {
         // inizializzo settaggi lingua
         navigator.globalization.getPreferredLanguage(
             function (language) { 
-                localStorage.setItem( "language", language.value);
+                app.setLanguage(language.value); // setto la lingua corrente
                 $("#"+language.value).addClass( "actual" );
-                console.log('Current language: ' + language.value + '\n'); },
-            function () { console.log('Error getting language\n'); }
+            } , function () { app.setLanguage('it-IT'); } // errore, setto l'italiano 
         );
 
-        app.messages = new MessageTranslation();
-
+        app.messages = new MessageTranslation(); // label traduzioni
         app.winHeight = $(window).height();
-
         app.dealerObj = new DealersOfficine(); // inizializzo l'oggetto per la classe dealers/officine
-
         app.renderHomeView();
-
-        console.log('DEVICE IS READY');
 
     },
 
     renderHomeView: function() {
-
-        console.log('renderHomeView '+localStorage.getItem('login')+' lin: '+localStorage.getItem('language')+' haveConn '+localStorage.getItem('isConn'));
+        
         app.setLanguage(localStorage.getItem('language')); // setto la lingua corrente
 
         app.catalog = new CatalogoItems();
@@ -138,7 +127,7 @@ var app = {
 
             this.initMenu(); // inizializzo il menu laterale
 
-            contextH = { };
+            contextH = { boolMenu: 1 };
             $('.header').html(this.mainHeader(contextH));
 
             app.headerHeight = $('.header').outerHeight();
@@ -340,7 +329,9 @@ var app = {
         var matchMenu = hash.match(app.mainMenuURL);
         var matchMenuClose = hash.match(app.mainMenuURLClose);
 
-        var context = {pageName: "", backUrl: "#"};
+        var matchUser = hash.match(app.userPage);
+
+        var context = {pageName: "", backUrl: "#" };
 
         if(matchMenuClose) {
             $('.main-menu').removeClass('hover-menu');
@@ -361,14 +352,14 @@ var app = {
                     contextP = { pageTitle: app.messages.titKato,
                                 pageContent: app.messages.textKato };
                     $('body').html(self.staticPage1(contextP));
-                    contextH = { pageName: app.messages.menu2, backUrl: "#" };
+                    contextH = { pageName: app.messages.menu2, backUrl: "#", boolMenu: 1 };
                     $('.header').html(self.mainHeader(contextH));
                     break;
                 case "#pages2":  // pagina Mamot
                     contextP = { pageTitle: app.messages.titMamot,
                                 pageContent: app.messages.textMamot };
                     $('body').html(self.staticPage1(contextP));
-                    contextH = { pageName: app.messages.menu3, backUrl: "#"  };
+                    contextH = { pageName: app.messages.menu3, backUrl: "#", boolMenu: 1 };
                     $('.header').html(self.mainHeader(contextH));
                     break;
                 case "#pages3": // pagina dealers/officine
@@ -397,12 +388,12 @@ var app = {
                     });
    
                     $('.search-key').on('keyup', $.proxy(self.findByName, this));
-                    contextH = { pageName: app.messages.menu4, backUrl: "#" };
+                    contextH = { pageName: app.messages.menu4, backUrl: "#", boolMenu: 1 };
                     $('.header').html(self.mainHeader(contextH));
                     break;
                 case "#pages4":  // pagina Catalogo
                     $('body').html(self.catalogList());
-                    contextH = { pageName: app.messages.titCatalogo, backUrl: "#" };
+                    contextH = { pageName: app.messages.titCatalogo, backUrl: "#", boolMenu: 1 };
                     $('.header').html(self.mainHeader(contextH));
 
                     if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
@@ -414,15 +405,16 @@ var app = {
                     break;
                 case "#pages5":  // pagina Contatti
                     contextP = { pageTitle: "KATO IMER S.p.A.",
-                                pageContent: app.messages.txtContatti };
+                                pageContent: app.messages.txtContatti }
+                                //app.messages.txtContatti };
                     $('body').html(self.staticContactPage(contextP));
-                    contextH = { pageName: app.messages.menu7, backUrl: "#" };
+                    contextH = { pageName: app.messages.menu7, backUrl: "#", boolMenu: 1 };
                     $('.header').html(self.mainHeader(contextH));
                     break;
                 case "#pages6":  // pagina Assistenza
                     contextP = { pageTitle: "Inviaci la tua richiesta"};
                     $('body').html(self.staticAssistenzaPage(contextP));
-                    contextH = { pageName: app.messages.menu8, backUrl: "#" };
+                    contextH = { pageName: app.messages.menu8, backUrl: "#", boolMenu: 1 };
                     $('.header').html(self.mainHeader(contextH));
                     $('#emailRequest').val(localStorage.getItem('email'));
                     $("#serviceMessageRequest .preloader5").hide();
@@ -449,9 +441,46 @@ var app = {
             console.log("match details "+itemID);
             this.dealerObj.findById(app.typeOfItem,Number(itemID), function(deal) {
                 $('body').html(self.employeeTpl(deal));
-                contextH = { backUrl: "#pages3" };
+                contextH = { backUrl: "#pages3", boolMenu: 1 };
                 $('.header').html(self.mainHeader(contextH));
             });
+
+        } else if (matchUser) { // pagina area utente
+            history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
+
+            var userRole;
+
+            if(localStorage.getItem('ospite') == 1){
+                userRole = "Ospite";
+            } else if(localStorage.getItem('proprietario') == 1) { 
+                userRole = "Proprietario"; 
+            }
+
+            context = { loginName: localStorage.getItem('email'),
+                        loginRole: userRole,
+                        nome: app.messages.nameReg,
+                        tel: app.messages.telReg,
+                        titleMacchinari: app.messages.titleMacchinari,
+                        labelModelMacchinari: app.messages.labelModelMacchinari,
+                        labelSerialMacchinari: app.messages.labelSerialMacchinari,
+                        labelBtAggiungi: app.messages.labelBtAggiungi,
+                        labelPrivacy: app.messages.labelPrivacy,
+                        labelMarketing: app.messages.labelMarketing,
+                        labelPush: app.messages.labelPush}
+            $('body').html(self.userTpl(context));
+
+            contextH = { pageName: app.messages.menu10, backUrl: "#", boolMenu: 1 };
+            $(".header").html(app.mainHeader(contextH));
+            $("#serviceMessageRegister .preloader5").hide();
+
+            if(localStorage.getItem('ospite') == 1){
+                $(".formOspiteUser").show();
+                $(".formProprietarioUser").hide();
+            } else if(localStorage.getItem('proprietario') == 1) { 
+                $(".formOspiteUser").hide();
+                $(".formProprietarioUser").show();
+            }
+
 
         } else if (matchCat) { // pagina categoria catalogo
             
@@ -464,7 +493,7 @@ var app = {
                 var catTit = matchParamsTit[1].toString(); //.replace(/%20/g, "-");
             }
 
-            contextH = { pageName: catTit, backUrl: "#" }; // titolo pagina categoria
+            contextH = { pageName: catTit, backUrl: "#", boolMenu: 1 }; // titolo pagina categoria
             $('body').html(self.categoryPage());
             $('.header').html(self.mainHeader(contextH));
             app.catalog.getListItems(localStorage.getItem( "language"), catID); // carico gli items di quella categoria
@@ -485,7 +514,7 @@ var app = {
             }
 
             context1 = { idItem: itemID};
-            contextH = { pageName: catTit, backUrl: "#cat1?idcat="+catId+"&titcat="+catTit }; // titolo pagina prodotto
+            contextH = { pageName: catTit, backUrl: "#cat1?idcat="+catId+"&titcat="+catTit, boolMenu: 1 }; // titolo pagina prodotto
             $('body').html(self.itemPage(context1));
             $('.header').html(self.mainHeader(contextH));
             app.catalog.getItem(localStorage.getItem( "language"), itemID, catID); // carico l'item

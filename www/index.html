@@ -87,9 +87,10 @@
         <div class='contHeader'>
             {{#if backUrl}}
             <a href='{{backUrl}}' class="header-button header-button-left arrow left"></a>{{/if}}
+            {{#if boolMenu}}
             <a href='#menu/' class="hamburger header-button header-button-right" >
                 <div></div><div></div><div></div>
-            </a>
+            </a>{{/if}}
             <h1><img src="img/logo-header-neg.png" class="logo-header" /></h1>
         </div>
         {{#if pageName}}
@@ -215,7 +216,7 @@
 
             <a id="btSearchDealer" class="button rounded-button oro" href="#pages3" >{{{labelBtRicerca}}}</a> 
             <a id="btHelp" class="button rounded-button half-size" href="#pages6" >{{{labelBtAssistenza}}}</a>
-            <a id="btProfile" class="button rounded-button half-size">{{{labelBtAreaUtente}}}</a>
+            <a id="btProfile" class="button rounded-button half-size" href="#userprofile" >{{{labelBtAreaUtente}}}</a> 
 
             <div id="serviceMessageRegisterHome" ></div>
             <!-- <button class="btCheckConn">Get Network Info</button> -->
@@ -322,6 +323,75 @@
         </div>
     </script>
 
+    <script id="userprofile-tpl" type="text/x-handlebars-template">
+        <div id="main-menu" class="main-menu"></div>
+        <div class='header'></div>
+
+        <div class="content-page internal-page">
+            <div id="serviceMessageRegister" >
+                <div class="preloader5">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="userName">{{loginName}}</div>
+            <div class="userRole {{loginRole}}">{{loginRole}}</div>
+
+        </div>
+
+        <div class="formBlock formOspiteUser" >
+
+            <input type="hidden" id="ospiteUser" name="ospiteUser" value="1" />
+
+            <hr/>
+            <input type="checkbox" id="privacyCheckOUser" name="privacyCheckOUser" value="1">
+            <label for="privacyCheckOUser">{{{labelPrivacy}}}</label>
+            <input type="checkbox" id="marketingCheckOUser" name="marketingCheckOUser" value="1">
+            <label for="marketingCheckOUser">{{{labelMarketing}}}</label>
+            <input type="checkbox" id="pushCheckOUser" name="pushCheckOUser" value="1">
+            <label for="pushCheckOUser">{{{labelPush}}}</label>
+
+            <button id="registerOspiteUser"  class="rounded-button">Aggiorna profilo</button><br/>
+
+        </div>
+
+        <div class="formBlock formProprietarioUser" style="display:none;" >
+
+            <small>{{{messOwner}}}</small>
+            
+            <input type="hidden" id="proprietarioUser" name="s" value="1" />
+            <label for="nomePUser" >{{{nome}}} *</label>
+            <input id="nomePUser" type="text" /><br/>
+            <label for="telPUser" >{{{tel}}}</label>
+            <input id="telPUser" type="text" /><br/>
+
+            <hr/>
+            <label>{{{titleMacchinari}}} *</label>
+            <div class="containerModelli">
+             <div class="element" id="div_1">
+              <input type="text" placeholder="{{labelModelMacchinari}}" id="cod_1" class="colModello" >
+              <input type="text" placeholder="{{labelSerialMacchinari}}" id="ser_1" class="colModello" >
+              <div id="addModel" >{{{labelBtAggiungi}}}</div>
+             </div>
+            </div>
+
+            <hr/>
+            <input type="checkbox" id="privacyCheckPUser" name="privacyCheckPUser" value="1">
+            <label for="privacyCheckPUser">{{{labelPrivacy}}}</label>
+            <input type="checkbox" id="marketingCheckPUser" name="marketingCheckPUser" value="1">
+            <label for="marketingCheckPUser">{{{labelMarketing}}}</label>
+            <input type="checkbox" id="pushCheckPUser" name="pushCheckPUser" value="1">
+            <label for="pushCheckPUser">{{{labelPush}}}</label>
+
+            <button id="registerProprietarioUser"  class="rounded-button">Aggiorna profilo</button><br/>
+
+        </div>
+
+    </script>
+
+
     <script id="page1" type="text/x-handlebars-template">
         <div id="main-menu" class="main-menu"></div>
         <div class='header'></div>
@@ -336,10 +406,17 @@
         <div id="main-menu" class="main-menu"></div>
         <div class='header'></div>
 
-        <div class="content-page itemBlock internal-page" >
+        <div >
             <h2>{{{pageTitle}}}</h2>
-            {{{pageContent}}}
+            Curabitur molestie iaculis nunc eu pharetra. Fusce suscipit pellentesque purus, facilisis maximus dui ultricies id. Cras molestie pellentesque tortor, in sollicitudin sem dapibus ut. Vestibulum rhoncus tellus ut lacus egestas, id varius libero efficitur. 
 
+            Cras scelerisque ex ut justo ultricies ornare. Integer sed aliquet arcu. Mauris vel urna ultricies turpis placerat placerat. Donec rutrum ligula sed purus condimentum mattis. 
+
+            Sed eget rhoncus dolor, id elementum lectus. Mauris consequat dolor purus, ut ultricies felis scelerisque in. Nullam feugiat turpis eget suscipit tempor. In neque ante, interdum sed felis non, sollicitudin tincidunt risus. Proin cursus non nibh quis auctor. In efficitur sapien elit, nec cursus nisi cursus at. Aliquam eget nulla in lorem porta lobortis. Donec tincidunt, lorem nec ullamcorper aliquam, augue neque bibendum risus, non tempor elit quam a nisi. Suspendisse at semper dui, et rutrum nulla. Vivamus ultricies condimentum risus at aliquet. Aenean nec viverra justo. Quisque nec orci quis tellus posuere ullamcorper in sit amet dolor. Praesent vel nisl eu dui porta dignissim quis non massa. Proin vitae consequat nibh.
+            
+            Sed eget rhoncus dolor, id elementum lectus. Mauris consequat dolor purus, ut ultricies felis scelerisque in. Nullam feugiat turpis eget suscipit tempor. In neque ante, interdum sed felis non, sollicitudin tincidunt risus. Proin cursus non nibh quis auctor. In efficitur sapien elit, nec cursus nisi cursus at. Aliquam eget nulla in lorem porta lobortis. Donec tincidunt, lorem nec ullamcorper aliquam, augue neque bibendum risus, non tempor elit quam a nisi. Suspendisse at semper dui, et rutrum nulla. Vivamus ultricies condimentum risus at aliquet. Aenean nec viverra justo. Quisque nec orci quis tellus posuere ullamcorper in sit amet dolor. Praesent vel nisl eu dui porta dignissim quis non massa. Proin vitae consequat nibh.
+
+            <br/><br/>
             <button id="btManuale" class="rounded-button tratto" onclick="window.open('http://www.katoimer.com');" >www.katoimer.com</button>
 
         </div>
