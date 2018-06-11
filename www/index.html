@@ -136,7 +136,7 @@
             <button class="button megaBt ospite" id="btOspite">Ospite</button>
             <button class="button megaBt proprietario" id="btProprietario">Proprietario</button>
         </div>
-        <div class="content-page internal-page scrollStandard">
+        <div class="content-page internal-page scrollRegistrazione">
             <div id="serviceMessageRegister" >
                 <div class="preloader5">
                     <span></span>
@@ -189,7 +189,7 @@
              <div class="element" id="div_1">
               <input type="text" placeholder="{{labelModelMacchinari}}" id="cod_1" class="colModello" >
               <input type="text" placeholder="{{labelSerialMacchinari}}" id="ser_1" class="colModello" >
-              <div id="addModel" >{{{labelBtAggiungi}}}</div>
+              <div id="addModel" ><div class="btAddModel">{{{labelBtAggiungi}}}</div></div>
              </div>
             </div>
 
@@ -330,7 +330,7 @@
         <div class='header'></div>
 
         <div class="content-page internal-page scrollStandard">
-            <div id="serviceMessageRegister" >
+            <div id="serviceMessageProfile" >
                 <div class="preloader5">
                     <span></span>
                     <span></span>
@@ -344,16 +344,15 @@
             <div class="formBlock formOspiteUser" >
 
                 <input type="hidden" id="ospiteUser" name="ospiteUser" value="1" />
-
                 <hr/>
-                    <input type="checkbox" id="privacyCheckOUser" name="privacyCheckOUser" value="1">
-                    <label for="privacyCheckOUser">{{{labelPrivacy}}}</label>
-                    <input type="checkbox" id="marketingCheckOUser" name="marketingCheckOUser" value="1">
-                    <label for="marketingCheckOUser">{{{labelMarketing}}}</label>
-                    <input type="checkbox" id="pushCheckOUser" name="pushCheckOUser" value="1">
-                    <label for="pushCheckOUser">{{{labelPush}}}</label>
+                <input type="checkbox" id="privacyCheckOUser" name="privacyCheckOUser" value="1">
+                <label for="privacyCheckOUser">{{{labelPrivacy}}}</label>
+                <input type="checkbox" id="marketingCheckOUser" name="marketingCheckOUser" value="1">
+                <label for="marketingCheckOUser">{{{labelMarketing}}}</label>
+                <input type="checkbox" id="pushCheckOUser" name="pushCheckOUser" value="1">
+                <label for="pushCheckOUser">{{{labelPush}}}</label>
 
-                    <button id="registerOspiteUser"  class="rounded-button">Aggiorna profilo</button><br/>
+                <button id="registerOspiteUser"  class="rounded-button">Aggiorna profilo</button><br/>
 
             </div>
 
@@ -361,29 +360,31 @@
 
                 <small>{{{messOwner}}}</small>
                     
-                    <input type="hidden" id="proprietarioUser" name="s" value="1" />
-                    <label for="nomePUser" >{{{nome}}} *</label>
-                    <input id="nomePUser" type="text" /><br/>
-                    <label for="telPUser" >{{{tel}}}</label>
-                    <input id="telPUser" type="text" /><br/>
+                <input type="hidden" id="proprietarioUser" name="s" value="1" />
+                <label for="nomePUser" >{{{nome}}} *</label>
+                <input id="nomePUser" type="text" /><br/>
+                <label for="telPUser" >{{{tel}}}</label>
+                <input id="telPUser" type="text" /><br/>
 
                 <hr/>
-                    <label>{{{titleMacchinari}}} *</label>
-                    <div class="containerModelli">
-                     <div class="element" id="div_1">
+                <label>{{{titleMacchinari}}} *</label>
+                <div class="containerModelli">
+                    <div class="element" id="div_1">
                       <input type="text" placeholder="{{labelModelMacchinari}}" id="cod_1" class="colModello" >
                       <input type="text" placeholder="{{labelSerialMacchinari}}" id="ser_1" class="colModello" >
                       <div id="addModel" >{{{labelBtAggiungi}}}</div>
-                     </div>
                     </div>
+                </div>
 
                 <hr/>
-                    <input type="checkbox" id="privacyCheckPUser" name="privacyCheckPUser" value="1">
-                    <label for="privacyCheckPUser">{{{labelPrivacy}}}</label>
-                    <input type="checkbox" id="marketingCheckPUser" name="marketingCheckPUser" value="1">
-                    <label for="marketingCheckPUser">{{{labelMarketing}}}</label>
-                    <input type="checkbox" id="pushCheckPUser" name="pushCheckPUser" value="1">
-                    <label for="pushCheckPUser">{{{labelPush}}}</label>
+                <input type="checkbox" id="privacyCheckPUser" name="privacyCheckPUser" value="1">
+                <label for="privacyCheckPUser">{{{labelPrivacy}}}</label>
+                
+                <input type="checkbox" id="marketingCheckPUser" name="marketingCheckPUser" value="1">
+                <label for="marketingCheckPUser">{{{labelMarketing}}}</label>
+                
+                <input type="checkbox" id="pushCheckPUser" name="pushCheckPUser" value="1">
+                <label for="pushCheckPUser">{{{labelPush}}}</label>
 
                 <button id="registerProprietarioUser"  class="rounded-button">Aggiorna profilo</button><br/>
 

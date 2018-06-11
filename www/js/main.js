@@ -198,8 +198,6 @@ var app = {
          // Add new macchinario
         $("#addModel").on('click', function(){
 
-            console.log("add cLick");
-
             var total_element = $(".element").length; // Finding total number of elements added
             var lastid = $(".element:last").attr("id"); // last <div> with element class id
             var split_id = lastid.split("_");
@@ -210,7 +208,7 @@ var app = {
                // Adding new div container after last occurance of element class
                $(".element:last").after("<div class='element' id='div_"+ nextindex +"'></div>");
                // Adding element to <div>
-               $("#div_" + nextindex).append("<input type='text' placeholder='Cod. Modello' id='cod_"+ nextindex +"' class='colModello'><input type='text' placeholder='Num. Seriale' id='_"+ nextindex +"' class='colModello' ><div id='remove_" + nextindex + "' class='remove'>X</div>");
+               $("#div_" + nextindex).append("<input type='text' placeholder='Cod. Modello' id='cod_"+ nextindex +"' class='colModello'><input type='text' placeholder='Num. Seriale' id='_"+ nextindex +"' class='colModello' ><div id='remove_" + nextindex + "' class='remove'><div class='btRemoveModel'>-</div></div>");
               }
              
         });
@@ -451,38 +449,58 @@ var app = {
         } else if (matchUser) { // pagina area utente
             history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
 
-            var userRole;
+            var userData = JSON.parse(app.getUserData());
 
-            if(localStorage.getItem('ospite') == 1){
-                userRole = "Ospite";
-            } else if(localStorage.getItem('proprietario') == 1) { 
-                userRole = "Proprietario"; 
+            if(userData.length > 0){
+
+                for (var i = 0; i < userData.length; i++) {
+                    console.log(userData[i].nome);
+                    // email
+                    // ospite
+                    // proprietario
+                    // authPrivacy
+                    // authMarketing
+                    // authPush
+                    // telefono
+                }
+
+                var userRole;
+
+                if(localStorage.getItem('ospite') == 1){
+                    userRole = "Ospite";
+                } else if(localStorage.getItem('proprietario') == 1) { 
+                    userRole = "Proprietario"; 
+                }
+
+                context = { loginName: localStorage.getItem('email'),
+                            loginRole: userRole,
+                            nome: app.messages.nameReg,
+                            tel: app.messages.telReg,
+                            titleMacchinari: app.messages.titleMacchinari,
+                            labelModelMacchinari: app.messages.labelModelMacchinari,
+                            labelSerialMacchinari: app.messages.labelSerialMacchinari,
+                            labelBtAggiungi: app.messages.labelBtAggiungi,
+                            labelPrivacy: app.messages.labelPrivacy,
+                            labelMarketing: app.messages.labelMarketing,
+                            labelPush: app.messages.labelPush}
+                $('body').html(self.userTpl(context));
+
+                contextH = { pageName: app.messages.menu10, backUrl: "#", boolMenu: 1 };
+                $(".header").html(app.mainHeader(contextH));
+                $("#serviceMessageRegister .preloader5").hide();
+
+                if(localStorage.getItem('ospite') == 1){
+                    $(".formOspiteUser").show();
+                    $(".formProprietarioUser").hide();
+                } else if(localStorage.getItem('proprietario') == 1) { 
+                    $(".formOspiteUser").hide();
+                    $(".formProprietarioUser").show();
+                }
+
+            } else {
+
             }
 
-            context = { loginName: localStorage.getItem('email'),
-                        loginRole: userRole,
-                        nome: app.messages.nameReg,
-                        tel: app.messages.telReg,
-                        titleMacchinari: app.messages.titleMacchinari,
-                        labelModelMacchinari: app.messages.labelModelMacchinari,
-                        labelSerialMacchinari: app.messages.labelSerialMacchinari,
-                        labelBtAggiungi: app.messages.labelBtAggiungi,
-                        labelPrivacy: app.messages.labelPrivacy,
-                        labelMarketing: app.messages.labelMarketing,
-                        labelPush: app.messages.labelPush}
-            $('body').html(self.userTpl(context));
-
-            contextH = { pageName: app.messages.menu10, backUrl: "#", boolMenu: 1 };
-            $(".header").html(app.mainHeader(contextH));
-            $("#serviceMessageRegister .preloader5").hide();
-
-            if(localStorage.getItem('ospite') == 1){
-                $(".formOspiteUser").show();
-                $(".formProprietarioUser").hide();
-            } else if(localStorage.getItem('proprietario') == 1) { 
-                $(".formOspiteUser").hide();
-                $(".formProprietarioUser").show();
-            }
 
 
         } else if (matchCat) { // pagina categoria catalogo
@@ -592,6 +610,7 @@ var app = {
                 success: function(data){
                     if(data.status=="success") {
                         localStorage.setItem("login", 1);
+                        localStorage.setItem("idUser", data.id_iscritto);
                         localStorage.setItem("email", email);
                         localStorage.setItem("ospite", data.ospite);
                         localStorage.setItem("proprietario", data.proprietario);
@@ -848,6 +867,39 @@ var app = {
         return privacyContent;
         
     },
+
+    // rceupero dati utente registrato ospite/proprietario
+    getUserData: function() {
+
+        var userData ="";
+        dataString = { idUser: localStorage.getItem("idUser"), tokenK: app.tokenAppKato };
+
+        $.ajax({
+            type: "POST",
+            url: 'https://app.katoimer.com/appadmin/userApp.php',
+            data: dataString,
+            dataType: "json",
+            crossDomain: true,
+            cache: false,
+            async: false,
+            beforeSend: function(){ $("#serviceMessageProfile").html(app.messages.sendAjax); },
+            success: function(response){
+                userData = response.data;
+                if(response.status==1) {
+                    history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
+                    $("#serviceMessageProfile").html(app.messages.ackAjaxIscritto);
+                } else if(response.status==0) {
+                    messError = app.codifyErr(data.cod)
+                    $("#serviceMessageProfile").html(messError);
+                }
+            },
+            error: function() {
+                $("#serviceMessageRegister").html(app.messages.nackAjax001);
+            }
+        });
+        return userData;
+        
+    },    
 
     // check if there is or not a connection
     setConn: function() {
