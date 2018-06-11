@@ -410,6 +410,9 @@ var app = {
                     $('body').html(self.staticContactPage(contextP));
                     contextH = { pageName: app.messages.menu7, backUrl: "#", boolMenu: 1 };
                     $('.header').html(self.mainHeader(contextH));
+                    app.headerHeight = $('.header').outerHeight();
+                    app.headerTitleHeight = $('.header').outerHeight();
+                    console.log("height header!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "+app.headerHeight);
                     break;
                 case "#pages6":  // pagina Assistenza
                     contextP = { pageTitle: "Inviaci la tua richiesta"};
