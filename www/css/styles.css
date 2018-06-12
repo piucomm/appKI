@@ -377,7 +377,7 @@ a, a:visited {
     }
 
     .formBlock label {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         font-weight: bold;
         color: #333333;
         padding-left: 2%;
@@ -434,12 +434,12 @@ a, a:visited {
 
 
 
-.containerModelli {
+.containerModelli, .containerModelliUpd {
     width:100%;
     display: table;
 }
 
-    .containerModelli .element { display:table-row; height: 46px; }
+    .containerModelli .element, .containerModelliUpd .elementUpd { display:table-row; height: 46px; }
 
     .formBlock input[type="text"].colModello {
         display:table-cell;
@@ -447,7 +447,7 @@ a, a:visited {
         margin-right: 12px;
     }
 
-        .remove, #addModel {
+        .remove, #addModel, #addModelUpd {
             display:table-cell;
         }
 
@@ -456,13 +456,13 @@ a, a:visited {
             padding: 8px 10px;
             font-size: 14px;
             background-color: #0d1d41;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 50%;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
             color: #ffffff;
         }
 
-        .btRemoveModel {
+        .btRemoveModel, .btRemoveModelUpd {
             display: inline-block;
             width: 26px;
             height: 26px;
@@ -478,7 +478,7 @@ a, a:visited {
 
     
 
-#serviceMessageLogin, #serviceMessageProfile {
+#serviceMessageLogin {
     padding: 2px 4px;
     font-size:1rem;
     color: #666666;
@@ -559,32 +559,37 @@ h2#title-item small {
     }
 
 
-.itemBlock { 
-    text-align: left;
-    height: 100%;
-}
-
-    .itemBlock button.rounded-button {
-        font-size: 0.8rem;
+    button.rounded-button {
+        font-size: 0.85rem;
         text-transform: uppercase;
         font-weight:bold;
         padding: 8px 10px;
         text-align:center;
+        color: #fff;
+        background: #0d1d41;
+        border: 0px solid #ddd;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        margin-top: 10px;
     }
 
-    .itemBlock button.rounded-button.oro {
+    }
+
+    button.rounded-button.oro {
         background: #fab14a;
         width:96%;
     }
 
-    .itemBlock button.rounded-button.tratto {
+    button.rounded-button.tratto {
         background: #ffffff;
         border: 1px solid #0d1d41;
         color: #0d1d41;
         width:96%;
     }
 
-    .itemBlock button.rounded-button.half-size {
+    button.rounded-button.half-size {
         width:48%;
         display:inline-block;
     }
@@ -766,6 +771,12 @@ li {
         padding: 2px 0px;
         color: #fff;
     }
+
+    #main-menu-dx .userName a{
+        color: #fff;
+        text-decoration:none;
+    }
+
 
     #main-menu-dx .userRole {
         display: block;
@@ -1025,6 +1036,16 @@ li>a.tappable-active {
     font-size: 0.8rem;
     line-height: 2rem;
 }
+
+#serviceMessageProfile  {
+    display: block;
+    color: #999;
+    font-weight: bold;
+    font-size: 0.8rem;
+    line-height: 2rem;
+}
+
+
 
 /* PRELOADER */
 

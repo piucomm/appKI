@@ -146,7 +146,6 @@ var app = {
                 // app.db.transaction(app.sqlStorage.getCatData());
             }
 
-            // app.showAlert('Store Initialized', 'Info');
         }
 
     },
@@ -154,6 +153,8 @@ var app = {
     renderRegisterView: function() {
         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
         context = { messOwner: app.messages.ownerAlertLabel,
+                    labelOspite: app.messages.labelOspite,
+                    labelProprietario: app.messages.labelProprietario,
                     email: app.messages.emailReg,
                     password: app.messages.pwReg,
                     password2: app.messages.pw2Reg,
@@ -165,7 +166,9 @@ var app = {
                     labelBtAggiungi: app.messages.labelBtAggiungi,
                     labelPrivacy: app.messages.labelPrivacy,
                     labelMarketing: app.messages.labelMarketing,
-                    labelPush: app.messages.labelPush}
+                    labelPush: app.messages.labelPush
+                };
+
         $('body').html(app.registerTpl(context));
 
         contextH = { pageName: app.messages.newRegisterBtLabel, backUrl: "#" };
@@ -208,7 +211,7 @@ var app = {
                // Adding new div container after last occurance of element class
                $(".element:last").after("<div class='element' id='div_"+ nextindex +"'></div>");
                // Adding element to <div>
-               $("#div_" + nextindex).append("<input type='text' placeholder='Cod. Modello' id='cod_"+ nextindex +"' class='colModello'><input type='text' placeholder='Num. Seriale' id='_"+ nextindex +"' class='colModello' ><div id='remove_" + nextindex + "' class='remove'><div class='btRemoveModel'>-</div></div>");
+               $("#div_" + nextindex).append("<input type='text' placeholder='Modello' id='cod_"+ nextindex +"' class='colModello'><input type='text' placeholder='Num. Seriale' id='_"+ nextindex +"' class='colModello' ><div id='remove_" + nextindex + "' class='remove'><div class='btRemoveModel'>-</div></div>");
               }
              
         });
@@ -261,14 +264,6 @@ var app = {
         app.setConn();
     },
 
-    showAlert: function (message, title) {
-        if (navigator.notification) {
-            navigator.notification.alert(message, null, title, 'OK');
-        } else {
-            alert(title ? (title + ": " + message) : message);
-        }
-    },
-
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         console.log('Received Event: ' + id);
@@ -306,6 +301,119 @@ var app = {
                 $(event.target).removeClass('tappable-active');
             });
         }
+
+    },
+
+    renderUserProfile: function(){
+
+        var userData = JSON.parse(app.getUserData()); //recupero i dati ajax dell'utente
+
+        var userRole, modelliArr;
+        var checkPriv = "", checkMark = "", checkPush = "";
+
+        if(userData[0].authPrivacy == 1){ checkPriv = "checked"; }
+        if(userData[0].authMarketing == 1){ checkMark = "checked"; }
+        if(userData[0].authPush == 1){ checkPush = "checked"; }
+
+        if(userData[0].ospite == 1){
+            userRole = "Ospite";
+        } else if(userData[0].proprietario == 1) { 
+            userRole = "Proprietario"; 
+        }
+
+        contextTpl = { loginName: userData[0].email,
+                loginRole: userRole,
+                labelNome: app.messages.nameReg,
+                nome: userData[0].nome,
+                labelTel: app.messages.telReg,
+                tel: userData[0].telefono,
+                titleMacchinari: app.messages.titleMacchinari,
+                labelModelMacchinari: app.messages.labelModelMacchinari,
+                labelSerialMacchinari: app.messages.labelSerialMacchinari,
+                labelBtAggiungi: app.messages.labelBtAggiungi,
+                labelPrivacy: app.messages.labelPrivacy,
+                checkedPriv: checkPriv,
+                labelMarketing: app.messages.labelMarketing,
+                checkedMark: checkMark,
+                labelPush: app.messages.labelPush,
+                checkedPush: checkPush,
+                btLabelUpdateOspite: app.messages.btLabelUpdateOspite,
+                btLabelUpdateProprietario: app.messages.btLabelUpdateProprietario,
+                btLabelRemoveUser: app.messages.btLabelRemoveUser,
+                btLabelUpgradeProprietario: app.messages.btLabelUpgradeProprietario,
+                tokenK: app.tokenAppKato
+        };
+        
+        $('body').html(app.userTpl(contextTpl));
+
+        contextH = { pageName: app.messages.menu10, backUrl: "#", boolMenu: 1 };
+        $(".header").html(app.mainHeader(contextH));
+        $("#serviceMessageProfile .preloader5").hide();
+
+        if(localStorage.getItem('ospite') == 1){
+            $(".formOspiteUser").show();
+            $(".formProprietarioUser").hide();
+        } else if(localStorage.getItem('proprietario') == 1) { 
+            $(".formOspiteUser").hide();
+            $(".formProprietarioUser").show();
+        }
+
+        // inserisco le macchine già presenti
+        modelliArr = userData[0].modelli;
+
+        if(modelliArr.length > 0) {
+
+            $("#idUpd_1").val(modelliArr[0].idm);
+            $("#codUpd_1").val(modelliArr[0].mod);
+            $("#serUpd_1").val(modelliArr[0].ser);
+
+            for (var i = 1; i < modelliArr.length; i++) {
+                nextindex = i + 1;
+                $(".elementUpd:last").after("<div class='elementUpd' id='divUpd_"+ nextindex +"'></div>");
+                $("#divUpd_" + nextindex).append("<input type='hidden' id='idUpd_"+ nextindex +"' ><input type='text' placeholder='Modello' id='codUpd_"+ nextindex +"' class='colModello'><input type='text' placeholder='Num. Seriale' id='serUpd_"+ nextindex +"' class='colModello' ><div id='removeUpd_" + nextindex + "' class='remove'><div class='btRemoveModelUpd'>-</div></div>");
+                $("#idUpd_" + nextindex).val(modelliArr[i].idm);
+                $("#codUpd_" + nextindex).val(modelliArr[i].mod);
+                $("#serUpd_" + nextindex).val(modelliArr[i].ser);
+            }
+        }
+
+        // Add new macchinario
+        $("#addModelUpd").on('click', function(){
+
+            var total_element = $(".elementUpd").length; // Finding total number of elements added
+            var lastid = $(".elementUpd:last").attr("id"); // last <div> with element class id
+            var split_id = lastid.split("_");
+            var nextindex = Number(split_id[1]) + 1;
+            var max = 15;
+              
+            if(total_element < max ){ // Check total number elements
+               // Adding new div container after last occurance of element class
+               $(".elementUpd:last").after("<div class='elementUpd' id='divUpd_"+ nextindex +"'></div>");
+               // Adding element to <div>
+               $("#divUpd_" + nextindex).append("<input type='hidden' id='idUpd_"+ nextindex +"' ><input type='text' placeholder='Modello' id='codUpd_"+ nextindex +"' class='colModello'><input type='text' placeholder='Num. Seriale' id='serUpd_"+ nextindex +"' class='colModello' ><div id='removeUpd_" + nextindex + "' class='remove'><div class='btRemoveModelUpd'>-</div></div>");
+              }
+             
+        });
+
+        // Remove macchinario
+        $('.containerModelliUpd').on('click','.remove', function(){
+             
+            var id = this.id;
+            var split_id = id.split("_");
+            var deleteindex = split_id[1];
+
+            $("#divUpd_" + deleteindex).remove();// Remove <div> with id
+        }); 
+
+        $('#updateOspite').on('click', function(){
+            app.updateRegistrazione('ospite');
+        }); 
+        $('#updateProprietario').on('click', function(){
+            app.updateRegistrazione('proprietario');
+        }); 
+        $('#removeUser').on('click', function(){
+            app.showConfirmDeleteUser('L\'operazione non può essere annullata','Vuoi davvero eliminare il tuo utente');
+        });
 
     },
 
@@ -449,59 +557,7 @@ var app = {
         } else if (matchUser) { // pagina area utente
             history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
 
-            var userData = JSON.parse(app.getUserData());
-
-            if(userData.length > 0){
-
-                for (var i = 0; i < userData.length; i++) {
-                    console.log(userData[i].nome);
-                    // email
-                    // ospite
-                    // proprietario
-                    // authPrivacy
-                    // authMarketing
-                    // authPush
-                    // telefono
-                }
-
-                var userRole;
-
-                if(localStorage.getItem('ospite') == 1){
-                    userRole = "Ospite";
-                } else if(localStorage.getItem('proprietario') == 1) { 
-                    userRole = "Proprietario"; 
-                }
-
-                context = { loginName: localStorage.getItem('email'),
-                            loginRole: userRole,
-                            nome: app.messages.nameReg,
-                            tel: app.messages.telReg,
-                            titleMacchinari: app.messages.titleMacchinari,
-                            labelModelMacchinari: app.messages.labelModelMacchinari,
-                            labelSerialMacchinari: app.messages.labelSerialMacchinari,
-                            labelBtAggiungi: app.messages.labelBtAggiungi,
-                            labelPrivacy: app.messages.labelPrivacy,
-                            labelMarketing: app.messages.labelMarketing,
-                            labelPush: app.messages.labelPush}
-                $('body').html(self.userTpl(context));
-
-                contextH = { pageName: app.messages.menu10, backUrl: "#", boolMenu: 1 };
-                $(".header").html(app.mainHeader(contextH));
-                $("#serviceMessageRegister .preloader5").hide();
-
-                if(localStorage.getItem('ospite') == 1){
-                    $(".formOspiteUser").show();
-                    $(".formProprietarioUser").hide();
-                } else if(localStorage.getItem('proprietario') == 1) { 
-                    $(".formOspiteUser").hide();
-                    $(".formProprietarioUser").show();
-                }
-
-            } else {
-
-            }
-
-
+            app.renderUserProfile();
 
         } else if (matchCat) { // pagina categoria catalogo
             
@@ -585,8 +641,14 @@ var app = {
 
         $("#menuDxLogout").click(function(){
             localStorage.setItem("login", 0);
+            localStorage.setItem("login", 0);
+            localStorage.setItem("idUser", "");
+            localStorage.setItem("email", "");
+            localStorage.setItem("ospite", 0);
+            localStorage.setItem("proprietario", 0);
             history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
             self.renderHomeView();
+            $("#serviceMessageLogin").html('Utente non trovato!');
         });
 
         // var html = self.mainMenu(context);
@@ -614,12 +676,14 @@ var app = {
                         localStorage.setItem("email", email);
                         localStorage.setItem("ospite", data.ospite);
                         localStorage.setItem("proprietario", data.proprietario);
-                        console.log("login ok... "+data.ospite+" "+data.proprietario);
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
                         app.renderHomeView();
                     } else if(data.status=="failed") {
                         localStorage.setItem("login", 0);
-                        console.log("login error... ");
+                        localStorage.setItem("idUser", "");
+                        localStorage.setItem("email", "");
+                        localStorage.setItem("ospite", 0);
+                        localStorage.setItem("proprietario", 0);
                         $("#login").html('Login');
                         $("#serviceMessageLogin").html('Utente non trovato!');
                     }
@@ -639,7 +703,7 @@ var app = {
     // registrazione nuovo utente ospite/proprietario
     addRegistrazione: function(typeReg) {
 
-        var email, password, nome, phone, stato, dataString, arrayModelSerial;
+        var email, password, password2, nome, phone, stato, dataString, arrayModelSerial;
         var flagO = 0, flagP = 0, authPrivacy = 0, authMarketing = 0, authPush = 0;
 
         var boolRequestedFields = 0;  // campi obbligatori
@@ -721,8 +785,6 @@ var app = {
                 tokenK: app.tokenAppKato
             };
 
-            // dataString="nome="+nome+"&email="+email+"&phone="+phone+"&password="+password+"&ospite="+flagO+"&proprietario="+flagP+"&stato="+stato+"&checkPriv="+authPrivacy+"&checkMark="+authMarketing+"&checkPush="+authPush+"&tokenK="+app.tokenAppKato;
-        
             $.ajax({
                 type: "POST",
                 url: 'https://app.katoimer.com/appadmin/addIscrittoApp.php',
@@ -750,6 +812,122 @@ var app = {
         }
 
     },
+
+
+    // modifica utente ospite/proprietario
+    updateRegistrazione: function(typeUpd) {
+
+        var email, password, nome, phone, stato, dataStringUpd, arrayModelSerial;
+        var flagO = 0, flagP = 0, authPrivacy = 0, authMarketing = 0, authPush = 0;
+
+        var boolRequestedFields = 0;  // campi obbligatori
+        var boolPasswords = 0;  // password coincidono?
+        var boolModels = 0; // almeno un modello inserito
+
+        var messError = "";
+
+        if(typeUpd == "ospite") {
+            nome= "";
+            // email= ;
+            phone= "";
+            flagO = 1;
+            stato = 1; // già attivo
+            boolRequestedFields = 1; // non ho campi obbligatori
+            boolModels = 1; // non ho macchine da inserire
+            if(document.getElementById("privacyCheckOUser").checked == true){ authPrivacy = 1; }  // checkbox privacy
+            if(document.getElementById("marketingCheckOUser").checked == true){ authMarketing = 1; }   // checkbox marketing
+            if(document.getElementById("pushCheckOUser").checked == true){ authPush = 1; }   // checkbox push
+
+        } else if(typeUpd == "proprietario") {
+            nome=$("#nomePUser").val();
+            // email=$("#emailP").val();
+            phone=$("#telPUser").val();
+            // password=$("#passwordP").val();
+            // password2=$("#passwordP2").val();
+            flagP = 1;
+            stato = 1; // attivo
+            if($.trim(nome).length>0){
+                boolRequestedFields = 1;
+            }
+            if(document.getElementById("privacyCheckPUser").checked == true){ authPrivacy = 1; }  // checkbox privacy
+            if(document.getElementById("marketingCheckPUser").checked == true){ authMarketing = 1; }   // checkbox marketing
+            if(document.getElementById("pushCheckPUser").checked == true){ authPush = 1; }   // checkbox push
+
+            var modserValue = new Array();
+            var arrayModelSerial = new Array();
+
+            if($("#codUpd_1").val() && $("#serUpd_1").val()){
+                $('.containerModelliUpd').children('.elementUpd').each(function () {
+                    $(this).children('input').each(function () {
+                        modserValue.push($(this).val());
+                    });
+                    arrayModelSerial.push(modserValue);
+                    modserValue = new Array();
+                });
+                boolModels = 1;
+            }
+        } 
+
+        // if($.trim(password) == $.trim(password2)) { 
+        //     boolPasswords = 1;
+        // }
+
+        if(boolRequestedFields != 1){
+            $("#serviceMessageProfile").html(app.messages.emptyField);
+        // } else if (boolPasswords != 1) {
+        //     $("#serviceMessageProfile").html(app.messages.pwNotEqual);
+        } else if (boolModels != 1) {
+            $("#serviceMessageProfile").html(app.messages.errorNoModels);
+        } else if (authPrivacy != 1) {
+            $("#serviceMessageProfile").html(app.messages.checkPrivacy);
+        } else {
+        
+            dataStringUpd = { id: localStorage.getItem("idUser"),
+                nome: nome,
+                phone: phone,
+                ospite: flagO,
+                proprietario: flagP,
+                stato: stato,
+                checkPriv: authPrivacy,
+                checkMark: authMarketing,
+                checkPush: authPush,
+                arrayModels: arrayModelSerial,
+                tokenK: app.tokenAppKato
+            };
+
+            $.ajax({
+                type: "POST",
+                url: 'https://app.katoimer.com/appadmin/updateIscrittoApp.php',
+                data: dataStringUpd,
+                dataType: "json",
+                crossDomain: true,
+                cache: false,
+                beforeSend: function(){ $("#serviceMessageRequest .preloader5").show(); $("#serviceMessageProfile").html(app.messages.sendAjax); },
+                success: function(data){
+                    history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
+                    app.renderUserProfile();
+                    $("#serviceMessageRequest .preloader5").hide();
+                    if(data.status==1) {
+
+                        $("#serviceMessageProfile").html(app.messages.ackAjaxUpdate);
+                        // in data.mess ho la mail dell'iscritto
+                    } else if(data.status==0) {
+                        messError = app.codifyErr(data.cod)
+                        $("#serviceMessageProfile").html(messError);
+                    }
+                },
+                error: function() {
+                    history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
+                    app.renderUserProfile();
+                    $("#serviceMessageRequest .preloader5").hide();
+                    $("#serviceMessageProfile").html(app.messages.nackAjax001);
+                }
+            });
+
+        }
+
+    },
+
 
     // invia richiesta assistenza
     addRequest: function() {
@@ -871,7 +1049,6 @@ var app = {
     // rceupero dati utente registrato ospite/proprietario
     getUserData: function() {
 
-        var userData ="";
         dataString = { idUser: localStorage.getItem("idUser"), tokenK: app.tokenAppKato };
 
         $.ajax({
@@ -882,8 +1059,9 @@ var app = {
             crossDomain: true,
             cache: false,
             async: false,
-            beforeSend: function(){ $("#serviceMessageProfile").html(app.messages.sendAjax); },
+            beforeSend: function(){ $("#serviceMessageRequest .preloader5").show(); $("#serviceMessageProfile").html(app.messages.sendAjax);  },
             success: function(response){
+                $("#serviceMessageRequest .preloader5").hide();
                 userData = response.data;
                 if(response.status==1) {
                     history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
@@ -989,6 +1167,65 @@ var app = {
             break;
         }
         return errmess;
+    },
+
+    showAlert: function (message, title) {
+        if (navigator.notification) {
+            navigator.notification.alert(message, null, title, 'OK');
+        } else {
+            alert(title ? (title + ": " + message) : message);
+        }
+    },
+
+    showConfirmDeleteUser: function (message, title) {
+        navigator.notification.confirm(
+            message, // message
+            app.onConfirmDeleteUser,            // callback to invoke with index of button pressed
+            title,           // title
+            ['OK','annulla']         // buttonLabels
+        );
+    },
+
+    onConfirmDeleteUser: function (buttonIndex) {
+        console.log("confirm "+buttonIndex);
+        if(buttonIndex == 1){
+            // elimino l'utente
+            dataString = { idUser: localStorage.getItem("idUser"), tokenK: app.tokenAppKato };
+
+            $.ajax({
+                type: "POST",
+                url: 'https://app.katoimer.com/appadmin/userDeleteApp.php',
+                data: dataString,
+                dataType: "json",
+                crossDomain: true,
+                cache: false,
+                async: false,
+                beforeSend: function(){ $("#serviceMessageRequest .preloader5").show(); $("#serviceMessageProfile").html(app.messages.sendAjax);  },
+                success: function(response){
+                    $("#serviceMessageRequest .preloader5").hide();
+                    userData = response.data;
+                    if(response.status==1) {
+                        localStorage.setItem("login", 0);
+                        localStorage.setItem("login", 0);
+                        localStorage.setItem("idUser", "");
+                        localStorage.setItem("email", "");
+                        localStorage.setItem("ospite", 0);
+                        localStorage.setItem("proprietario", 0);
+                        history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
+                        app.renderHomeView();
+                        $("#serviceMessageLogin").html('Utente eliminato dal sistema. Grazie per aver usato la nostra app.');
+                    } else if(response.status==0) {
+                        messError = app.codifyErr(data.cod)
+                        $("#serviceMessageProfile").html(messError);
+                    }
+                },
+                error: function() {
+                    $("#serviceMessageRegister").html(app.messages.nackAjax001);
+                }
+            });
+            return userData;
+            }
+        
     }
 
 };
