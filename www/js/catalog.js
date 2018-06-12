@@ -17,8 +17,8 @@ var CatalogoItems = function(successCallback, errorCallback) {
 		        for (var i = 0; i < dataCatalog.length; i++) {
 		            $(''+divFather).append(
 				    $('<li>').append(
-				        $('<a>').attr('href','#cat1?idcat='+dataCatalog[i].id_cat+'&titcat='+dataCatalog[i].titolo).append(
-				            dataCatalog[i].titolo)
+				        $('<a>').attr('href','#cat1?idcat='+dataCatalog[i].id_cat+'&titcat='+dataCatalog[i].titolo).append("<div>"+
+				            dataCatalog[i].titolo+"</div>")
 					)); 
 		        }
 
@@ -53,8 +53,7 @@ var CatalogoItems = function(successCallback, errorCallback) {
                     $('ul.category-list').append(
                     $('<li>').append(
                         $('<a>').attr('href','#item1?iditem='+dataCatalog[i].id+'&idcat='+dataCatalog[i].id_cat+'&titcat='+dataCatalog[i].titolo_cat).append(
-                            dataCatalog[i].titolo),
-                        $('<small>').append(dataCatalog[i].sottotitolo)
+                            "<div>"+dataCatalog[i].titolo+"<small>"+dataCatalog[i].sottotitolo+"</small></div>")
                     )); 
                 }
 

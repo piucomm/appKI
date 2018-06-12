@@ -166,7 +166,9 @@ var app = {
                     labelBtAggiungi: app.messages.labelBtAggiungi,
                     labelPrivacy: app.messages.labelPrivacy,
                     labelMarketing: app.messages.labelMarketing,
-                    labelPush: app.messages.labelPush
+                    labelPush: app.messages.labelPush,
+                    btLabelRegOspite: app.messages.btLabelRegOspite,
+                    btLabelRegProprietario:app.messages.btLabelRegProprietario
                 };
 
         $('body').html(app.registerTpl(context));
@@ -304,7 +306,7 @@ var app = {
 
     },
 
-    renderUserProfile: function(){
+    renderUserProfile: function(isUpgrade){
 
         var userData = JSON.parse(app.getUserData()); //recupero i dati ajax dell'utente
 
@@ -315,10 +317,14 @@ var app = {
         if(userData[0].authMarketing == 1){ checkMark = "checked"; }
         if(userData[0].authPush == 1){ checkPush = "checked"; }
 
-        if(userData[0].ospite == 1){
-            userRole = "Ospite";
-        } else if(userData[0].proprietario == 1) { 
-            userRole = "Proprietario"; 
+        if(isUpgrade==1){
+            userRole = "upgrade to:"+app.messages.labelProprietario;
+        } else {
+            if(userData[0].ospite == 1){
+                userRole = app.messages.labelOspite;
+            } else if(userData[0].proprietario == 1) { 
+                userRole = app.messages.labelProprietario;
+            }
         }
 
         contextTpl = { loginName: userData[0].email,
@@ -350,12 +356,17 @@ var app = {
         $(".header").html(app.mainHeader(contextH));
         $("#serviceMessageProfile .preloader5").hide();
 
-        if(localStorage.getItem('ospite') == 1){
-            $(".formOspiteUser").show();
-            $(".formProprietarioUser").hide();
-        } else if(localStorage.getItem('proprietario') == 1) { 
+        if(isUpgrade==1){
             $(".formOspiteUser").hide();
             $(".formProprietarioUser").show();
+        } else {
+            if(localStorage.getItem('ospite') == 1){
+                $(".formOspiteUser").show();
+                $(".formProprietarioUser").hide();
+            } else if(localStorage.getItem('proprietario') == 1) { 
+                $(".formOspiteUser").hide();
+                $(".formProprietarioUser").show();
+            }
         }
 
         // inserisco le macchine già presenti
@@ -405,12 +416,22 @@ var app = {
             $("#divUpd_" + deleteindex).remove();// Remove <div> with id
         }); 
 
+        if(isUpgrade==1){
+            $('#updateProprietario').html('Conferma l\'upgrade a '+app.messages.labelProprietario);
+        } else {
+            $('#upgradeOspite').on('click', function(){
+                app.renderUserProfile(1);  // 1 è isUpgrade
+            }); 
+        }
+
         $('#updateOspite').on('click', function(){
             app.updateRegistrazione('ospite');
         }); 
         $('#updateProprietario').on('click', function(){
             app.updateRegistrazione('proprietario');
-        }); 
+        });
+
+
         $('#removeUser').on('click', function(){
             app.showConfirmDeleteUser('L\'operazione non può essere annullata','Vuoi davvero eliminare il tuo utente');
         });
@@ -555,10 +576,7 @@ var app = {
             });
 
         } else if (matchUser) { // pagina area utente
-            history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
-
-            app.renderUserProfile();
-
+            app.renderUserProfile(0);
         } else if (matchCat) { // pagina categoria catalogo
             
             var matchParamsId = hash.match(/idcat=(\d+)/)
@@ -720,6 +738,7 @@ var app = {
             password2=$("#passwordO2").val();
             flagO = 1;
             stato=1; // già attivo
+            boolModels = 1;
             if($.trim(email).length>0 & $.trim(password).length>0 & $.trim(password2).length>0 ){
                 boolRequestedFields = 1;
             }
@@ -904,11 +923,12 @@ var app = {
                 cache: false,
                 beforeSend: function(){ $("#serviceMessageRequest .preloader5").show(); $("#serviceMessageProfile").html(app.messages.sendAjax); },
                 success: function(data){
-                    history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
-                    app.renderUserProfile();
                     $("#serviceMessageRequest .preloader5").hide();
                     if(data.status==1) {
-
+                        localStorage.setItem("ospite", 0);
+                        localStorage.setItem("proprietario", 1);
+                        history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
+                        app.renderUserProfile(0);
                         $("#serviceMessageProfile").html(app.messages.ackAjaxUpdate);
                         // in data.mess ho la mail dell'iscritto
                     } else if(data.status==0) {
@@ -918,7 +938,7 @@ var app = {
                 },
                 error: function() {
                     history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
-                    app.renderUserProfile();
+                    app.renderUserProfile(0);
                     $("#serviceMessageRequest .preloader5").hide();
                     $("#serviceMessageProfile").html(app.messages.nackAjax001);
                 }
@@ -1206,14 +1226,13 @@ var app = {
                     userData = response.data;
                     if(response.status==1) {
                         localStorage.setItem("login", 0);
-                        localStorage.setItem("login", 0);
                         localStorage.setItem("idUser", "");
                         localStorage.setItem("email", "");
                         localStorage.setItem("ospite", 0);
                         localStorage.setItem("proprietario", 0);
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
                         app.renderHomeView();
-                        $("#serviceMessageLogin").html('Utente eliminato dal sistema. Grazie per aver usato la nostra app.');
+                        $("#serviceMessageLogin").html(app.messages.nackAjax001);
                     } else if(response.status==0) {
                         messError = app.codifyErr(data.cod)
                         $("#serviceMessageProfile").html(messError);
