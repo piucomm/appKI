@@ -101,7 +101,13 @@ var app = {
         app.catalog = new CatalogoItems();
 
         if(localStorage.getItem('login') == 0 || localStorage.getItem('login') == null) { // il login in localStorage è false, devo fare il login se ho connessione...
-            $('body').html(this.loginTpl());
+            
+            context ={labelBtLogin: app.messages.logiBtLabel,
+                labelBtFb: app.messages.fbBtLabel,
+                labelBtGplus: app.messages.gplusBtLabel,
+                labelBtNewReg: app.messages.newRegisterBtLabel
+            }
+            $('body').html(this.loginTpl(context));
 
             $('#btNewRegistration').on('click', this.renderRegisterView);
             $('#login').on('click', this.checkLogin);
@@ -140,14 +146,33 @@ var app = {
             console.log("Home check conn "+localStorage.getItem( "language")+" conn "+localStorage.getItem('isConn'));
             
             if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
-                app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list"); // carico il catalogo nella lingua corrente
+                app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list", 0); // carico il catalogo nella lingua corrente
             } else {
-                // versione locale del catalogo
-                // app.db.transaction(app.sqlStorage.getCatData());
+                //versione locale del catalogo
+                app.db.transaction(this.getCatData2);
             }
 
         }
 
+    },
+
+
+    getCatData2: function(tx) {
+        console.log("Ok. leggo i dati in locale.");
+        tx.executeSql("SELECT * FROM cats",[], app.getSuccessCatLocal, app.getErrorCatLocal);
+        $('#serviceMessageRegisterHome').html("Ok. leggo i dati in locale.");
+        
+    },
+
+    getSuccessCatLocal: function(tx,results) { 
+
+        app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list", 1, results);
+
+    },
+
+    getErrorCatLocal: function(tx,result) { 
+        $('#serviceMessageRegisterHome').html("Error risultati ");
+        console.log("Errore get cats local");
     },
 
     renderRegisterView: function() {
@@ -247,23 +272,50 @@ var app = {
 
     onOffline: function() {
         app.receivedEvent('onOffline');
-        localStorage.setItem('isConn', 0);
+        localStorage.setItem('isConn', 0); // per sicurezza, in realtà lo setta la funzione setConn() sotto
+        app.setConn();
+        /* LOGIN PAGE */
         $('#login').prop('disabled', true);
         $('#btFbLogin').prop('disabled', true);
         $('#btGplusLogin').prop('disabled', true);
+        $('#btNewRegistration').prop('disabled', true);
+
+        /* HOME PAGE */
         $('#btSearchDealer').prop('disabled', true);
-        $('#serviceMessageLogin').html('Connessione assente. Impossibile effettuare login...');
-        app.setConn();
+        $('#btHelp').prop('disabled', true);
+
+        /* MENU DX */
+        $('#menuDxRicerca').prop('disabled', true);
+        $('#menuDxNews').prop('disabled', true);
+        $('#menuDxHelp').prop('disabled', true);
+        $('#menuDxYoutube').prop('disabled', true);
+        $('#menuDxYoutube').prop('disabled', true);
+
+        $('#serviceMessageLogin').html(app.messages.labelAlertNoconn);
     },
 
     onOnline: function() {
         app.receivedEvent('onOnline');
-        localStorage.setItem('isConn', 1);
+        localStorage.setItem('isConn', 1); // per sicurezza, in realtà lo setta la funzione setConn() sotto
+        app.setConn();
+        /* LOGIN PAGE */
         $('#login').prop('disabled', false);
         $('#btFbLogin').prop('disabled', false);
         $('#btGplusLogin').prop('disabled', false);
+        $('#btNewRegistration').prop('disabled', false);
+
+        /* HOME PAGE */
         $('#btSearchDealer').prop('disabled', false);
-        app.setConn();
+        $('#btHelp').prop('disabled', false);
+
+        /* MENU DX */
+        $('#menuDxRicerca').prop('disabled', false);
+        $('#menuDxNews').prop('disabled', false);
+        $('#menuDxHelp').prop('disabled', false);
+        $('#menuDxYoutube').prop('disabled', false);
+        $('#menuDxYoutube').prop('disabled', false);
+
+        $('#serviceMessageLogin').html("");
     },
 
     // Update DOM on a Received Event
@@ -490,33 +542,35 @@ var app = {
                     $('.header').html(self.mainHeader(contextH));
                     break;
                 case "#pages3": // pagina dealers/officine
-                    app.dealerObj.ajaxCallDealer("dealers"); // ajax call per dealer/officine
-                    app.dealerObj.ajaxCallDealer("officine"); // ajax call per dealer/officine
+                    if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
+                        app.dealerObj.ajaxCallDealer("dealers"); // ajax call per dealer/officine
+                        app.dealerObj.ajaxCallDealer("officine"); // ajax call per dealer/officine
+                        context = { btLabelDealer: app.messages.btLabelDealer, btLabelOfficine: app.messages.btLabelOfficine }
+                        $('body').html(self.searchTpl(context));
+                        this.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, app.viewOfItem );
+                        $('#btDealer').on('click', function(){
+                            app.typeOfItem = "dealers";
+                            app.dealerObj.showAllItems("dealers", app.sortOfItem, app.viewOfItem);
+                        });
+                        $('#btOfficina').on('click', function(){
+                            app.dealerObj.showAllItems("officine", app.sortOfItem, app.viewOfItem);
+                            app.typeOfItem = "officine", "distance";
+                        });
 
-                    $('body').html(self.searchTpl());
-                    this.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, app.viewOfItem );
-                    $('#btDealer').on('click', function(){
-                        app.typeOfItem = "dealers";
-                        app.dealerObj.showAllItems("dealers", app.sortOfItem, app.viewOfItem);
-                    });
-                    $('#btOfficina').on('click', function(){
-                        app.dealerObj.showAllItems("officine", app.sortOfItem, app.viewOfItem);
-                        app.typeOfItem = "officine", "distance";
-                    });
+                        $('.btListDealer').on('click', function(){
+                            app.viewOfItem = "list";
+                            app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, "list");
+                        });
 
-                    $('.btListDealer').on('click', function(){
-                        app.viewOfItem = "list";
-                        app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, "list");
-                    });
-
-                    $('.btListMap').on('click', function(){
-                        app.viewOfItem = "map";
-                        app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, "map");
-                    });
-   
-                    $('.search-key').on('keyup', $.proxy(self.findByName, this));
-                    contextH = { pageName: app.messages.menu4, backUrl: "#", boolMenu: 1 };
-                    $('.header').html(self.mainHeader(contextH));
+                        $('.btListMap').on('click', function(){
+                            app.viewOfItem = "map";
+                            app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, "map");
+                        });
+       
+                        $('.search-key').on('keyup', $.proxy(self.findByName, this));
+                        contextH = { pageName: app.messages.menu4, backUrl: "#", boolMenu: 1 };
+                        $('.header').html(self.mainHeader(contextH));
+                    } 
                     break;
                 case "#pages4":  // pagina Catalogo
                     $('body').html(self.catalogList());
@@ -524,7 +578,7 @@ var app = {
                     $('.header').html(self.mainHeader(contextH));
 
                     if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
-                        app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list-int"); // carico il catalogo nella lingua corrente
+                        app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list-int",0); // carico il catalogo nella lingua corrente
                     } else {
                         // versione locale del catalogo
                         // app.db.transaction(app.sqlStorage.getCatData());
@@ -539,23 +593,35 @@ var app = {
                     $('.header').html(self.mainHeader(contextH));
                     app.headerHeight = $('.header').outerHeight();
                     app.headerTitleHeight = $('.header').outerHeight();
-                    console.log("height header!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "+app.headerHeight);
                     break;
                 case "#pages6":  // pagina Assistenza
-                    contextP = { pageTitle: "Inviaci la tua richiesta"};
-                    $('body').html(self.staticAssistenzaPage(contextP));
-                    contextH = { pageName: app.messages.menu8, backUrl: "#", boolMenu: 1 };
-                    $('.header').html(self.mainHeader(contextH));
-                    $('#emailRequest').val(localStorage.getItem('email'));
-                    $("#serviceMessageRequest .preloader5").hide();
-                    $('#sendRequest').on('click', app.addRequest);
+                    if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
+                        contextP = { pageTitle: app.messages.titlePageHelp, 
+                            labelEmail: app.messages.emailReg,
+                            labelNome: app.messages.nameReg,
+                            labelEmailNew: app.messages.emailReg,
+                            labelModello: app.messages.labelModelMacchinari,
+                            labelOggetto: app.messages.oggettoForm,
+                            labelRequest: app.messages.textForm,
+                            btInvia: app.messages.btHelp,
+                            labelObbligatori: app.messages.labelObbligatori
+                        };
+                        $('body').html(self.staticAssistenzaPage(contextP));
+                        contextH = { pageName: app.messages.menu8, backUrl: "#", boolMenu: 1 };
+                        $('.header').html(self.mainHeader(contextH));
+                        $('#emailRequest').val(localStorage.getItem('email'));
+                        $("#serviceMessageRequest .preloader5").hide();
+                        $('#sendRequest').on('click', app.addRequest);
+                    }
                     break;
                 case "#pages9":  // pagina Privacy
-                    var txtPrivacy = app.getPrivacy();
-                    contextP = { pageContent: txtPrivacy };
-                    $('body').html(self.staticPage1(contextP));
-                    contextH = { pageName: "Privacy Policy", backUrl: "#" };
-                    $('.header').html(self.mainHeader(contextH));
+                    if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
+                        var txtPrivacy = app.getPrivacy();
+                        contextP = { pageContent: txtPrivacy };
+                        $('body').html(self.staticPage1(contextP));
+                        contextH = { pageName: "Privacy Policy", backUrl: "#" };
+                        $('.header').html(self.mainHeader(contextH));
+                    }
                     break;
                 default:
                     $('body').html(self.homeTpl());
@@ -564,55 +630,59 @@ var app = {
             }
             
         } else if (matchDetails) { // pagina dettaglio dealer
-            var matchParams = hash.match(/iditem=(\d+)/)
-            if (matchParams) {
-                var itemID = matchParams[1];
+            if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
+                var matchParams = hash.match(/iditem=(\d+)/)
+                if (matchParams) {
+                    var itemID = matchParams[1];
+                }
+                context = { btLabelDealer: app.messages.btLabelDealer, btLabelOfficine: app.messages.btLabelOfficine }
+                this.dealerObj.findById(app.typeOfItem,Number(itemID), function(deal) {
+                    $('body').html(self.employeeTpl(deal, context));
+                    contextH = { backUrl: "#pages3", boolMenu: 1 };
+                    $('.header').html(self.mainHeader(contextH));
+                });
             }
-            console.log("match details "+itemID);
-            this.dealerObj.findById(app.typeOfItem,Number(itemID), function(deal) {
-                $('body').html(self.employeeTpl(deal));
-                contextH = { backUrl: "#pages3", boolMenu: 1 };
-                $('.header').html(self.mainHeader(contextH));
-            });
 
         } else if (matchUser) { // pagina area utente
             app.renderUserProfile(0);
         } else if (matchCat) { // pagina categoria catalogo
-            
-            var matchParamsId = hash.match(/idcat=(\d+)/)
-            if (matchParamsId) {
-                var catID = matchParamsId[1];
-            }
-            var matchParamsTit = hash.match(/titcat=(\D+)/)
-            if (matchParamsTit) {
-                var catTit = matchParamsTit[1].toString(); //.replace(/%20/g, "-");
-            }
+            if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
+                var matchParamsId = hash.match(/idcat=(\d+)/)
+                if (matchParamsId) {
+                    var catID = matchParamsId[1];
+                }
+                var matchParamsTit = hash.match(/titcat=(\D+)/)
+                if (matchParamsTit) {
+                    var catTit = matchParamsTit[1].toString(); //.replace(/%20/g, "-");
+                }
 
-            contextH = { pageName: catTit, backUrl: "#", boolMenu: 1 }; // titolo pagina categoria
-            $('body').html(self.categoryPage());
-            $('.header').html(self.mainHeader(contextH));
-            app.catalog.getListItems(localStorage.getItem( "language"), catID); // carico gli items di quella categoria
+                contextH = { pageName: catTit, backUrl: "#", boolMenu: 1 }; // titolo pagina categoria
+                $('body').html(self.categoryPage());
+                $('.header').html(self.mainHeader(contextH));
+                app.catalog.getListItems(localStorage.getItem( "language"), catID); // carico gli items di quella categoria
+            }
 
         } else if (matchItem) { // pagina dettaglio prodotto
-            console.log("item ");
-            var matchParamsId = hash.match(/iditem=(\d+)/)
-            if (matchParamsId) {
-                var itemID = matchParamsId[1];
-            }
-            var matchParamsTit = hash.match(/titcat=(\D+)/)
-            if (matchParamsTit) {
-                var catTit = matchParamsTit[1]; //.replace(/%20/g, "-");
-            }
-            var matchParamsIDcat = hash.match(/idcat=(\d+)/)
-            if (matchParamsIDcat) {
-                var catId = matchParamsIDcat[1]; //.replace(/%20/g, "-");
-            }
+            if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
+                var matchParamsId = hash.match(/iditem=(\d+)/)
+                if (matchParamsId) {
+                    var itemID = matchParamsId[1];
+                }
+                var matchParamsTit = hash.match(/titcat=(\D+)/)
+                if (matchParamsTit) {
+                    var catTit = matchParamsTit[1]; //.replace(/%20/g, "-");
+                }
+                var matchParamsIDcat = hash.match(/idcat=(\d+)/)
+                if (matchParamsIDcat) {
+                    var catId = matchParamsIDcat[1]; //.replace(/%20/g, "-");
+                }
 
-            context1 = { idItem: itemID};
-            contextH = { pageName: catTit, backUrl: "#cat1?idcat="+catId+"&titcat="+catTit, boolMenu: 1 }; // titolo pagina prodotto
-            $('body').html(self.itemPage(context1));
-            $('.header').html(self.mainHeader(contextH));
-            app.catalog.getItem(localStorage.getItem( "language"), itemID, catID); // carico l'item
+                context1 = { idItem: itemID};
+                contextH = { pageName: catTit, backUrl: "#cat1?idcat="+catId+"&titcat="+catTit, boolMenu: 1 }; // titolo pagina prodotto
+                $('body').html(self.itemPage(context1));
+                $('.header').html(self.mainHeader(contextH));
+                app.catalog.getItem(localStorage.getItem( "language"), itemID, catID); // carico l'item
+            }
         }
     },
 
@@ -659,15 +729,28 @@ var app = {
 
         $("#menuDxLogout").click(function(){
             localStorage.setItem("login", 0);
-            localStorage.setItem("login", 0);
             localStorage.setItem("idUser", "");
             localStorage.setItem("email", "");
             localStorage.setItem("ospite", 0);
             localStorage.setItem("proprietario", 0);
             history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
             self.renderHomeView();
-            $("#serviceMessageLogin").html('Utente non trovato!');
         });
+
+        if(localStorage.getItem('isConn') != 1) { // se NON ho una connessione ad internet
+            $('#menuDxRicerca').prop('disabled', true);
+            $('#menuDxNews').prop('disabled', true);
+            $('#menuDxHelp').prop('disabled', true);
+            $('#menuDxYoutube').prop('disabled', true);
+            $('#menuDxYoutube').prop('disabled', true);
+        } else {
+            $('#menuDxRicerca').prop('disabled', false);
+            $('#menuDxNews').prop('disabled', false);
+            $('#menuDxHelp').prop('disabled', false);
+            $('#menuDxYoutube').prop('disabled', false);
+            $('#menuDxYoutube').prop('disabled', false);
+        }
+        
 
         // var html = self.mainMenu(context);
     },
@@ -707,12 +790,21 @@ var app = {
                     }
                 },
                 error: function() {
+                    localStorage.setItem("login", 0);
+                    localStorage.setItem("idUser", "");
+                    localStorage.setItem("email", "");
+                    localStorage.setItem("ospite", 0);
+                    localStorage.setItem("proprietario", 0);
                     $("#serviceMessageLogin").html(app.messages.nackAjax001);
                 }
             });
 
         } else {
             localStorage.setItem("login", 0);
+            localStorage.setItem("idUser", "");
+            localStorage.setItem("email", "");
+            localStorage.setItem("ospite", 0);
+            localStorage.setItem("proprietario", 0);
             console.log("login field error... ");
             $("#serviceMessageLogin").html(app.messages.emptyField);
         }
@@ -952,10 +1044,12 @@ var app = {
     // invia richiesta assistenza
     addRequest: function() {
         var emailRequest=$("#emailRequest").val();
+        var nomeRequest=$("#nomeRequest").val();
         var oggettoRequest=$("#oggettoRequest").val();
+        var modelRequest=$("#modelRequest").val();
         var txtRequest=$("#txtRequest").val();
-        var dataString="email="+emailRequest+"&oggetto="+oggettoRequest+"&testo="+txtRequest;
-        if($.trim(emailRequest).length>0 && $.trim(oggettoRequest).length>0 && $.trim(txtRequest).length>0)
+        var dataString="email="+emailRequest+"&nome="+nomeRequest+"&model="+modelRequest+"&oggetto="+oggettoRequest+"&testo="+txtRequest;
+        if($.trim(emailRequest).length>0 && $.trim(oggettoRequest).length>0 && $.trim(modelRequest).length>0 && $.trim(txtRequest).length>0)
         {
             $.ajax({
                 type: "POST",
@@ -967,14 +1061,14 @@ var app = {
                 beforeSend: function(){ $("#serviceMessageRequest .preloader5").show(); },
                 success: function(data){
                     $("#serviceMessageRequest .preloader5").hide();
+                    $("#nomeRequest").val("");
+                    $("#modelRequest").val("");
                     $("#oggettoRequest").val("");
                     $("#txtRequest").val("");
                     if(data.status==1) {
-                        $("#serviceMessageRequest").html(data.mess);
-                        history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
-                        $("#serviceMessageLogin").html(app.messages.ackAjaxRequest);
+                        $("#serviceMessageRequest").html(app.messages.ackAjaxRequest);
                     } else if(data.status==0) {
-                        $("#serviceMessageRequest").html('Error: '+data.mess);
+                        $("#serviceMessageRequest").html(app.messages.nackAjaxRequest);
                     }
                 },
                 error: function() {
@@ -1152,7 +1246,6 @@ var app = {
         $("#btFbLogin").html(app.messages.fbBtLabel);
         $("#btGplusLogin").html(app.messages.gplusBtLabel);
         $("#btNewRegistration").html(app.messages.newRegisterBtLabel);
-        //console.log(" cambio lingua "+localStorage.getItem( "language"));
         
     },
 

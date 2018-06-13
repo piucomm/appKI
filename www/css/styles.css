@@ -522,6 +522,8 @@ a, a:visited {
         text-align:center;
         background: #0d1d41;
         color:#fff;
+        margin-top: 10px;
+        margin-bottom: 0px;
     }
 
     .homeBlock button.rounded-button.oro, .homeBlock a.rounded-button.oro {
@@ -992,6 +994,12 @@ button[disabled]{
   color: #666666;
 }
 
+    ul.menu-lista li button:disabled, ul.menu-lista button[disabled] {
+        border: 0px solid #999999;
+        background-color: #0d1d41 !important;
+        color: #999999 !important;
+    }
+
 h1 {
     font-size: 18px;
     padding: 20 0 0 0;
@@ -1035,34 +1043,25 @@ li>a.tappable-active {
     background-color: #4286f5;
 }
 
-#serviceMessageRequest {
+#serviceMessageRequest, #serviceMessageRegister, #serviceMessageProfile {
     display: block;
     color: #999;
     font-weight: bold;
     font-size: 0.8rem;
-    line-height: 2rem;
+    line-height: 1.2rem;
 }
 
-#serviceMessageRegister {
+
+#serviceMessageRegisterHome {
     display: block;
-    color: #999;
+    color: #0d1d41;;
     font-weight: bold;
-    font-size: 0.8rem;
-    line-height: 2rem;
+    font-size: 1rem;
+    line-height: 1.4rem;
 }
-
-#serviceMessageProfile  {
-    display: block;
-    color: #999;
-    font-weight: bold;
-    font-size: 0.8rem;
-    line-height: 2rem;
-}
-
 
 
 /* PRELOADER */
-
 .preloader5 {
    display:inline-block;
    font-size:0px;

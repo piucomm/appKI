@@ -107,13 +107,13 @@
         <div class="loginBlock" >
             <input id="email" type="email" placeholder="email@domain.com" /><br/>
             <input id="password" type="password" placeholder="password" /><br/>
-            <button id="login" class="rounded-button">Entra</button><br/><br/>
+            <button id="login" class="rounded-button">{{{labelBtLogin}}}</button><br/><br/>
             <div id="serviceMessageLogin" ></div><br/>
+                
+            <button id="btFbLogin" class="button bt-facebook" >{{{labelBtFb}}}</button><br/>
+            <button id="btGplusLogin" class="button bt-google">{{{labelBtGplus}}}</button><br/><br/>
 
-            <button id="btFbLogin" class="button bt-facebook" >Login con Facebook</button><br/>
-            <button id="btGplusLogin" class="button bt-google">Login con Google+ </button><br/><br/>
-
-            <div id="btNewRegistration" class="button button-clear" >Nuova registrazione</div><br/><br/>
+            <div id="btNewRegistration" class="button button-clear" >{{{labelBtNewReg}}}</div><br/><br/>
 
         </div>
 
@@ -213,9 +213,9 @@
         
         <div class="content-page homeBlock" >
 
-            <a id="btSearchDealer" class="button rounded-button oro" href="#pages3" >{{{labelBtRicerca}}}</a> 
-            <a id="btHelp" class="button rounded-button half-size" href="#pages6" >{{{labelBtAssistenza}}}</a>
-            <a id="btProfile" class="button rounded-button half-size" href="#userprofile" >{{{labelBtAreaUtente}}}</a> 
+            <button id="btSearchDealer" class="button rounded-button oro" onclick="location.href='#pages3';" >{{{labelBtRicerca}}}</button> 
+            <button id="btHelp" class="button rounded-button half-size" onclick="location.href='#pages6';"  >{{{labelBtAssistenza}}}</button>
+            <button id="btProfile" class="button rounded-button half-size" onclick="location.href='#userprofile';"  >{{{labelBtAreaUtente}}}</button> 
 
             <div id="serviceMessageRegisterHome" ></div>
             <!-- <button class="btCheckConn">Get Network Info</button> -->
@@ -237,8 +237,8 @@
         <div class='header'></div>
 
         <div class="bottoneScelta">
-            <button class="button megaBt dealers" id="btDealer">Dealers</button>
-            <button class="button megaBt officine" id="btOfficina">Officine</button>
+            <button class="button megaBt dealers" id="btDealer">{{{btLabelDealer}}}</button>
+            <button class="button megaBt officine" id="btOfficina">{{{btLabelOfficine}}}</button>
         </div>
 
         <div class="dealerTable">
@@ -261,9 +261,9 @@
             <ul>
                 <li><h2>{{this.nome}}</h2>
                     {{#if this.dealer}}
-                    <div class="labelRole Dealer">Dealer</div>{{/if}}
+                    <div class="labelRole {{{btLabelDealer}}}">{{{btLabelDealer}}}</div>{{/if}}{{{btLabelDealer}}}{{{btLabelOfficine}}}
                     {{#if this.officina}}
-                    <div class="labelRole Officina">Officina</div>{{/if}}
+                    <div class="labelRole {{{btLabelOfficine}}}">{{{btLabelOfficine}}}</div>{{/if}}
                 </li>
                 <li>{{this.indirizzo}}<br/>
                 {{this.cap}} - {{this.citta}}<br/>
@@ -434,15 +434,19 @@
                     </div>
                 </div>
 
-                <label for="emailRequest" >Email *</label>
+                <label for="emailRequest" >{{{labelEmail}}} *</label>
                 <input id="emailRequest" type="text" disabled=disable ><br/>
-                <label for="oggettoRequest" >Oggetto *</label>
+                <label for="nomeRequest" >{{{labelNome}}}</label>
+                <input id="nomeRequest" type="text" ><br/>
+                <label for="modelRequest" >{{{labelModello}}} *</label>
+                <input id="modelRequest" type="text" ><br/>
+                <label for="oggettoRequest" >{{{labelOggetto}}} *</label>
                 <input id="oggettoRequest" type="text" ><br/>
-                <label for="txtRequest" >Testo richiesta *</label>
+                <label for="txtRequest" >{{{labelRequest}}} *</label>
                 <textarea id="txtRequest" class="txtRequest" ></textarea><br/>
-                <small>* campi obbligatori</small><br/>
+                <small>{{{labelObbligatori}}}</small><br/>
 
-                <button id="sendRequest"  class="rounded-button">Invia richiesta</button><br/>
+                <button id="sendRequest"  class="rounded-button">{{{btInvia}}}</button><br/>
                 
             </div>
         </div>

@@ -22,6 +22,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.fbBtLabel = "Login con Facebook";
 	    this.gplusBtLabel = "Login con Google+";
 	    this.newRegisterBtLabel = "Nuova registrazione";
+	    this.labelAlertNoconn = "Connessione assente. Impossibile effettuare login o nuove registrazioni.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 	    
 		// registrazione
 		this.labelOspite = "ospite";
@@ -52,10 +53,21 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    // home
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
 
+	    // dealers/officine
+	    this.btLabelDealer = "Dealer";
+	    this.btLabelOfficine = "Officine";
+
 	    // lista catalogo
 	    this.titCatalogo= "Catalogo";
 
 	    //dettaglio catalogo
+
+	    // assistenza
+	    this.titlePageHelp= "Inviaci la tua richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	   	this.oggettoForm= "Oggetto";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.textForm= "Testo richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btHelp= "Invia richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelObbligatori= "* campi obbligatori";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    //katoimer
 	    this.titKato = "";
@@ -73,6 +85,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackPrepareQuery = "Errore preparazione Query";
 	    this.sendAjax = "Invio richiesta...";
 	    this.ackAjaxRequest = "Richiesta inviata correttamente";
+	    this.nackAjaxRequest = "Errore invio richiesta";
 	    this.ackAjaxIscritto = "Iscrizione effettuata correttamente";
 	    this.ackAjaxUpdate = "Modifica effettuata correttamente";
 	    this.nackAjax001 = "Errore interno COD: 001"; // errore sending ajax request
@@ -144,11 +157,22 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    // home
 	    this.btSearchDealer = "Search Dealers/Workshops";
 
+	    // dealers/officine
+	    this.btLabelDealer = "Dealers";
+	    this.btLabelOfficine = "Workshops";
+
 	    // lista catalogo
 
 	    this.titCatalogo= "Catalogue";
 
 	    //dettaglio catalogo
+
+	    // assistenza
+	    this.titlePageHelp= "Send your request";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.oggettoForm= "Object";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.textForm= "Request";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btHelp= "Invia richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelObbligatori= "* campi obbligatori";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    //katoimer
 	    this.titKato = "";
@@ -166,6 +190,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackPrepareQuery = "Errore preparazione Query";
 	    this.sendAjax = "Sending request...";
 	    this.ackAjaxRequest = "Request correctly sent";
+	    this.nackAjaxRequest = "Error sending request";
 	    this.ackAjaxIscritto = "Subscription ";
 	    this.ackAjaxUpdate = "Modifica effettuata correttamente";
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
@@ -239,10 +264,21 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    // home
 	    this.btSearchDealer = "Suche Händler/Werkstatt";
 
+	    // dealers/officine
+	    this.btLabelDealer = "Händler";
+	    this.btLabelOfficine = "Werkstatt";
+
 	    // lista catalogo
 	    this.titCatalogo= "Katalog";
 
 	    //dettaglio catalogo
+
+	    // assistenza
+	    this.titlePageHelp= "Inviaci la tua richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	   	this.oggettoForm= "Oggetto";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.textForm= "Testo richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btHelp= "Invia richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelObbligatori= "* campi obbligatori";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    //katoimer
 	    this.titKato = "";
@@ -259,6 +295,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.nackPrepareQuery = "Errore preparazione Query";
 	    this.sendAjax = "Sending request...";
 	    this.ackAjaxRequest = "Request correctly sended";
+	    this.nackAjaxRequest = "Error sending request";
 	    this.ackAjaxIscritto = "Abonnement ";
 	    this.ackAjaxUpdate = "Modifica effettuata correttamente";
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
@@ -331,10 +368,21 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    // home
 	    this.btSearchDealer = "Búsqueda Distribuidores/Talleres";
 
+	    // dealers/officine
+	    this.btLabelDealer = "Distribuidores";
+	    this.btLabelOfficine = "Talleres";
+
 	    // lista catalogo
 	    this.titCatalogo= "Catálogo";
 
 	    //dettaglio catalogo
+
+	    // assistenza
+	    this.titlePageHelp= "Inviaci la tua richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.oggettoForm= "Oggetto";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.textForm= "Testo richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btHelp= "Invia richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelObbligatori= "* campi obbligatori";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    //katoimer
 	    this.titKato = "";
@@ -352,6 +400,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.nackPrepareQuery = "Errore preparazione Query";
 	    this.sendAjax = "Enviando pedido...";
 	    this.ackAjaxRequest = "Solicitud enviada correctamente";
+	    this.nackAjaxRequest = "Errore enviando solicitud";
 	    this.ackAjaxIscritto = "Subscrición ";
 	    this.ackAjaxUpdate = "Modifica effettuata correttamente";
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
@@ -423,10 +472,21 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    // home
 	    this.btSearchDealer = "Rechercher Revendeurs/Ateliers";
 
+	    // dealers/officine
+	    this.btLabelDealer = "Revendeurs";
+	    this.btLabelOfficine = "Ateliers";
+
 	    // lista catalogo
 	    this.titCatalogo= "Catalogue";
 
 	    //dettaglio catalogo
+
+	    // assistenza
+	    this.titlePageHelp= "Inviaci la tua richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.oggettoForm= "Oggetto";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.textForm= "Testo richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btHelp= "Invia richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelObbligatori= "* campi obbligatori";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    //katoimer
 	    this.titKato = "";
@@ -444,6 +504,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.nackPrepareQuery = "Errore preparazione Query";
 	    this.sendAjax = "Envoyer une requete...";
 	    this.ackAjaxRequest = "Demande correctement envoyée";
+	    this.nackAjaxRequest = "Erreur demande d'envoi";
 	    this.ackAjaxIscritto = "Abonnement ";
 	    this.ackAjaxUpdate = "Modifica effettuata correttamente";
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request

@@ -4,20 +4,20 @@ var WebSqlStore = function(successCallback, errorCallback) {
         var self = this;
         
         app.db.transaction(
-                function(tx) {
-                    self.tranx = tx;
-                    self.createTable();
+            function(tx) {
+                self.tranx = tx;
+                self.createTable();
                     //self.addItemData();
                     
-                },
-                function(error) {
-                    console.log('Transaction error: ' + error);
-                    if (errorCallback) errorCallback();
-                },
-                function() {
-                    console.log('Transaction success');
-                    if (successCallback) successCallback();
-                }
+            },
+            function(error) {
+                console.log('Transaction error: ' + error);
+                if (errorCallback) errorCallback();
+            },
+            function() {
+                console.log('Transaction success');
+                if (successCallback) successCallback();
+            }
         )
     }
 
@@ -38,7 +38,7 @@ var WebSqlStore = function(successCallback, errorCallback) {
             "id_cat INTEGER)";
         tx.executeSql(sql, null,
                 function() {
-                    console.log('Create table success');
+                    console.log('Create table items success');
                 },
                 function(tx, error) {
                     alert('Create table error: ' + error.message);
@@ -49,10 +49,10 @@ var WebSqlStore = function(successCallback, errorCallback) {
             "id INTEGER PRIMARY KEY, " +
             "titolo VARCHAR(200), " +
             "descrizione VARCHAR(100), " +
-            "immagine VARCHAR(50))";
+            "id_cat INTEGER)";
         tx.executeSql(sql2, null,
                 function() {
-                    console.log('Create table success');
+                    console.log('Create table cats success');
                 },
                 function(tx, error) {
                     alert('Create table error: ' + error.message);
@@ -72,12 +72,12 @@ var WebSqlStore = function(successCallback, errorCallback) {
             for (var i = 0; i < l; i++) {
                 e = products[i];
                 tx.executeSql(sql, [e.id, e.titolo, e.descrizione, e.immagine, e.id_cat],
-                        function() {
-                            console.log('INSERT success');
-                        },
-                        function(tx, error) {
-                            console.log('INSERT error: ' + error.message);
-                        });
+                    function() {
+                        console.log('INSERT success');
+                    },
+                    function(tx, error) {
+                         console.log('INSERT error: ' + error.message);
+                    });
             }
         }
     }
@@ -90,33 +90,33 @@ var WebSqlStore = function(successCallback, errorCallback) {
             console.log("add cat data "+products);
             var l = products.length;
             var sql = "INSERT OR REPLACE INTO cats " +
-                "(id, titolo, descrizione, immagine) " +
+                "(id, titolo, descrizione, id_cat) " +
                 "VALUES (?, ?, ?, ?)";
             var e;
             for (var i = 0; i < l; i++) {
                 e = products[i];
-                tx.executeSql(sql, [e.id, e.titolo, e.descrizione, e.immagine],
-                        function() {
-                            console.log('INSERT success');
-                        },
-                        function(tx, error) {
-                            console.log('INSERT error: ' + error.message);
-                        });
+                tx.executeSql(sql, [e.id, e.titolo, e.descrizione, e.id_cat],
+                    function() {
+                        console.log('INSERT success');
+                    },
+                    function(tx, error) {
+                        console.log('INSERT error: ' + error.message);
+                    });
             }
         }
     }
 
 
-    this.getCatData = function() { 
-        return function(tx) {
-            tx.executeSql("SELECT * FROM cats",[], this.getSuccess, this.getError);
-        }
+    this.getCatData = function(tx) { 
+        console.log("Ok. leggo i dati in locale.");
+        tx.executeSql("SELECT * FROM cats",[], this.getSuccess, this.getError);
+        
     }
 
     this.getSuccess = function(tx,result) { 
+        console.log("Titolo "+result.rows[0].titolo);
         $('#serviceMessageRegisterHome').html("Ok. leggo i dati in locale.");
-        console.log("Ok. leggo i dati in locale.");
-        console.log(result.rows[0].titolo);
+        
     }
 
     this.getError = function(tx,result) { 

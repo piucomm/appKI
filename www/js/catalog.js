@@ -1,37 +1,54 @@
 var CatalogoItems = function(successCallback, errorCallback) {
 
-    this.getListCatalog = function(lin, divFather) {  //lingua, div su cui caricare il catolog
-    	var dataString="lang="+lin+"&type=listcat"; // "+lin+"
-        $.ajax({
-            type: 'POST',
-            url: 'https://app.katoimer.com/appadmin/catalogApp.php',
-			data: dataString,
-            dataType: "json",
-            crossDomain: true,
-            cache: false,
-            beforeSend: function(){ $("#footer-button .preloader5").show();
-        	},
-            success: function (response){ 
-                $("#footer-button .preloader5").hide();
-		        dataCatalog = JSON.parse(response.data);
-		        for (var i = 0; i < dataCatalog.length; i++) {
-		            $(''+divFather).append(
-				    $('<li>').append(
-				        $('<a>').attr('href','#cat1?idcat='+dataCatalog[i].id_cat+'&titcat='+dataCatalog[i].titolo).append("<div>"+
-				            dataCatalog[i].titolo+"</div>")
-					)); 
-		        }
+    this.getListCatalog = function(lin, divFather, local, dataLocal) {  //lingua, div su cui caricare il catolog
 
-                // salvo nello storage sql locale
-                app.db.transaction(app.sqlStorage.addCatData(dataCatalog));
+        if(local == 0) { // ho connessione, versione live
+            var dataString="lang="+lin+"&type=listcat"; // "+lin+"
+            $.ajax({
+                type: 'POST',
+                url: 'https://app.katoimer.com/appadmin/catalogApp.php',
+                data: dataString,
+                dataType: "json",
+                crossDomain: true,
+                cache: false,
+                beforeSend: function(){ $("#footer-button .preloader5").show();
+                },
+                success: function (response){ 
+                    $("#footer-button .preloader5").hide();
+                    dataCatalog = JSON.parse(response.data);
+                    for (var i = 0; i < dataCatalog.length; i++) {
+                        $(''+divFather).append(
+                        $('<li>').append(
+                            $('<a>').attr('href','#cat1?idcat='+dataCatalog[i].id_cat+'&titcat='+dataCatalog[i].titolo).append("<div>"+
+                                dataCatalog[i].titolo+"</div>")
+                        )); 
+                    }
+                    // salvo nello storage sql locale
+                    app.db.transaction(app.sqlStorage.addCatData(dataCatalog));
 
-            },
-            error: function(error){
-                $("#footer-button .preloader5").hide();
-                console.log("Errore AJAX - getListCatalog "+error);
-                // window.location = "main.html";
+                },
+                error: function(error){
+                    $("#footer-button .preloader5").hide();
+                    console.log("Errore AJAX - getListCatalog "+error);
+                    // window.location = "main.html";
+                }
+            }); 
+        } else { // non ho connessione, versione locale
+            var len = dataLocal.rows.length;
+
+            for (var i=0; i<len; i++){
+                // dataLocal.rows.item(i).id
+                // dataLocal.rows.item(i).titolo
+                // dataLocal.rows.item(i).descrizione
+                $(''+divFather).append(
+                    $('<li>').append(
+                        $('<a>').attr('href','#cat1?idcat='+dataLocal.rows.item(i).id_cat+'&titcat='+dataLocal.rows.item(i).titolo).append("<div>"+
+                            dataLocal.rows.item(i).titolo+" local </div>")
+                )); 
             }
-        }); 
+            // $('#serviceMessageRegisterHome').html("Titolo: "+dataLocal.rows.item(0).titolo );
+        }
+
     }
 
     this.getListItems = function(lin, idcat) {
