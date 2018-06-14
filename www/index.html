@@ -60,15 +60,15 @@
             <ul class="menu-lista" >
                 <li><button onclick="location.href='#';" id="menuDxHome" >
                 {{{menu0}}}</button></li>
-                <li><button onclick="location.href='#pages4';" id="menuDxCatalogo" >
-                {{{menu1}}}</button></li>
                 <li><button onclick="location.href='#pages1';" id="menuDxPage1" >
                 {{{menu2}}}</button></li>
+                <li><button onclick="location.href='#pages4';" id="menuDxCatalogo" >
+                {{{menu1}}}</button></li>
                 <li><button onclick="location.href='#pages2';" id="menuDxPage2" >
                 {{{menu3}}}</button></li>
                 <li><button onclick="location.href='#pages3';" id="menuDxRicerca" >
                 {{{menu4}}}</button></li> <!-- solo online -->
-                <li><button onclick="location.href='#news';" id="menuDxNews" >
+                <li><button onclick="location.href='#pages7';" id="menuDxNews" >
                 {{{menu5}}}</button></li> <!-- solo online -->
                 <li><button onclick="location.href='#pages5';" id="menuDxContatti" >
                 {{{menu7}}}</button></li>
@@ -258,12 +258,20 @@
         <div class='header'></div>
 
         <div class="content-page scrollStandard" >
+
+            <div id="serviceMessageDealers" >
+                <div class="preloader5">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
             <ul>
                 <li><h2>{{this.nome}}</h2>
-                    {{#if this.dealer}}
-                    <div class="labelRole {{{btLabelDealer}}}">{{{btLabelDealer}}}</div>{{/if}}{{{btLabelDealer}}}{{{btLabelOfficine}}}
-                    {{#if this.officina}}
-                    <div class="labelRole {{{btLabelOfficine}}}">{{{btLabelOfficine}}}</div>{{/if}}
+
+                    <div class="labelRole Dealer" id="labelRoleDealer" ></div>
+                    <div class="labelRole Officina" id="labelRoleOfficina"></div>
                 </li>
                 <li>{{this.indirizzo}}<br/>
                 {{this.cap}} - {{this.citta}}<br/>
@@ -275,7 +283,7 @@
                 </li>
                 <li>
                 {{#if this.telefono}}<a href="tel:{{telefono}}" class="buttonLink" ><img src="img/icon_phone.png"></a>{{/if}}
-                {{#if this.lat}}<a href="http://maps.google.com/maps?ll={{this.lat}},{{this.long}}" class="buttonLink" ><img src="img/icon_map.png"></a>
+                {{#if this.lat}}<a href="https://www.google.com/maps/?q={{this.lat}},{{this.long}}" class="buttonLink" ><img src="img/icon_map.png"></a>
                 {{/if}}
                 </li>
             </ul>
@@ -314,9 +322,9 @@
 
             </div>
 
-            <button id="btBrochure" class="rounded-button half-size">Brochure</button>
-            <button id="btScheda" class="rounded-button half-size">Scheda Tecnica</button>
-            <button id="btManuale" class="rounded-button tratto">Richiedi manuale operatore</button>
+            <div id="button-item">
+
+            </div>
 
         </div>
     </script>
@@ -414,7 +422,6 @@
             {{#if pageTitle}}<h2>{{{pageTitle}}}</h2>{{/if}}
             {{{pageContent}}}
         </div>
-
     </script>
 
     <script id="assistenzaPage" type="text/x-handlebars-template">
@@ -450,7 +457,42 @@
                 
             </div>
         </div>
+    </script>
 
+
+    <script id="newslist-tpl" type="text/x-handlebars-template">
+        <div id="main-menu" class="main-menu"></div>
+        <div class='header'></div>
+
+        <div class="content-page scrollStandard" >
+            <ul class="news-list-int" >
+            </ul>
+        </div>
+    </script>
+
+    <script id="catnewsPage" type="text/x-handlebars-template">
+        <div id="main-menu" class="main-menu"></div>
+        <div class='header'></div>
+
+        <div class="content-page  scrollStandard" >
+            <h2 id="title-cat"></h2>
+            
+            <ul class="news-list"></ul>
+        </div>
+    </script>
+
+    <script id="newsPage" type="text/x-handlebars-template">
+        <div id="main-menu" class="main-menu"></div>
+        <div class='header'></div>
+
+        <div class="content-page internal-page scrollStandard" >
+            <h2 id="title-news"></h2>
+            
+            <div id="content-item">
+
+            </div>
+
+        </div>
     </script>
 
 
@@ -459,6 +501,7 @@
     <script src="js/dealers.js"></script>
     <script src="js/storage/websql-store.js"></script>
     <script src="js/catalog.js"></script>
+    <script src="js/news.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">

@@ -57,6 +57,23 @@ var WebSqlStore = function(successCallback, errorCallback) {
                 function(tx, error) {
                     alert('Create table error: ' + error.message);
                 });
+
+        tx.executeSql('DROP TABLE IF EXISTS news');
+        var sql = "CREATE TABLE IF NOT EXISTS news ( " +
+            "id INTEGER PRIMARY KEY, " +
+            "titolo VARCHAR(200), " +
+            "descrizione VARCHAR(100), " +
+            "immagine VARCHAR(50), " +
+            "id_cat INTEGER)";
+        tx.executeSql(sql, null,
+                function() {
+                    console.log('Create table news success');
+                },
+                function(tx, error) {
+                    alert('Create table News error: ' + error.message);
+                });
+
+
     }
 
     this.addItemData = function(products) { 
@@ -101,6 +118,29 @@ var WebSqlStore = function(successCallback, errorCallback) {
                     },
                     function(tx, error) {
                         console.log('INSERT error: ' + error.message);
+                    });
+            }
+        }
+    }
+
+    this.addNewsData = function(products) { 
+        return function(tx) {
+            // var products = [
+            //     {"id": 1, "titolo": "Ryan", "descrizione": "Howard", "immagine":"Vice President, North East", "id_cat": 0}
+            //     ];
+            var l = products.length;
+            var sql = "INSERT OR REPLACE INTO news " +
+                "(id, titolo, descrizione, immagine, id_cat) " +
+                "VALUES (?, ?, ?, ?, ?)";
+            var e;
+            for (var i = 0; i < l; i++) {
+                e = products[i];
+                tx.executeSql(sql, [e.id, e.titolo, e.descrizione, e.immagine, e.id_cat],
+                    function() {
+                        console.log('INSERT success');
+                    },
+                    function(tx, error) {
+                         console.log('INSERT error: ' + error.message);
                     });
             }
         }

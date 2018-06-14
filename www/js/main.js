@@ -33,12 +33,21 @@ var app = {
         this.categoryPage = Handlebars.compile($("#catalogPage").html());
         this.itemPage = Handlebars.compile($("#itemPage").html());
 
+        this.newsList = Handlebars.compile($("#newslist-tpl").html());
+
+        this.catNewsPage = Handlebars.compile($("#catnewsPage").html());
+        this.newsPage = Handlebars.compile($("#newsPage").html());
+
         //REGEXP per routing
         this.detailsPage = /^#pages(\d{1,})/;
         this.detailsURL = /^#dealoff(\d{1,})/;
         this.catURL = /^#cat(\d{1,})/;
         this.itemURL = /^#item(\d{1,})/;
         this.prodURL = /^#prod(\d{1,})/;
+
+        this.catnewsURL = /^#catnews(\d{1,})/;
+        this.newsURL = /^#news(\d{1,})/;
+        this.dettnewsURL = /^#dettnews(\d{1,})/;
 
         this.userPage = /^#userprofile/;
 
@@ -80,11 +89,12 @@ var app = {
         app.sqlStorage = new WebSqlStore();
         
         // inizializzo settaggi lingua
+        localStorage.setItem("language", 'it-IT');
         navigator.globalization.getPreferredLanguage(
             function (language) { 
-                app.setLanguage(language.value); // setto la lingua corrente
+                localStorage.setItem("language", language.value);
                 $("#"+language.value).addClass( "actual" );
-            } , function () { app.setLanguage('it-IT'); } // errore, setto l'italiano 
+            } , function () { localStorage.setItem("language", 'it-IT'); } // errore, setto l'italiano 
         );
 
         app.messages = new MessageTranslation(); // label traduzioni
@@ -99,6 +109,7 @@ var app = {
         app.setLanguage(localStorage.getItem('language')); // setto la lingua corrente
 
         app.catalog = new CatalogoItems();
+        app.news = new NewsItems();
 
         if(localStorage.getItem('login') == 0 || localStorage.getItem('login') == null) { // il login in localStorage è false, devo fare il login se ho connessione...
             
@@ -116,6 +127,7 @@ var app = {
             $('#btGplusLogin').on('click', this.checkGooglePlugin);
 
             $("#"+localStorage.getItem("language")).addClass( "actual" );
+            app.setLanguage(localStorage.getItem("language")); // setto la lingua corrente
 
             $('#it-IT').on('click', this.changedLanguage);
             $('#en-EN').on('click', this.changedLanguage);
@@ -142,8 +154,6 @@ var app = {
             $('.menu-lista').height(app.winHeight - 100); 
 
             $("#btSearchDealer").html(app.messages.btSearchDealer);
-
-            console.log("Home check conn "+localStorage.getItem( "language")+" conn "+localStorage.getItem('isConn'));
             
             if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
                 app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list", 0); // carico il catalogo nella lingua corrente
@@ -505,6 +515,10 @@ var app = {
         var matchItem = hash.match(app.itemURL);
         var matchProd = hash.match(app.prodURL);
 
+        var matchCatNews = hash.match(app.catnewsURL);
+        var matchNews = hash.match(app.newsURL);
+        var matchNewsDett = hash.match(app.dettnewsURL);
+
         var matchMenu = hash.match(app.mainMenuURL);
         var matchMenuClose = hash.match(app.mainMenuURLClose);
 
@@ -543,11 +557,17 @@ var app = {
                     break;
                 case "#pages3": // pagina dealers/officine
                     if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
-                        app.dealerObj.ajaxCallDealer("dealers"); // ajax call per dealer/officine
-                        app.dealerObj.ajaxCallDealer("officine"); // ajax call per dealer/officine
+                        
                         context = { btLabelDealer: app.messages.btLabelDealer, btLabelOfficine: app.messages.btLabelOfficine }
                         $('body').html(self.searchTpl(context));
+                        contextH = { pageName: app.messages.menu4, backUrl: "#", boolMenu: 1 };
+                        $('.header').html(self.mainHeader(contextH));
+
+                        app.dealerObj.ajaxCallDealer("dealers"); // ajax call per dealer/officine
+                        app.dealerObj.ajaxCallDealer("officine"); // ajax call per dealer/officine
+
                         this.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, app.viewOfItem );
+
                         $('#btDealer').on('click', function(){
                             app.typeOfItem = "dealers";
                             app.dealerObj.showAllItems("dealers", app.sortOfItem, app.viewOfItem);
@@ -568,8 +588,7 @@ var app = {
                         });
        
                         $('.search-key').on('keyup', $.proxy(self.findByName, this));
-                        contextH = { pageName: app.messages.menu4, backUrl: "#", boolMenu: 1 };
-                        $('.header').html(self.mainHeader(contextH));
+                        
                     } 
                     break;
                 case "#pages4":  // pagina Catalogo
@@ -614,6 +633,16 @@ var app = {
                         $('#sendRequest').on('click', app.addRequest);
                     }
                     break;
+                case "#pages7":  // pagina News
+                    $('body').html(self.newsList());
+                    contextH = { pageName: app.messages.titNews, backUrl: "#", boolMenu: 1 };
+                    $('.header').html(self.mainHeader(contextH));
+
+                    if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
+                        app.news.getListNewsCat(localStorage.getItem( "language"), "ul.news-list-int",0); 
+                    } 
+                    break;
+
                 case "#pages9":  // pagina Privacy
                     if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
                         var txtPrivacy = app.getPrivacy();
@@ -637,9 +666,21 @@ var app = {
                 }
                 context = { btLabelDealer: app.messages.btLabelDealer, btLabelOfficine: app.messages.btLabelOfficine }
                 this.dealerObj.findById(app.typeOfItem,Number(itemID), function(deal) {
-                    $('body').html(self.employeeTpl(deal, context));
-                    contextH = { backUrl: "#pages3", boolMenu: 1 };
+                    $('body').html(self.employeeTpl(deal));
+                    contextH = { pageName: app.messages.menu4, backUrl: "#pages3", boolMenu: 1 };
                     $('.header').html(self.mainHeader(contextH));
+                    $("#serviceMessageDealers .preloader5").hide();
+                    $('#labelRoleDealer').hide();
+                    $('#labelRoleOfficina').hide();
+                    if(deal.dealer == 1){
+                        $('#labelRoleDealer').html(app.messages.btLabelDealer);
+                        $('#labelRoleDealer').show();
+                    }
+                    if(deal.officina == 1){
+                        $('#labelRoleOfficina').html(app.messages.btLabelOfficina);
+                        $('#labelRoleOfficina').show();
+                    }
+                    
                 });
             }
 
@@ -653,10 +694,10 @@ var app = {
                 }
                 var matchParamsTit = hash.match(/titcat=(\D+)/)
                 if (matchParamsTit) {
-                    var catTit = matchParamsTit[1].toString(); //.replace(/%20/g, "-");
+                    var catTit = matchParamsTit[1].toString(); //.replace(/%20/g, " ");
                 }
 
-                contextH = { pageName: catTit, backUrl: "#", boolMenu: 1 }; // titolo pagina categoria
+                contextH = { pageName: catTit, backUrl: "#", boolMenu: 1 }; // titolo pagina categoria hash+" "+
                 $('body').html(self.categoryPage());
                 $('.header').html(self.mainHeader(contextH));
                 app.catalog.getListItems(localStorage.getItem( "language"), catID); // carico gli items di quella categoria
@@ -670,11 +711,11 @@ var app = {
                 }
                 var matchParamsTit = hash.match(/titcat=(\D+)/)
                 if (matchParamsTit) {
-                    var catTit = matchParamsTit[1]; //.replace(/%20/g, "-");
+                    var catTit = matchParamsTit[1];
                 }
                 var matchParamsIDcat = hash.match(/idcat=(\d+)/)
                 if (matchParamsIDcat) {
-                    var catId = matchParamsIDcat[1]; //.replace(/%20/g, "-");
+                    var catId = matchParamsIDcat[1];
                 }
 
                 context1 = { idItem: itemID};
@@ -682,6 +723,44 @@ var app = {
                 $('body').html(self.itemPage(context1));
                 $('.header').html(self.mainHeader(contextH));
                 app.catalog.getItem(localStorage.getItem( "language"), itemID, catID); // carico l'item
+            }
+        } else if (matchCatNews) { // pagina categoria news
+            if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
+                var matchParamsId = hash.match(/idcat=(\d+)/)
+                if (matchParamsId) {
+                    var catID = matchParamsId[1];
+                }
+                var matchParamsTit = hash.match(/titcat=(\S+)/)
+                if (matchParamsTit) {
+                    var catTit = matchParamsTit[1].replace(/%20/g, " ");
+                }
+
+                contextH = { pageName: catTit, backUrl: "#pages7", boolMenu: 1 }; // titolo pagina categoria
+                $('body').html(self.catNewsPage());
+                $('.header').html(self.mainHeader(contextH));
+                app.news.getListNews(localStorage.getItem( "language"), catID); // carico gli items di quella categoria
+            }
+
+        } else if (matchNews) { // pagina dettaglio News
+            if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
+                var matchParamsId = hash.match(/iditem=(\d+)/)
+                if (matchParamsId) {
+                    var itemID = matchParamsId[1];
+                }
+                var matchParamsTit = hash.match(/titcat=(\S+)/)
+                if (matchParamsTit) {
+                    var catTit = matchParamsTit[1].replace(/%20/g, " ");
+                }
+                var matchParamsIDcat = hash.match(/idcat=(\d+)/)
+                if (matchParamsIDcat) {
+                    var catId = matchParamsIDcat[1];
+                }
+
+                context1 = { idItem: itemID};
+                contextH = { pageName: catTit, backUrl: "#catnews1?idcat="+catId+"&titcat="+catTit, boolMenu: 1 }; // titolo pagina prodotto
+                $('body').html(self.newsPage(context1));
+                $('.header').html(self.mainHeader(contextH));
+                app.news.getNews(localStorage.getItem( "language"), itemID, catID); // carico il dettaglio news
             }
         }
     },
@@ -1262,6 +1341,8 @@ var app = {
                 app.messages.setSpanish();break;
             case "de-DE":
                 app.messages.setDeutch();break;
+            default:
+                app.messages.setItalian();break;
         }
     },
 

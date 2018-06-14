@@ -87,13 +87,14 @@ var DealersOfficine = function(successCallback, errorCallback) {
         var latD = 43.48832915873673; //parseFloat(localStorage.getItem("latDevice"));
         var longD = 11.12504082682124; //parseFloat(localStorage.getItem("longDevice"));
 
+
         $('#dealers-map').empty();
         $('ul.dealers-list').empty();
 
         if(typeItem == "dealers"){
-            iconMarker = "/img/icon-dealers.png";
+            iconMarker = "img/icon-dealers.png";
         } else if(typeItem == "officine") {
-            iconMarker = "/img/icon-officine.png";
+            iconMarker = "img/icon-officine.png";
         }   
 
         // setto l'altezza della mappa con la massima altezza disponibile
@@ -113,21 +114,35 @@ var DealersOfficine = function(successCallback, errorCallback) {
         var markerDevice = new google.maps.Marker({
                 position: latLngDevice,
                 draggable: false,
-                label: "X"
+                icon: "img/icon-yourposition.png"
             });
+
         markers.push(markerDevice);
 
         for (var i = 0; i < dataItems.length; i++) {
             var latLng = new google.maps.LatLng(dataItems[i].lat, dataItems[i].long);
+            var idD = "#"+dataItems[i].id;
             var marker = new google.maps.Marker({
                 position: latLng,
                 draggable: false,
-                label: i+"A"
-                // icon: iconMarker
+                // label: idD,
+                icon: iconMarker,
+                title: dataItems[i].nome
             });
+
+            var content = "<b><a href=\"#dealoff1?iditem="+dataItems[i].id+"\">"+dataItems[i].nome+"</a></b><br/>"+dataItems[i].indirizzo+"<br/>"+dataItems[i].citta;
+
+            var infowindow = new google.maps.InfoWindow({ content: "test" });
+
+            google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+                return function() {
+                    infowindow.setContent(content);
+                    infowindow.open(map,marker);
+                };
+            })(marker,content,infowindow)); 
+
             markers.push(marker);
         }
-
 
         // Add a marker clusterer to manage the markers.
         var markerCluster = new MarkerClusterer(map, markers,
@@ -173,17 +188,18 @@ var DealersOfficine = function(successCallback, errorCallback) {
             crossDomain : true,
             dataType: 'json', 
             async: false,
-
+            beforeSend: function(){ $("#serviceMessageDealers .preloader5").show(); $("#serviceMessageDealers").html(app.messages.sendAjax);},
             success: function (response){ 
-                // console.log(JSON.stringify(response));
                 window.localStorage.setItem(typeData, response.data);  // JSON.stringify(response) response.data
+                $("#serviceMessageDealers .preloader5").hide();
+                $("#serviceMessageDealers").html("");
                 callLater(successCallback);
             },
             error: function(error){
-                         //alert(response.success);
-                alert('Could not connect to the database per ' + typeData + '' + error);
-                        // window.location = "main.html";
+                $("#serviceMessageDealers .preloader5").hide();
+                $("#serviceMessageDealers").html(app.messages.nackAjaxRequest);
             }
+
         }); 
     }
 

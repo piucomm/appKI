@@ -118,6 +118,22 @@ var CatalogoItems = function(successCallback, errorCallback) {
                         $('<div class="text-item">').append(
                         dataCatalog[i].descrizione)
                     ); 
+
+                    if(dataCatalog[i].attach1 != ""){
+                        $('#button-item').append(
+                            $('<button id="btBrochure" class="rounded-button half-size" onclick="location.href="'+dataCatalog[i].attach1+'" " >'+app.messages.labelBtBrochure+'</button>')
+                        );
+                    }
+
+                    if(dataCatalog[i].attach2 != ""){
+                        $('#button-item').append(
+                            $('<button id="btScheda" class="rounded-button half-size" onclick="location.href="'+dataCatalog[i].attach2+'" ">'+app.messages.labelBtSchedatecnica+'</button>')
+                        );
+                    }
+
+                    $('#button-item').append(
+                        $('<button id="btManuale" class="rounded-button tratto">'+app.messages.labelBtManuale+'</button>')
+                    );
                 }
             },
             error: function(error){

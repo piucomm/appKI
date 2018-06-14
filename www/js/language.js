@@ -55,12 +55,20 @@ var MessageTranslation = function(successCallback, errorCallback) {
 
 	    // dealers/officine
 	    this.btLabelDealer = "Dealer";
+	    this.btLabelDealers = "Dealers";
+	    this.btLabelOfficina = "Officina";
 	    this.btLabelOfficine = "Officine";
-
+	    
 	    // lista catalogo
 	    this.titCatalogo= "Catalogo";
 
 	    //dettaglio catalogo
+	    this.labelBtBrochure = "Brochure";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtSchedatecnica = "Scheda tecnica";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtManuale = "Richiedi manuale operatore";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+
+	    // lista news
+	    this.titNews= "News";
 
 	    // assistenza
 	    this.titlePageHelp= "Inviaci la tua richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
@@ -158,14 +166,22 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.btSearchDealer = "Search Dealers/Workshops";
 
 	    // dealers/officine
-	    this.btLabelDealer = "Dealers";
-	    this.btLabelOfficine = "Workshops";
+	    this.btLabelDealer = "Dealer";
+	    this.btLabelDealers = "Dealers";
+	    this.btLabelOfficina = "Workshop";
+	    this.btLabelOfficine = "Workshops";	    
 
 	    // lista catalogo
 
 	    this.titCatalogo= "Catalogue";
 
 	    //dettaglio catalogo
+	    this.labelBtBrochure = "Brochure";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtSchedatecnica = "Scheda tecnica";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtManuale = "Richiedi manuale operatore";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+
+	    // lista news
+	    this.titNews= "News";
 
 	    // assistenza
 	    this.titlePageHelp= "Send your request";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
@@ -266,12 +282,20 @@ var MessageTranslation = function(successCallback, errorCallback) {
 
 	    // dealers/officine
 	    this.btLabelDealer = "Händler";
+	    this.btLabelDealers = "Händler";
+	    this.btLabelOfficina = "Werkstatt";
 	    this.btLabelOfficine = "Werkstatt";
 
 	    // lista catalogo
 	    this.titCatalogo= "Katalog";
 
+	    // lista news
+	    this.titNews= "News";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+
 	    //dettaglio catalogo
+	    this.labelBtBrochure = "Brochure";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtSchedatecnica = "Scheda tecnica";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtManuale = "Richiedi manuale operatore";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    // assistenza
 	    this.titlePageHelp= "Inviaci la tua richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
@@ -369,13 +393,21 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.btSearchDealer = "Búsqueda Distribuidores/Talleres";
 
 	    // dealers/officine
-	    this.btLabelDealer = "Distribuidores";
+	    this.btLabelDealer = "Distribuidor";
+	    this.btLabelDealers = "Distribuidores";
+	    this.btLabelOfficina = "Taller";
 	    this.btLabelOfficine = "Talleres";
 
 	    // lista catalogo
 	    this.titCatalogo= "Catálogo";
 
 	    //dettaglio catalogo
+	    this.labelBtBrochure = "Brochure";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtSchedatecnica = "Scheda tecnica";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtManuale = "Richiedi manuale operatore";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+
+	    // lista news
+	    this.titNews= "News";
 
 	    // assistenza
 	    this.titlePageHelp= "Inviaci la tua richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
@@ -473,13 +505,21 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.btSearchDealer = "Rechercher Revendeurs/Ateliers";
 
 	    // dealers/officine
-	    this.btLabelDealer = "Revendeurs";
+	    this.btLabelDealer = "Revendeur";
+	    this.btLabelDealers = "Revendeurs";
+	    this.btLabelOfficina = "Atelier";
 	    this.btLabelOfficine = "Ateliers";
 
 	    // lista catalogo
 	    this.titCatalogo= "Catalogue";
 
 	    //dettaglio catalogo
+	    this.labelBtBrochure = "Brochure";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtSchedatecnica = "Scheda tecnica";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtManuale = "Richiedi manuale operatore";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+
+	    // lista news
+	    this.titNews= "News";
 
 	    // assistenza
 	    this.titlePageHelp= "Inviaci la tua richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW

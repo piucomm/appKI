@@ -229,7 +229,7 @@ a, a:visited {
 
 
     /* LISTA ITEM */
-    ul.category-list, ul.employee-list, ul.catalog-list-int  {
+    ul.category-list, ul.employee-list, ul.catalog-list-int, ul.news-list, ul.news-list-int  {
         list-style-type: none;
         margin:0px;
         padding: 0px;
@@ -240,7 +240,7 @@ a, a:visited {
         border-bottom: 0px;
     }
 
-        ul.category-list li, ul.catalog-list-int li {
+        ul.category-list li, ul.catalog-list-int li, ul.news-list li, ul.news-list-int li {
             border: none;
             background: #ffffff;
             padding:0px;
@@ -252,15 +252,30 @@ a, a:visited {
             font-weight: bold;
         }
 
-            ul.category-list li div, ul.catalog-list-int li div {
+            ul.category-list li div, ul.catalog-list-int li div, ul.news-list li .list-content, ul.news-list-int li div {
                 padding: 12px 10px;
             }
 
-            ul.category-list li div small, ul.catalog-list-int li small {
+                ul.news-list li .list-content {
+                    font-family: sans-serif;
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+
+            ul.category-list li div small, ul.catalog-list-int li small, ul.news-list-int li small, ul.news-list .list-content li {
                 display: block;
                 font-size: 11px;
                 font-weight: normal;
             }
+
+            ul.news-list-int li .data-news, ul.news-list li .data-news {
+                display: block;
+                font-size: 12px;
+                margin-bottom: 4px;
+                font-weight: normal;
+                font-style:italic;
+            }
+
 
         ul.dealers-list li, ul.officine-list li {
             border: none;
@@ -293,16 +308,16 @@ a, a:visited {
                     color: #ff9933;
                 }
 
-        ul.category-list li:last-child, ul.dealers-list li:last-child, ul.catalog-list-int li:last-child {
+        ul.category-list li:last-child, ul.dealers-list li:last-child, ul.catalog-list-int li:last-child, ul.news-list-int li:last-child {
             /*border-bottom: 1px solid #545454;*/
         }
 
-        ul.category-list li a, ul.category-list li a:hover, ul.category-list li a:visited {
+        ul.category-list li a, ul.category-list li a:hover, ul.category-list li a:visited, ul.news-list li a, ul.news-list li a:hover, ul.news-list li a:visited {
             color: #0d1d41;
             text-decoration: none;
         }
 
-        ul.catalog-list-int li a, ul.catalog-list-int li a:hover, ul.catalog-list-int li a:visited {
+        ul.catalog-list-int li a, ul.catalog-list-int li a:hover, ul.catalog-list-int li a:visited, ul.news-list-int li a,ul.news-list-int li a:hover, ul.news-list-int li a:visited {
             color: #0d1d41;
             text-decoration: none;
         }
@@ -550,8 +565,13 @@ h2#title-item {
     line-height: 2rem;
 }
 
+    h2#title-news {
+        font-size: 1.3rem;
+        line-height: 1.6rem;
+    }
+
 h2#title-item small {
-    font-size: 1.0rem;
+    font-size: 1.2rem;
     line-height: 1.4rem;
     float:right;
 }
@@ -571,6 +591,13 @@ h2#title-item small {
 
     #content-item #text-item {
 
+    }
+
+    #content-item .data-news {
+        display: block;
+        font-size: 12px;
+        font-weight: normal;
+        font-style:italic;
     }
 
 
@@ -594,19 +621,20 @@ h2#title-item small {
 
     button.rounded-button.oro {
         background: #fab14a;
-        width:96%;
+        width:97%;
     }
 
     button.rounded-button.tratto {
         background: #ffffff;
         border: 1px solid #0d1d41;
         color: #0d1d41;
-        width:96%;
+        width:97%;
     }
 
     button.rounded-button.half-size {
         width:48%;
         display:inline-block;
+        margin-right: 3px;
     }
 
     .labelRole {
@@ -702,7 +730,7 @@ ul {
     margin: 0;
     padding: 0;
     list-style: none;
-    background-color: #fafafa;
+    background-color: #ffffff;
     border-bottom: 0px solid #e0e0e0;
 }
 
