@@ -419,6 +419,8 @@ var app = {
         $("#serviceMessageProfile .preloader5").hide();
 
         if(isUpgrade==1){
+            localStorage.setItem("ospite", 0);
+            localStorage.setItem("proprietario", 1);
             $(".formOspiteUser").hide();
             $(".formProprietarioUser").show();
         } else {
@@ -1096,8 +1098,8 @@ var app = {
                 success: function(data){
                     $("#serviceMessageRequest .preloader5").hide();
                     if(data.status==1) {
-                        localStorage.setItem("ospite", 0);
-                        localStorage.setItem("proprietario", 1);
+                        // localStorage.setItem("ospite", 0);
+                        // localStorage.setItem("proprietario", 1);
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
                         app.renderUserProfile(0);
                         $("#serviceMessageProfile").html(app.messages.ackAjaxUpdate);
