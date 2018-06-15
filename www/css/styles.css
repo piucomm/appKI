@@ -253,7 +253,7 @@ a, a:visited {
         }
 
             ul.category-list li div, ul.catalog-list-int li div, ul.news-list li .list-content, ul.news-list-int li div {
-                padding: 12px 10px;
+                padding: 16px 10px;
             }
 
                 ul.news-list li .list-content {
@@ -574,6 +574,14 @@ h2#title-item small {
     font-size: 1.2rem;
     line-height: 1.4rem;
     float:right;
+    padding-top: 8px;
+}
+
+#subtitle-item {
+    display: block;
+    font-size: 11px;
+    font-weight: normal;
+    text-transform: uppercase;
 }
 
 #content-item {
@@ -1088,12 +1096,12 @@ li>a.tappable-active {
     background-color: #4286f5;
 }
 
-#serviceMessageRequest, #serviceMessageRegister, #serviceMessageProfile {
+#serviceMessageRequest, #serviceMessageRegister, #serviceMessageProfile, #serviceMessageManuale {
     display: block;
-    color: #999;
+    color: #ff9800;
     font-weight: bold;
-    font-size: 0.8rem;
-    line-height: 1.2rem;
+    font-size: 0.9rem;
+    line-height: 1.1rem;
 }
 
 

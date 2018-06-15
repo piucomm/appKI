@@ -86,7 +86,8 @@ var CatalogoItems = function(successCallback, errorCallback) {
         }); 
     }
 
-    this.getItem = function(lin, iditem, idcat) {
+    this.getItemCat = function(lin, iditem, idcat) {
+        $('#serviceMessageManuale .preloader5').hide();
         var dataString="lang="+lin+"&item="+iditem+"&idcat="+idcat+"&type=item";
         $.ajax({
             type: 'POST',
@@ -107,6 +108,7 @@ var CatalogoItems = function(successCallback, errorCallback) {
                         tonnellaggio = dataCatalog[i].attributi.split("|");
                     }
                     $('h2#title-item').html(dataCatalog[i].titolo+" <small>"+tonnellaggio[1]+"</small>");
+                    $('#subtitle-item').html(dataCatalog[i].sottotitolo);
                     $('#content-item').append(
                         $('<div class="img-item">').append(
                             $('<img/>', {
@@ -131,9 +133,6 @@ var CatalogoItems = function(successCallback, errorCallback) {
                         );
                     }
 
-                    $('#button-item').append(
-                        $('<button id="btManuale" class="rounded-button tratto">'+app.messages.labelBtManuale+'</button>')
-                    );
                 }
             },
             error: function(error){

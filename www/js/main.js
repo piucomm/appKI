@@ -126,6 +126,8 @@ var app = {
             $('#btFbLogin').on('click', this.checkFbLogin);
             $('#btGplusLogin').on('click', this.checkGooglePlugin);
 
+            $('#serviceMessageLogin').html(app.messages.labelObbligatori);
+
             $("#"+localStorage.getItem("language")).addClass( "actual" );
             app.setLanguage(localStorage.getItem("language")); // setto la lingua corrente
 
@@ -725,11 +727,17 @@ var app = {
                     var catId = matchParamsIDcat[1];
                 }
 
-                context1 = { idItem: itemID};
+                context1 = { idItem: itemID, labelBtManuale: app.messages.labelBtManuale};
                 contextH = { pageName: catTit, backUrl: "#cat1?idcat="+catId+"&titcat="+catTit, boolMenu: 1 }; // titolo pagina prodotto
                 $('body').html(self.itemPage(context1));
                 $('.header').html(self.mainHeader(contextH));
-                app.catalog.getItem(localStorage.getItem( "language"), itemID, catID); // carico l'item
+
+                app.catalog.getItemCat(localStorage.getItem( "language"), itemID, catID); // carico il macchinario
+
+                $('#btManuale').on('click', function(){
+                    app.requestManuale();
+                }); 
+
             }
         } else if (matchCatNews) { // pagina categoria news
             if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
@@ -760,7 +768,7 @@ var app = {
                     var catTit = matchParamsTit[1].toString();
                 }
                 catTit = catTit.replace(/%20/g, ' ');
-                
+
                 var matchParamsIDcat = hash.match(/idcat=(\d+)/)
                 if (matchParamsIDcat) {
                     var catId = matchParamsIDcat[1];
@@ -906,6 +914,7 @@ var app = {
         var flagO = 0, flagP = 0, authPrivacy = 0, authMarketing = 0, authPush = 0;
 
         var boolRequestedFields = 0;  // campi obbligatori
+        var boolWrongEmail = 0;  // email non corretta
         var boolPasswords = 0;  // password coincidono?
         var boolModels = 0; // almeno un modello inserito
 
@@ -956,6 +965,10 @@ var app = {
                 boolModels = 1;
             }
         } 
+
+        if(app.validateEmail(email)){
+            boolWrongEmail = 1;
+        }
         
         if($.trim(password) == $.trim(password2)) { 
             boolPasswords = 1;
@@ -963,6 +976,8 @@ var app = {
 
         if(boolRequestedFields != 1){
             $("#serviceMessageRegister").html(app.messages.emptyField);
+        } else if (boolWrongEmail != 1) {
+            $("#serviceMessageRegister").html(app.messages.pwWrongEmail);
         } else if (boolPasswords != 1) {
             $("#serviceMessageRegister").html(app.messages.pwNotEqual);
         } else if (boolModels != 1) {
@@ -1012,7 +1027,6 @@ var app = {
         }
 
     },
-
 
     // modifica utente ospite/proprietario
     updateRegistrazione: function(typeUpd) {
@@ -1129,6 +1143,37 @@ var app = {
 
     },
 
+    requestManuale: function() {
+        var emailRequest=localStorage.getItem('email');
+        var modelRequest=$('h2#title-item').html();
+
+        console.log("Richiesta manuale per "+emailRequest+" modelRequest "+modelRequest);
+
+        var dataString="email="+emailRequest+"&model="+modelRequest+"&tokenK="+app.tokenAppKato;
+
+        $.ajax({
+            type: "POST",
+            url: 'https://app.katoimer.com/appadmin/manualeRequestApp.php',
+            data: dataString,
+            dataType: "json",
+            crossDomain: true,
+            cache: false,
+            beforeSend: function(){ $("#serviceMessageManuale .preloader5").show(); },
+            success: function(data){
+                $("#serviceMessageRequest .preloader5").hide();
+                if(data.status==1) {
+                    $("#serviceMessageManuale").html(app.messages.ackAjaxRequest);
+                } else if(data.status==0) {
+                    $("#serviceMessageManuale").html(app.messages.nackAjaxRequest);
+                }
+            },
+            error: function() {
+                $("#serviceMessageManuale .preloader5").hide();
+                $("#serviceMessageManuale").html(app.messages.nackAjax001);
+            }
+        });
+
+    },
 
     // invia richiesta assistenza
     addRequest: function() {
@@ -1137,7 +1182,7 @@ var app = {
         var oggettoRequest=$("#oggettoRequest").val();
         var modelRequest=$("#modelRequest").val();
         var txtRequest=$("#txtRequest").val();
-        var dataString="email="+emailRequest+"&nome="+nomeRequest+"&model="+modelRequest+"&oggetto="+oggettoRequest+"&testo="+txtRequest;
+        var dataString="email="+emailRequest+"&nome="+nomeRequest+"&model="+modelRequest+"&oggetto="+oggettoRequest+"&testo="+txtRequest+"&tokenK="+app.tokenAppKato;
         if($.trim(emailRequest).length>0 && $.trim(oggettoRequest).length>0 && $.trim(modelRequest).length>0 && $.trim(txtRequest).length>0)
         {
             $.ajax({
@@ -1371,6 +1416,11 @@ var app = {
             break;
         }
         return errmess;
+    },
+
+    validateEmail: function(email){
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
     },
 
     showAlert: function (message, title) {

@@ -100,6 +100,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjax002 = "Errore interno COD: 002"; // errore sending ajax request
 	    this.emptyField = "I campi * non possono essere vuoti.";
 	    this.pwNotEqual = "Le password non coincidono.";
+	   	this.pwWrongEmail = "Formato email errato."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    this.userAlreadyReg = "Utente già registrato";
 	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app.";
@@ -213,6 +214,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
 	    this.emptyField = "* Required fields";
 	    this.pwNotEqual = "Passwords do not match";
+	    this.pwWrongEmail = "Formato email errato."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    this.userAlreadyReg = "Already registered user";
 	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app.";
@@ -326,6 +328,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
 	    this.emptyField = "* Pflichtfelder";
 	    this.pwNotEqual = "Passwörter stimmen nicht überein";
+	    this.pwWrongEmail = "Formato email errato."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 
 		this.userAlreadyReg = "Bereits registrierter Benutzer";
 		this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app.";
@@ -439,6 +442,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
 	    this.emptyField = "* Campos requeridos";
 	    this.pwNotEqual = "Las contraseñas no son iguales";
+	    this.pwWrongEmail = "Formato email errato."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    this.userAlreadyReg = "Usuario ya registrado";
 	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app.";
@@ -551,6 +555,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
 	    this.emptyField = "* Champs obligatoires";
 	    this.pwNotEqual = "Passwords ne correspondent pas";
+	    this.pwWrongEmail = "Formato email errato."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    this.userAlreadyReg = "Utilisateur déjà enregistré";
 	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app.";

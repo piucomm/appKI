@@ -105,8 +105,8 @@
         </div>
 
         <div class="loginBlock" >
-            <input id="email" type="email" placeholder="email@domain.com" /><br/>
-            <input id="password" type="password" placeholder="password" /><br/>
+            <input id="email" type="email" placeholder="email@domain.com *" /><br/>
+            <input id="password" type="password" placeholder="password *" /><br/>
             <button id="login" class="rounded-button">{{{labelBtLogin}}}</button><br/><br/>
             <div id="serviceMessageLogin" ></div><br/>
                 
@@ -317,13 +317,21 @@
 
         <div class="content-page internal-page scrollStandard" >
             <h2 id="title-item"></h2>
-            
+            <div id="subtitle-item"></div>
             <div id="content-item">
 
             </div>
 
             <div id="button-item">
+                <button id="btManuale" class="rounded-button tratto">{{{labelBtManuale}}}</button>
+            </div>
 
+            <div id="serviceMessageManuale" >
+                <div class="preloader5">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
 
         </div>
