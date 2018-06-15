@@ -815,9 +815,11 @@ li {
         color: #fff;
     }
 
-    #main-menu-dx .userName a{
+    #main-menu-dx .userName a {
         color: #fff;
         text-decoration:none;
+        width: 100%;
+        display: block;
     }
 
 
@@ -833,6 +835,21 @@ li {
     #main-menu-dx .userRole.Proprietario {
         color: #fab14a;
     }
+
+        #main-menu-dx .userRole a {
+            color: #cccccc;
+            text-decoration:none;
+            width: 100%;
+            display: block;
+        }
+
+        #main-menu-dx .userRole.Proprietario a {
+            color: #fab14a;
+            text-decoration:none;
+            width: 100%;
+            display: block;
+        }
+
 
 #main-menu-dx ul.menu-lista {
     /*height: 400px;*/

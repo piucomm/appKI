@@ -506,6 +506,7 @@ var app = {
         var self = this;
         self.initMenu();
         var hash = window.location.hash;
+        hash = hash.replace(/ /g, '%20');
         if (!hash) {
             self.renderHomeView();
             return;
@@ -694,10 +695,12 @@ var app = {
                 if (matchParamsId) {
                     var catID = matchParamsId[1];
                 }
-                var matchParamsTit = hash.match(/titcat=(\D+)/)
+                var matchParamsTit = hash.match(/titcat=(\S+)/)
                 if (matchParamsTit) {
                     var catTit = matchParamsTit[1].toString(); //.replace(/%20/g, " ");
                 }
+
+                catTit = catTit.replace(/%20/g, ' ');
 
                 contextH = { pageName: catTit, backUrl: "#", boolMenu: 1 }; // titolo pagina categoria hash+" "+
                 $('body').html(self.categoryPage());
@@ -711,10 +714,12 @@ var app = {
                 if (matchParamsId) {
                     var itemID = matchParamsId[1];
                 }
-                var matchParamsTit = hash.match(/titcat=(\D+)/)
+                var matchParamsTit = hash.match(/titcat=(\S+)/)
                 if (matchParamsTit) {
-                    var catTit = matchParamsTit[1];
+                    var catTit = matchParamsTit[1].toString();
                 }
+                catTit = catTit.replace(/%20/g, ' ');
+
                 var matchParamsIDcat = hash.match(/idcat=(\d+)/)
                 if (matchParamsIDcat) {
                     var catId = matchParamsIDcat[1];
@@ -734,8 +739,9 @@ var app = {
                 }
                 var matchParamsTit = hash.match(/titcat=(\S+)/)
                 if (matchParamsTit) {
-                    var catTit = matchParamsTit[1].replace(/%20/g, " ");
+                    var catTit = matchParamsTit[1].toString();
                 }
+                catTit = catTit.replace(/%20/g, ' ');
 
                 contextH = { pageName: catTit, backUrl: "#pages7", boolMenu: 1 }; // titolo pagina categoria
                 $('body').html(self.catNewsPage());
@@ -751,8 +757,10 @@ var app = {
                 }
                 var matchParamsTit = hash.match(/titcat=(\S+)/)
                 if (matchParamsTit) {
-                    var catTit = matchParamsTit[1].replace(/%20/g, " ");
+                    var catTit = matchParamsTit[1].toString();
                 }
+                catTit = catTit.replace(/%20/g, ' ');
+                
                 var matchParamsIDcat = hash.match(/idcat=(\d+)/)
                 if (matchParamsIDcat) {
                     var catId = matchParamsIDcat[1];
