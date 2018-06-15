@@ -1255,10 +1255,22 @@ var app = {
           'offline': true // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
         },
         function (obj) {
-          alert(JSON.stringify(obj)); // do something useful instead of alerting
+            $("#serviceMessageLogin").html('Autenticazione Ok riuscita...');
+            localStorage.setItem('login',1);
+            localStorage.setItem("email", obj.email);
+            localStorage.setItem("ospite", 1);
+            localStorage.setItem("proprietario", 0);
+            app.renderHomeView();
+            /* obj.familyName  -- cognome
+            obj.givenName  -- nome
+            obj.displayName  -- nome e cognome
+            obj.familyName  -- cognome
+            obj.email  -- email
+            obj.imageUrl  -- imageUrl
+            */
         },
         function (msg) {
-          alert('error: ' + msg);
+          $("#serviceMessageLogin").html('Impossibile autenticarsi con Google+');
         }
         );
     },
