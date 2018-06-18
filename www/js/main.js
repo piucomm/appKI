@@ -1042,7 +1042,7 @@ var app = {
 
         if(typeUpd == "ospite") {
             nome= "";
-            // email= ;
+            email=$("#userName").val();
             phone= "";
             flagO = 1;
             stato = 1; // già attivo
@@ -1054,7 +1054,7 @@ var app = {
 
         } else if(typeUpd == "proprietario") {
             nome=$("#nomePUser").val();
-            // email=$("#emailP").val();
+            email= localStorage.getItem('email');
             phone=$("#telPUser").val();
             // password=$("#passwordP").val();
             // password2=$("#passwordP2").val();
@@ -1097,6 +1097,7 @@ var app = {
         } else {
         
             dataStringUpd = { id: localStorage.getItem("idUser"),
+                email: email,
                 nome: nome,
                 phone: phone,
                 ospite: flagO,
@@ -1426,6 +1427,8 @@ var app = {
             break;
             case "err05": errmess = app.messages.nackPrepareQuery;
             break;
+            case "err06": errmess = app.messages.nackSendingEmail;
+            break;
         }
         return errmess;
     },
@@ -1456,7 +1459,7 @@ var app = {
         console.log("confirm "+buttonIndex);
         if(buttonIndex == 1){
             // elimino l'utente
-            dataString = { idUser: localStorage.getItem("idUser"), tokenK: app.tokenAppKato };
+            dataString = { idUser: localStorage.getItem("idUser"), email: localStorage.getItem('email'), tokenK: app.tokenAppKato };
 
             $.ajax({
                 type: "POST",
@@ -1469,7 +1472,6 @@ var app = {
                 beforeSend: function(){ $("#serviceMessageRequest .preloader5").show(); $("#serviceMessageProfile").html(app.messages.sendAjax);  },
                 success: function(response){
                     $("#serviceMessageRequest .preloader5").hide();
-                    userData = response.data;
                     if(response.status==1) {
                         localStorage.setItem("login", 0);
                         localStorage.setItem("idUser", "");
@@ -1478,18 +1480,18 @@ var app = {
                         localStorage.setItem("proprietario", 0);
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
                         app.renderHomeView();
-                        $("#serviceMessageLogin").html(app.messages.nackAjax001);
+                        $("#serviceMessageLogin").html(app.messages.ackAjaxRemove);
                     } else if(response.status==0) {
                         messError = app.codifyErr(data.cod)
-                        $("#serviceMessageProfile").html(messError);
+                        $("#serviceMessageProfile").html(app.messages.nackAjaxRequest);
                     }
                 },
                 error: function() {
                     $("#serviceMessageRegister").html(app.messages.nackAjax001);
                 }
             });
-            return userData;
-            }
+
+        }
         
     }
 
