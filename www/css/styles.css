@@ -1044,9 +1044,9 @@ li {
 
 button:disabled,
 button[disabled]{
-  border: 0px solid #999999;
+  border: 0px solid #999999  !important;
   background-color: #cccccc !important;
-  color: #666666;
+  color: #666666  !important;
 }
 
     ul.menu-lista li button:disabled, ul.menu-lista button[disabled] {

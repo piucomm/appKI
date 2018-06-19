@@ -161,29 +161,28 @@ var app = {
                 app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list", 0); // carico il catalogo nella lingua corrente
             } else {
                 //versione locale del catalogo
-                app.db.transaction(this.getCatData2);
+                app.db.transaction(this.getLocalCatalogHome);
             }
 
         }
 
     },
 
-
-    getCatData2: function(tx) {
+    getLocalCatalogHome: function(tx) {
         console.log("Ok. leggo i dati in locale.");
-        tx.executeSql("SELECT * FROM cats",[], app.getSuccessCatLocal, app.getErrorCatLocal);
+        tx.executeSql("SELECT * FROM cats",[], app.getSuccessCatLocalHome, app.getErrorCatLocalHome);
         $('#serviceMessageRegisterHome').html("Ok. leggo i dati in locale.");
         
     },
 
-    getSuccessCatLocal: function(tx,results) { 
-
+    getSuccessCatLocalHome: function(tx,results) {
+        $("#footer-button .preloader5").hide();
         app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list", 1, results);
-
     },
 
-    getErrorCatLocal: function(tx,result) { 
-        $('#serviceMessageRegisterHome').html("Error risultati ");
+    getErrorCatLocalHome: function(tx,result) { 
+        $("#footer-button .preloader5").hide();
+        $('#serviceMessageRegisterHome').html("Errore lettura catalogo locale");
         console.log("Errore get cats local");
     },
 
@@ -604,8 +603,8 @@ var app = {
                     if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
                         app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list-int",0); // carico il catalogo nella lingua corrente
                     } else {
-                        // versione locale del catalogo
-                        // app.db.transaction(app.sqlStorage.getCatData());
+                        //versione locale del catalogo
+                        app.db.transaction(this.getLocalCatalog);
                     }
                     break;
                 case "#pages5":  // pagina Contatti
@@ -692,22 +691,26 @@ var app = {
         } else if (matchUser) { // pagina area utente
             app.renderUserProfile(0);
         } else if (matchCat) { // pagina categoria catalogo
+            var matchParamsId = hash.match(/idcat=(\d+)/)
+            if (matchParamsId) {
+                var catID = matchParamsId[1];
+            }
+            var matchParamsTit = hash.match(/titcat=(\S+)/)
+            if (matchParamsTit) {
+                var catTit = matchParamsTit[1].toString(); //.replace(/%20/g, " ");
+            }
+
+            catTit = catTit.replace(/%20/g, ' ');
+
+            contextH = { pageName: catTit, backUrl: "#", boolMenu: 1 }; // titolo pagina categoria hash+" "+
+            $('body').html(self.categoryPage());
+            $('.header').html(self.mainHeader(contextH));
             if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
-                var matchParamsId = hash.match(/idcat=(\d+)/)
-                if (matchParamsId) {
-                    var catID = matchParamsId[1];
-                }
-                var matchParamsTit = hash.match(/titcat=(\S+)/)
-                if (matchParamsTit) {
-                    var catTit = matchParamsTit[1].toString(); //.replace(/%20/g, " ");
-                }
-
-                catTit = catTit.replace(/%20/g, ' ');
-
-                contextH = { pageName: catTit, backUrl: "#", boolMenu: 1 }; // titolo pagina categoria hash+" "+
-                $('body').html(self.categoryPage());
-                $('.header').html(self.mainHeader(contextH));
-                app.catalog.getListItems(localStorage.getItem( "language"), catID); // carico gli items di quella categoria
+                app.catalog.getListItems(localStorage.getItem( "language"), catID, 0 ); // carico gli items di quella categoria
+            } else {
+                app.db.transaction(function(tx){
+                    tx.executeSql("SELECT * FROM items WHERE id_cat = "+catID,[], app.getSuccessListItems, app.getErrorListItems);
+                });
             }
 
         } else if (matchItem) { // pagina dettaglio prodotto
@@ -732,7 +735,14 @@ var app = {
                 $('body').html(self.itemPage(context1));
                 $('.header').html(self.mainHeader(contextH));
 
-                app.catalog.getItemCat(localStorage.getItem( "language"), itemID, catID); // carico il macchinario
+                if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
+                    app.catalog.getItemCat(localStorage.getItem( "language"), itemID, catID, 0); // carico il macchinario
+                } else {
+                    app.db.transaction(function(tx){
+                        tx.executeSql("SELECT * FROM items WHERE id = "+itemID,[], app.getSuccessItem, app.getErrorItem);
+                    });
+                }
+                
 
                 $('#btManuale').on('click', function(){
                     app.requestManuale();
@@ -783,6 +793,36 @@ var app = {
         }
     },
 
+    getLocalCatalog: function(tx) {
+        console.log("Ok. leggo le cat in locale.");
+        tx.executeSql("SELECT * FROM cats",[], app.getSuccessCatLocal, app.getErrorCatLocal);
+    },
+
+    getSuccessCatLocal: function(tx,results) {
+        app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list-int", 1, results);
+    },
+
+    getErrorCatLocal: function(tx,result) { 
+        console.log("Errore get cats local");
+    },
+
+    getSuccessListItems: function(tx,results) {
+        app.catalog.getListItems(localStorage.getItem( "language"), "ul.catalog-list-int", 1, results);
+    },
+
+    getErrorListItems: function(tx,result) { 
+        console.log("Errore get cats local");
+    },
+
+    getSuccessItem: function(tx,results) {
+        app.catalog.getItemCat(localStorage.getItem( "language"), 1, 1 , 1, results);
+    },
+
+    getErrorItem: function(tx,result) { 
+        console.log("Errore get item local");
+    },
+
+
     initMenu: function() { 
         var self = this;
         
@@ -830,6 +870,8 @@ var app = {
             localStorage.setItem("email", "");
             localStorage.setItem("ospite", 0);
             localStorage.setItem("proprietario", 0);
+            localStorage.setItem("localCatalogoDate", 0);
+            localStorage.setItem("localCatalogoListDate", 0);
             history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
             self.renderHomeView();
         });
@@ -874,6 +916,8 @@ var app = {
                         localStorage.setItem("email", email);
                         localStorage.setItem("ospite", data.ospite);
                         localStorage.setItem("proprietario", data.proprietario);
+                        localStorage.setItem("localCatalogoDate", 0);
+                        localStorage.setItem("localCatalogoListDate", 0);
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
                         app.renderHomeView();
                     } else if(data.status=="failed") {
@@ -882,6 +926,8 @@ var app = {
                         localStorage.setItem("email", "");
                         localStorage.setItem("ospite", 0);
                         localStorage.setItem("proprietario", 0);
+                        localStorage.setItem("localCatalogoDate", 0);
+                        localStorage.setItem("localCatalogoListDate", 0);
                         $("#login").html('Login');
                         $("#serviceMessageLogin").html('Utente non trovato!');
                     }
@@ -892,6 +938,8 @@ var app = {
                     localStorage.setItem("email", "");
                     localStorage.setItem("ospite", 0);
                     localStorage.setItem("proprietario", 0);
+                    localStorage.setItem("localCatalogoDate", 0);
+                    localStorage.setItem("localCatalogoListDate", 0);
                     $("#serviceMessageLogin").html(app.messages.nackAjax001);
                 }
             });
