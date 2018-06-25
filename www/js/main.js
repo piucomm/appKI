@@ -1438,9 +1438,10 @@ var app = {
         $("#"+this.id).addClass( "actual" );
 
         $("#login").html(app.messages.logiBtLabel);
+        $("#btNewRegistration").html(app.messages.newRegisterBtLabel);
         $("#btFbLogin").html(app.messages.fbBtLabel);
         $("#btGplusLogin").html(app.messages.gplusBtLabel);
-        $("#btNewRegistration").html(app.messages.newRegisterBtLabel);
+        $("#serviceMessageLogin").html(app.messages.labelObbligatori);
         
     },
 

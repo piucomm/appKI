@@ -1,7 +1,6 @@
 var MessageTranslation = function(successCallback, errorCallback) {
- 
-	this.setItalian = function() {
 
+	this.setItalian = function() {
 		// label menu
 		this.menu0 = "Home";
 		this.menu1 = "Catalogo";
@@ -23,28 +22,23 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.gplusBtLabel = "Login con Google+";
 	    this.newRegisterBtLabel = "Nuova registrazione";
 	    this.labelAlertNoconn = "Connessione assente. Impossibile effettuare login o nuove registrazioni.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
-	    
+
 		// registrazione
 		this.labelOspite = "ospite";
 		this.labelProprietario = "proprietario";
-
 		this.ownerAlertLabel = "L'utente proprietario sarà attivo solo previo controllo di KATO IMER...";
 		this.errorNoModels = "Nessuna macchina inserita";
-
 		this.btLabelRegOspite = "Registrami come ospite";
 		this.btLabelRegProprietario = "Registrami come proprietario";
 		this.btLabelUpdateOspite = "Aggiornamento ospite";
 		this.btLabelUpdateProprietario = "Aggiornamento proprietario";
-		this.btLabelUpgradeProprietario = "Upgrade a proprietario";
-
+		this.btLabelUpgradeProprietario = "Upgrade a proprietario";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 		this.btLabelRemoveUser = "Rimuovi il mio account";
-
 	    this.nameReg = "Nome";
 	    this.emailReg = "Email";
 	    this.pwReg = "Password";
 	    this.pw2Reg = "Ripeti Password";
 	    this.telReg = "Tel.";
-
 	    this.titleMacchinari = "Macchine in tuo possesso";
 	    this.labelModelMacchinari = "Modello";
 	    this.labelSerialMacchinari = "Num. Seriale";
@@ -54,11 +48,11 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
 
 	    // dealers/officine
-	    this.btLabelDealer = "Dealer";
-	    this.btLabelDealers = "Dealers";
-	    this.btLabelOfficina = "Officina";
-	    this.btLabelOfficine = "Officine";
-	    
+	    this.btLabelDealer = "Dealer";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btLabelDealers = "Dealers";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btLabelOfficina = "Officina";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btLabelOfficine = "Officine";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+
 	    // lista catalogo
 	    this.titCatalogo= "Catalogo";
 
@@ -68,7 +62,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.labelBtManuale = "Richiedi manuale operatore";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    // lista news
-	    this.titNews= "News";
+	    this.titNews= "News";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    // assistenza
 	    this.titlePageHelp= "Inviaci la tua richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
@@ -104,9 +98,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	   	this.pwWrongEmail = "Formato email errato."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	   	this.ackSendingEmail = "Email inviata correttamente"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	   	this.nackSendingEmail = "Errore invio email"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-
 	    this.userAlreadyReg = "Utente già registrato";
-	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app.";
+	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackToken = "Token non riconosciuto";
 
 	    // privacy marketing push label
@@ -115,6 +108,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.labelMarketing = "Accetto di ricevere informative marketing da KATO IMER";
 	    this.labelPush = "Accetto di ricevere notifiche push sul mio dispositivo";
 	    this.codeIubendaPrivacy = "30408334";
+
 	}
 
 	this.setEnglish = function() {
@@ -139,7 +133,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.fbBtLabel = "Login with Facebook";
 	    this.gplusBtLabel = "Login with Google+";
 	    this.newRegisterBtLabel = "New registration";
-	    
+	    this.labelAlertNoconn = "Connessione assente. Impossibile effettuare login o nuove registrazioni.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+
 		// registrazione
 		this.labelOspite = "guest";
 		this.labelProprietario = "owner";
@@ -147,13 +142,13 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.ownerAlertLabel = "The owner user will be active only upon verification by KATO IMER...";
 		this.errorNoModels = "No machine inserted";
 
-		this.btLabelRegOspite = "Registrami come ospite";
-		this.btLabelRegProprietario = "Registrami come proprietario";
-		this.btLabelUpdateOspite = "Upgrade profile";
-		this.btLabelUpdateProprietario = "Upgrade profile";
-		this.btLabelUpgradeProprietario = "Upgrade to owner";
+		this.btLabelRegOspite = "Register as a guest";
+		this.btLabelRegProprietario = "Register as an owner";
+		this.btLabelUpdateOspite = "Update guest";
+		this.btLabelUpdateProprietario = "Update owner";
+		this.btLabelUpgradeProprietario = "Upgrade to owner";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 
-		this.btLabelRemoveUser = "Rimuovi il mio account";
+		this.btLabelRemoveUser = "Remove my account";
 
 	    this.nameReg = "Name";
 	    this.emailReg = "Email";
@@ -170,13 +165,12 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.btSearchDealer = "Search Dealers/Workshops";
 
 	    // dealers/officine
-	    this.btLabelDealer = "Dealer";
-	    this.btLabelDealers = "Dealers";
-	    this.btLabelOfficina = "Workshop";
-	    this.btLabelOfficine = "Workshops";	    
+	    this.btLabelDealer = "Dealer";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btLabelDealers = "Dealers";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btLabelOfficina = "Workshop";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btLabelOfficine = "Workshops";   // NEWWWWWWWWWWWWWWWWWWWWWWWW	    
 
 	    // lista catalogo
-
 	    this.titCatalogo= "Catalogue";
 
 	    //dettaglio catalogo
@@ -185,14 +179,15 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.labelBtManuale = "Richiedi manuale operatore";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    // lista news
-	    this.titNews= "News";
+	    this.titNews= "News";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    // assistenza
 	    this.titlePageHelp= "Send your request";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.oggettoForm= "Object";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.textForm= "Request";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.btHelp= "Invia richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelObbligatori= "* campi obbligatori";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btHelp= "Send request";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelObbligatori= "* mandatory fields";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+
 
 	    //katoimer
 	    this.titKato = "";
@@ -206,13 +201,13 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.txtContatti = "<strong>Head Offices, Sales and Plant</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Phone: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Sales:</strong><br/>marketing@katoimer.com<br/><strong>Service:</strong><br/>service@katoimer.com<br/><strong>Parts:</strong><br/>parts@katoimer.com<br/><br/><br/>";
 
 	    // messaggi richieste ajax/check form 
-	    this.nackDatabase = "Error on Database request";
-	    this.nackPrepareQuery = "Errore preparazione Query";
+	    this.nackDatabase = "Database request error";
+	    this.nackPrepareQuery = "Query preparation error";
 	    this.sendAjax = "Sending request...";
 	    this.ackAjaxRequest = "Request correctly sent";
 	    this.nackAjaxRequest = "Error sending request";
 	    this.ackAjaxIscritto = "Subscription ";
-	    this.ackAjaxUpdate = "Modifica effettuata correttamente";
+	    this.ackAjaxUpdate = "Edited successfully";
 	    this.ackAjaxRemove = "User removed!"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
@@ -223,7 +218,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	   	this.nackSendingEmail = "Errore invio email"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    this.userAlreadyReg = "Already registered user";
-	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app.";
+	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackToken = "Token not allowed";
 
 	    // privacy marketing push label
@@ -251,28 +246,27 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.menu10 = "Benutzerprofil";
 		this.menu11 = "Ausloggen";
 
-
 		// pagina login
 	    this.logiBtLabel = "Anmeldung";
 	    this.registerBtLabel = "Registrieren";
 	    this.fbBtLabel = "Einloggen mit Facebook";
 	    this.gplusBtLabel = "Einloggen mit Google+";
 	    this.newRegisterBtLabel = "Neue Registrierung";
-	    	    
+
 		// registrazione
-		this.labelOspite = "ospite";
-		this.labelProprietario = "proprietario";
+		this.labelOspite = "Gast";
+		this.labelProprietario = "Besitzer";
 
 		this.ownerAlertLabel = "Der Besitzerbenutzer ist nur aktiv, nachdem er KATO IMER überprüft hat...";
 		this.errorNoModels = "Keine Maschine eingesetzt";
 
-		this.btLabelRegOspite = "Registrami come ospite";
-		this.btLabelRegProprietario = "Registrami come proprietario";
-		this.btLabelUpdateOspite = "Aggiornamento ospite";
-		this.btLabelUpdateProprietario = "Aggiornamento proprietario";
-		this.btLabelUpgradeProprietario = "Upgrade to owner";
+		this.btLabelRegOspite = "Als Gast registrieren";
+		this.btLabelRegProprietario = "Als Besitzer registrieren";
+		this.btLabelUpdateOspite = "Aktualisierung Gast";
+		this.btLabelUpdateProprietario = "Aktualisierung Besitzer";
+		this.btLabelUpgradeProprietario = "Upgrade a proprietario";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 
-		this.btLabelRemoveUser = "Rimuovi il mio account";
+		this.btLabelRemoveUser = "Account löschen";
 
 	    this.nameReg = "Name";
 	    this.emailReg = "Email";
@@ -310,26 +304,27 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	   	this.oggettoForm= "Oggetto";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.textForm= "Testo richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.btHelp= "Invia richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelObbligatori= "* campi obbligatori";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelObbligatori= "* pflichtfelder";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    //katoimer
 	    this.titKato = "";
 	    this.textKato = "<p>Im November 2016 haben das multinationale japanische Unternehmen KATO WORKS CO., LTD. und der japanische Mischkonzern IHI Corporation Ltd. (IHI) eine Vereinbarung &uuml;ber die &Uuml;bertragung von 100 % der Aktien des Unternehmens IHI Construction Machinery Ltd., (IK) von IHI an KATO unterzeichnet. Im Januar 2017 &auml;nderte IK, das 51 % von IHIMER S.p.A. mit Sitz in San Gimignano in Italien kontrollierte (49 % werden weiterhin von IMER GROUP S.p.A. gehalten), seine Firmenbezeichnung zu KATO HEAVY INDUSTRIES CONSTRUCTION MACHINERY CO.,LTD. (KATO HICOM). Am 17. Februar 2017 &auml;nderte IHIMER S.p.A. seine Firmenbezeichnung zu KATO IMER S.p.A.</p><p>Das japanische Gro&szlig;unternehmen KATO WORKS stellt ein umfangreiches Sortiment an Baumaschinen her und ist seit 1895 in diesem Sektor t&auml;tig. Dort hat man sich entschieden, in Europa zu investieren, &uuml;berzeugt von der Zentralit&auml;t des Marktes. Dies erfolgt in Zusammenarbeit mit der italienischen Imer Group, einem f&uuml;hrenden europ&auml;ischen Hersteller von Baumaschinen und Betonmischanlagen.</p><p>KATO IMER stellt in Italien Minibagger mit KATO-Technologie, Kompaktlader und Raupenmuldenkipper her und vertreibt in Japan von KATO HICOM hergestellte Minibagger und Raupenkipper.</p><p>Die Minibagger sind mit Kapazit&auml;ten von 0,9 bis 8,5 Tonnen, mit Kurzheck, in herk&ouml;mmlicher Ausf&uuml;hrung und drehbar lieferbar.</p><p>Die Kompaktlader sind mit R&auml;dern mit Betriebslast von 400 bis 2500 kg und mit Raupenketten lieferbar. Die Muldenkipper unterteilen sich in zwei Kategorien: Minidumper mit Betriebslast von 400 bis 2500 kg f&uuml;r Sanierungen und Gartenbau sowie Muldenkipper mit Betriebslast zwischen 3000 und 11000 kg, die vorwiegend im Hoch- und Tiefbau und im Stra&szlig;enbau eingesetzt werden.</p><p>Das Werk von KATO IMER in San Gimignano in der Provinz Siena erstreckt sich &uuml;ber eine Fl&auml;che von mehr als 36000 m2. Durch die st&auml;ndige Suche nach Innovationen und fortw&auml;hrende Planung schafft es das Unternehmen immer wieder, fortschrittliche Maschinen zu entwickeln, die optimal auf die aktuelle Nachfrage abgestimmt sind.</p><p>Die Produkte von KATO IMER werden &uuml;ber ein Netz von &uuml;ber 100 Vertriebsunternehmen und H&auml;ndlern vertrieben, das die wichtigsten europ&auml;ischen L&auml;nder sowie weitere L&auml;nder auf f&uuml;nf Kontinenten gleichm&auml;&szlig;ig abdeckt. F&uuml;r die Kompaktlader- und Minidumper-Baureihen wurde bereits begonnen, ein weltweites Vertriebsnetz aufzubauen.</p>"
-	   
+
 	    //MA.MO.T.
 	    this.titMamot = "Erweiterte Garantie";
 	    this.textMamot = "<p><strong>Bestm&ouml;gliche Absicherung</strong><br />Um auch nach Ablauf der vertraglich vereinbarten Garantie (1. Jahr) immer optimal abgesichert zu sein, brauchen Sie nur den KATO-IMER-H&auml;ndler Ihres Vertrauens nach der erweiterten Garantie MA.MO.T. zu fragen. So k&ouml;nnen Sie bis maximal f&uuml;nf Jahre nach dem Kauf v&ouml;llig sicher und sorglos mit der Maschine arbeiten. Durch die Sicherheit, viele Jahre lang von der Erfahrung der zugelassenen Techniker und von Originalersatzteilen profitieren zu k&ouml;nnen, werden sich die Maschinen von KATO IMER zweifellos als optimale Investition erweisen. Eine umfassende Auswahl an M&ouml;glichkeiten Der MA.MO.T.-Versicherungsschutz kann f&uuml;r alle neuen Maschinen erworben werden. So k&ouml;nnen Sie bedenkenlos arbeiten und sind vor dem Risiko gesch&uuml;tzt, dass pl&ouml;tzlich Kosten durch unvorhergesehene Reparaturen anfallen. J&auml;hrlicher Schutz Mit dem MA.MO.T.-Plan k&ouml;nnen Defekte an der Elektrik, Hydraulik und/oder Mechanik repariert werden, die durch pl&ouml;tzliche, unbeabsichtigte Besch&auml;digung einer oder mehrerer Bauteile entstanden sind. Zugelassene KATO-IMER-Kundendienstzentren Die Garantie wird in allen zugelassenen Kundendienstzentren von KATO IMER anerkannt. Alle Garantiebedingungen k&ouml;nnen in der Versicherungspolice nachgelesen werden.</p>"
+
 	    //contatti
 	    this.txtContatti = "<strong>Head Offices, Sales and Plant</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Phone: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Sales:</strong><br/>marketing@katoimer.com<br/><strong>Service:</strong><br/>service@katoimer.com<br/><strong>Parts:</strong><br/>parts@katoimer.com<br/><br/><br/>";
 
 		// messaggi richieste ajax/check form
-		this.nackDatabase = "Error on Database request";
-		this.nackPrepareQuery = "Errore preparazione Query";
+		this.nackDatabase = "Account löschen";
+		this.nackPrepareQuery = "Fehler bei Erstellung der Query";
 	    this.sendAjax = "Sending request...";
 	    this.ackAjaxRequest = "Request correctly sended";
 	    this.nackAjaxRequest = "Error sending request";
 	    this.ackAjaxIscritto = "Abonnement ";
-	    this.ackAjaxUpdate = "Modifica effettuata correttamente";
+	    this.ackAjaxUpdate = "Änderung erfolgreich vorgenommen";
 	    this.ackAjaxRemove = "Utente eliminato!"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
@@ -340,15 +335,16 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	   	this.nackSendingEmail = "Errore invio email"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW	    
 
 		this.userAlreadyReg = "Bereits registrierter Benutzer";
-		this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app.";
+		this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackToken = "Token nicht erlaubt";
-	    
+
 	    // privacy marketing push label
 	    this.checkPrivacy = "Annahme der obligatorischen Privatsphäre";
 	    this.labelPrivacy = "Ich autorisiere die <a href=\"#pages9\"> Verarbeitung meiner persönlichen Daten </a> gemäß gesetzesvertretendem Dekret vom 30. Juni 2003, Nr. 196 \"Kodex zum Schutz personenbezogener Daten\" und der DSGVO (EU-Verordnung 2016/679). ";
 	    this.labelMarketing = "Ich bin damit einverstanden, Marketing-Mitteilungen von KATO IMER zu erhalten";
 	    this.labelPush = "Ich stimme zu, Push-Benachrichtigungen auf meinem Gerät zu erhalten";
 	    this.codeIubendaPrivacy = "86163521";
+
 	}
 
 
@@ -376,19 +372,19 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.newRegisterBtLabel= "Nuevo registro";
 
 		// registrazione
-		this.labelOspite = "ospite";
+		this.labelOspite = "Huésped";
 		this.labelProprietario = "proprietario";
 
 		this.ownerAlertLabel = "El usuario propietario solo estará activo después de verificar KATO IMER...";
 		this.errorNoModels = "Ninguna máquina insertado";
 
-		this.btLabelRegOspite = "Registrami come ospite";
-		this.btLabelRegProprietario = "Registrami come proprietario";
-		this.btLabelUpdateOspite = "Aggiornamento ospite";
-		this.btLabelUpdateProprietario = "Aggiornamento proprietario";
-		this.btLabelUpgradeProprietario = "Upgrade to owner";
+		this.btLabelRegOspite = "Regístrame como huésped";
+		this.btLabelRegProprietario = "Regístrame como propietario";
+		this.btLabelUpdateOspite = "Actualización huésped";
+		this.btLabelUpdateProprietario = "Actualización propietario";
+		this.btLabelUpgradeProprietario = "Upgrade a proprietario";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 
-		this.btLabelRemoveUser = "Rimuovi il mio account";
+		this.btLabelRemoveUser = "Elimina mi cuenta";
 
 	    this.nameReg = "Nombre";
 	    this.emailReg = "Email";
@@ -400,7 +396,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.labelModelMacchinari = "Modelo";
 	    this.labelSerialMacchinari = "Num. Serial";
 	    this.labelBtAggiungi = "Agregar";
-	    
+
 	    // home
 	    this.btSearchDealer = "Búsqueda Distribuidores/Talleres";
 
@@ -426,11 +422,11 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.oggettoForm= "Oggetto";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.textForm= "Testo richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.btHelp= "Invia richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelObbligatori= "* campi obbligatori";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelObbligatori= "* campos obligatorios";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    //katoimer
 	    this.titKato = "";
-	    this.textKato = "<p>En noviembre de 2016, la multinacional japonesa KATO WORKS CO., LTD. y la conglomerada japonesa IHI Corporation Ltd. (IHI) firmaron un acuerdo para el traspaso del 100% de las acciones de IHI Construction Machinery Ltd., (IK) de IHI a KATO. Desde enero de 2017, IK, que controlaba el 51% de IHIMER S.p.A., con sede en Italia, en San Gimignano (el 49%, en cambio segu&iacute;a posey&eacute;ndolo IMER GROUP S.p.A.), cambi&oacute; su raz&oacute;n social, pasando a ser KATO HEAVY INDUSTRIES CONSTRUCTION MACHINERY CO.,LTD. (KATO HICOM). Desde el 17 de febrero de 2017, IHIMER S.p.A. cambi&oacute; su raz&oacute;n social, pasando a ser KATO IMER S.p.A. El coloso jap&oacute;nes KATO WORKS produce una amplia gama de m&aacute;quinas para la construcci&oacute;n y est&aacute; activa en el sector desde 1895; ha decidido invertir en Europa, convencido de la centralidad del mercado, en colaboraci&oacute;n con la italiana Imer Group, l&iacute;der europeo en la producci&oacute;n de m&aacute;quinas para la construcci&oacute;n y equipos de hormig&oacute;n. KATO IMER produce en Italia miniexcavadoras con tecnolog&iacute;a KATO, cargadores de direcci&oacute;n deslizantes y d&uacute;mperes de orugas; distribuye miniexcavadoras y transportadores de orugas producidos en Jap&oacute;n por KATO HICOM. Las miniexcavadoras cubren una gama que va de 0,9 a 8,5 toneladas, short-tail, tradicionales y giratorias. Los cargadores de direcci&oacute;n deslizantes con carga operativa de 400 a 2500 kg y con orugas. Los d&uacute;mperes se subdividen en dos clases: los mini-d&uacute;mperes, con carga operativa de 400 a 2500 kg, para el sector de la construcci&oacute;n y los viveros; los d&uacute;mperes con cargas operativas comprendidas entre 3000 y 11000 kg usados en la ingenier&iacute;a civil y en la construcci&oacute;n de infraestructuras. El establecimiento de KATO IMER en San Gimignano, en la provincia de Siena, se extiende sobre una superficie de m&aacute;s de 36.000 metros cuadrados. La constante b&uacute;squeda de innovaci&oacute;n y la continua actividad de proyecci&oacute;n permiten a la sociedad desarrollar m&aacute;quinas a la vanguardia y que responden perfectamente a las necesidades del mercado. Los productos KATO IMER se comercializan gracias a una red de m&aacute;s de 100 distribuidores y revendedores, que cubre de manera uniforme todos los principales Pa&iacute;ses europeos y algunos m&aacute;s en los 5 continentes. Para las l&iacute;neas skid (cargadores de direcci&oacute;n) y minid&uacute;mper ya se ha puesto en marcha una red de distribuci&oacute;n a nivel mundial.</p>"
+	    this.textKato = "<p>En noviembre de 2016, la multinacional japonesa KATO WORKS CO., LTD. y la conglomerada japonesa IHI Corporation Ltd. (IHI) firmaron un acuerdo para el traspaso del 100% de las acciones de IHI Construction Machinery Ltd., (IK) de IHI a KATO. Desde enero de 2017, IK, que controlaba el 51% de IHIMER S.p.A., con sede en Italia, en San Gimignano (el 49%, en cambio segu&iacute;a posey&eacute;ndolo IMER GROUP S.p.A.), cambi&oacute; su raz&oacute;n social, pasando a ser KATO HEAVY INDUSTRIES CONSTRUCTION MACHINERY CO.,LTD. (KATO HICOM). Desde el 17 de febrero de 2017, IHIMER S.p.A. cambi&oacute; su raz&oacute;n social, pasando a ser KATO IMER S.p.A. El coloso jap&oacute;nes KATO WORKS produce una amplia gama de m&aacute;quinas para la construcci&oacute;n y est&aacute; activa en el sector desde 1895; ha decidido invertir en Europa, convencido de la centralidad del mercado, en colaboraci&oacute;n con la italiana Imer Group, l&iacute;der europeo en la producci&oacute;n de m&aacute;quinas para la construcci&oacute;n y equipos de hormig&oacute;n. KATO IMER produce en Italia miniexcavadoras con tecnolog&iacute;a KATO, cargadores de direcci&oacute;n deslizantes y d&uacute;mperes de orugas; distribuye miniexcavadoras y transportadores de orugas producidos en Jap&oacute;n por KATO HICOM. Las miniexcavadoras cubren una gama que va de 0,9 a 8,5 toneladas, short-tail, tradicionales y giratorias. Los cargadores de direcci&oacute;n deslizantes con carga operativa de 400 a 2500 kg y con orugas. Los d&uacute;mperes se subdividen en dos clases: los mini-d&uacute;mperes, con carga operativa de 400 a 2500 kg, para el sector de la construcci&oacute;n y los viveros; los d&uacute;mperes con cargas operativas comprendidas entre 3000 y 11000 kg usados en la ingenier&iacute;a civil y en la construcci&oacute;n de infraestructuras. El establecimiento de KATO IMER en San Gimignano, en la provincia de Siena, se extiende sobre una superficie de m&aacute;s de 36.000 metros cuadrados. La constante b&uacute;squeda de innovaci&oacute;n y la continua actividad de proyecci&oacute;n permiten a la sociedad desarrollar m&aacute;quinas a la vanguardia y que responden perfectamente a las necesidades del mercado. Los productos KATO IMER se comercializan gracias a una red de m&aacute;s de 100 distribuidores y revendedores, que cubre de manera uniforme todos los principales Pa&iacute;ses europeos y algunos m&aacute;s en los 5 continentes. Para las l&iacute;neas skid (cargadores de direcci&oacute;n) y minid&uacute;mper ya se ha puesto en marcha una red de distribuci&oacute;n a nivel mundial.</p>";
 
 	    //MA.MO.T.
 	    this.titMamot = "Ampliación de la garantía";
@@ -438,15 +434,15 @@ var MessageTranslation = function(successCallback, errorCallback) {
 
 	    //contatti
 	    this.txtContatti = "<strong>Oficinas Centrales, Ventas y Planta</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Phone: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Ventas:</strong><br/>marketing@katoimer.com<br/><strong>Servicio:</strong><br/>service@katoimer.com<br/><strong>Partes:</strong><br/>parts@katoimer.com<br/><br/><br/>";
-	
+
 		// messaggi richieste ajax/check form
-		this.nackDatabase = "Error on Database request";
-		this.nackPrepareQuery = "Errore preparazione Query";
+		this.nackDatabase = "Error en la solicitud a la base de datos";
+		this.nackPrepareQuery = "Error preparación Query";
 	    this.sendAjax = "Enviando pedido...";
 	    this.ackAjaxRequest = "Solicitud enviada correctamente";
 	    this.nackAjaxRequest = "Errore enviando solicitud";
 	    this.ackAjaxIscritto = "Subscrición ";
-	    this.ackAjaxUpdate = "Modifica effettuata correttamente";
+	    this.ackAjaxUpdate = "Modificación realizada correctamente";
 	    this.ackAjaxRemove = "Utente eliminato!"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
@@ -457,15 +453,16 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	   	this.nackSendingEmail = "Errore invio email"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW	    
 
 	    this.userAlreadyReg = "Usuario ya registrado";
-	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app.";
+	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackToken = "Token no permitido";
-	    
+
 	    // privacy marketing push label
 	    this.checkPrivacy = "Accettazione Privacidad obbligatoria";
 	    this.labelPrivacy = "Autorizo el <a href=\"#pages9\"> procesamiento de mis datos personales </a> de conformidad con el Decreto Legislativo del 30 de junio de 2003, n. 196 \"Código relativo a la protección de datos personales\" y el GDPR (Reglamento UE 2016/679). ";
 	    this.labelMarketing = "Acepto recibir marketing informativo de KATO IMER";
 	    this.labelPush = "Acepto recibir notificaciones push en mi dispositivo";
 	    this.codeIubendaPrivacy = "76458544";
+
 	}
 
 	this.setFrench = function() {
@@ -490,21 +487,21 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.fbBtLabel = "Se connecter avec Facebook";
 	    this.gplusBtLabel = "Se connecter avec Google+";
 	    this.newRegisterBtLabel= "Nouvelle inscription";
-	    	    
+
 		// registrazione
-		this.labelOspite = "ospite";
-		this.labelProprietario = "proprietario";
+		this.labelOspite = "Hôte";
+		this.labelProprietario = "Propriétaire";
 
 		this.ownerAlertLabel = "L'utilisateur propriétaire ne sera actif qu'après avoir vérifié KATO IMER...";
 		this.errorNoModels = "Aucune machine insérée";
 
-		this.btLabelRegOspite = "Registrami come ospite";
-		this.btLabelRegProprietario = "Registrami come proprietario";
-		this.btLabelUpdateOspite = "Aggiornamento ospite";
-		this.btLabelUpdateProprietario = "Aggiornamento proprietario";
-		this.btLabelUpgradeProprietario = "Upgrade to owner";
+		this.btLabelRegOspite = "Enregistrez-moi comme hôte";
+		this.btLabelRegProprietario = "Enregistrez-moi comme propriétaire";
+		this.btLabelUpdateOspite = "Mise à jour de l’hôte";
+		this.btLabelUpdateProprietario = "Mise à jour du propriétaire";
+		this.btLabelUpgradeProprietario = "Upgrade a proprietario";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 
-		this.btLabelRemoveUser = "Rimuovi il mio account";
+		this.btLabelRemoveUser = "Supprimez mon compte";
 
 	    this.nameReg = "Prenom";
 	    this.emailReg = "Email";
@@ -541,28 +538,28 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.titlePageHelp= "Inviaci la tua richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.oggettoForm= "Oggetto";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.textForm= "Testo richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.btHelp= "Invia richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelObbligatori= "* campi obbligatori";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btHelp= "Invia richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelObbligatori= "* champs obligatoire";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    //katoimer
 	    this.titKato = "";
 	    this.textKato = "<p>En novembre 2016, la multinationale japonaise KATO WORKS CO., LTD. et le conglom&eacute;rat japonais IHI Corporation Ltd. ont sign&eacute; un accord pour le transfert de 100 % des actions de la soci&eacute;t&eacute; IHI Construction Machinery Ltd., (IK) de IHI &agrave; KATO. Depuis janvier 2017 la soci&eacute;t&eacute; IK, qui contr&ocirc;lait 51 % de la soci&eacute;t&eacute; IHIMER S.p.A. avec son si&egrave;ge en Italie &agrave; San Gimignano (49 % continue en revanche &agrave; &ecirc;tre d&eacute;tenu par la soci&eacute;t&eacute; IMER GROUP S.p.A.), elle a modifi&eacute; sa raison sociale en KATO HEAVY INDUSTRIES CONSTRUCTION MACHINERY CO.,LTD. (KATO HICOM). Depuis le 17 f&eacute;vrier 2017, IHIMER S.p.A. a modifi&eacute; sa raison sociale en KATO IMER S.p.A. Le colosse japonais KATO WORKS produit une vaste gamme de machines pour la construction et active dans le secteur depuis 1895, il a d&eacute;cid&eacute; d&rsquo;investir en Europe convaincu de l&rsquo;importance du march&eacute;, en collaboration avec la soci&eacute;t&eacute; italienne Imer Group, leader europ&eacute;en dans la production de machines pour le b&acirc;timent et les installations de b&eacute;ton. KATO IMER produit en Italie des mini-pelles m&eacute;caniques &agrave; technologie KATO, skid-loader et dumper &agrave; chenilles ; distribue des mini-pelles m&eacute;caniques et crawler carrier produits au Japon par KATO HICOM. Les mini-pelles m&eacute;caniques couvrent une gamme allant de 0,9 &agrave; 8,5 tonnes, short-tail, traditionnelles et sans d&eacute;port arri&egrave;re. Les skid-loader &agrave; pneus avec un chargement op&eacute;rationnel de 400 &agrave; 2500 kg et &agrave; chenilles. Les dumpers se divisent en deux classes : les mini-dumpers, avec une charge op&eacute;rationnelle de 400 &agrave; 2500 kg, pour les restructurations et les p&eacute;pini&egrave;res ; les dumpers avec des charges op&eacute;rationnelles comprises entre 3000 et 11 000 kg utilis&eacute;s dans le g&eacute;nie civil et dans la construction d&rsquo;infrastructures. L&rsquo;&eacute;tablissement de KATO IMER &agrave; San Gimignano, dans la province de Sienne, s&rsquo;&eacute;tend sur une surface de plus de 36 000 m<sup>2</sup>. La recherche constante d&rsquo;innovation et l&rsquo;activit&eacute; continue de conception permettent &agrave; la soci&eacute;t&eacute; de d&eacute;velopper des machines &agrave; l&rsquo;avant-garde et parfaitement conformes aux exigences du march&eacute;. Les produits KATO IMER sont commercialis&eacute;s gr&acirc;ce &agrave; un r&eacute;seau de plus de 100 distributeurs et revendeurs qui couvre en mode uniforme tous les principaux pays europ&eacute;ens et d&rsquo;autres encore sur les 5 continents. Un r&eacute;seau de distribution a d&eacute;j&agrave; &eacute;t&eacute; d&eacute;marr&eacute; au niveau mondial pour les lignes skid et minidumper.</p>";
 
 	    //MA.MO.T.
-	    this.titMamot = "L&rsquo;extension de garantie";
+	    this.titMamot = "L&rsquo;extension de garantie S&eacute;r&eacute;nit&eacute; maximale";
 	    this.textMamot = "</p><p><strong>S&eacute;r&eacute;nit&eacute; maximale</strong></p><p>Pour &ecirc;tre toujours en totale s&eacute;r&eacute;nit&eacute;, m&ecirc;me apr&egrave;s l&rsquo;&eacute;ch&eacute;ance de la garantie conventionnelle (1&egrave;re ann&eacute;e), il suffit de demander &agrave; son concessionnaire KATO IMER de confiance les informations concernant le programme d&rsquo;extension de la garantie MA.MO.T. et travailler en totale s&eacute;curit&eacute; et tranquillit&eacute; jusqu&rsquo;&agrave; 5 ans maximum &agrave; partir de l&rsquo;achat. Gr&acirc;ce &agrave; la s&eacute;curit&eacute; de pouvoir b&eacute;n&eacute;ficier pendant de nombreuses ann&eacute;es de l&rsquo;exp&eacute;rience de techniciens autoris&eacute;s et de pi&egrave;ces de rechange originales, les machines KATO IMER se r&eacute;v&eacute;leront certainement un parfait investissement.</p><p><strong>Une vaste gamme de possibilit&eacute;s</strong></p><p>La couverture d&rsquo;assurance MA.MO.T. peut &ecirc;tre acquise pour toutes les machines neuves. Il est possible de travailler sans pr&eacute;occupations et prot&eacute;g&eacute;s des risques de devoir soutenir des d&eacute;penses caus&eacute;es par des r&eacute;parations impr&eacute;vues.</p><p><strong>La couverture annuelle</strong></p><p>Le programme MA.MO.T. permet de faire r&eacute;parer les pannes de nature &eacute;lectrique, hydraulique et/ou m&eacute;canique, caus&eacute;es par une rupture soudaine et accidentelle d&rsquo;un ou plusieurs composants.</p><p><strong>Centres d&rsquo;Assistance autoris&eacute;s KATO IMER </strong></p><p>Le service de garantie est valide et il est reconnu aupr&egrave;s de tous les Centres d&rsquo;Assistance autoris&eacute;s KATO IMER. Toutes les conditions de garantie sont contenues dans la police d&rsquo;assurance.</p>";
 
 	    //contatti
 	    this.txtContatti = "<strong>Head Offices, Sales and Plant</strong><br/>53037 Loc. Cusona <br/>San Gimignano (SI) - Italy<br/><br/><hr/><br/>Phone: <a href='tel:+39 0577 951 21' >+39 0577 951 21</a><br/>Fax: +39 0577 982 400<br/>info@katoimer.com<br/><br/><hr/><br/><strong>Sales:</strong><br/>marketing@katoimer.com<br/><strong>Service:</strong><br/>service@katoimer.com<br/><strong>Parts:</strong><br/>parts@katoimer.com<br/><br/><br/>";
 
 		// messaggi richieste ajax/check form 
-		this.nackDatabase = "Error on Database request";
-		this.nackPrepareQuery = "Errore preparazione Query";
+		this.nackDatabase = "Erreur dans la demande à la base de données";
+		this.nackPrepareQuery = "Erreur de préparation Query";
 	    this.sendAjax = "Envoyer une requete...";
 	    this.ackAjaxRequest = "Demande correctement envoyée";
 	    this.nackAjaxRequest = "Erreur demande d'envoi";
 	    this.ackAjaxIscritto = "Abonnement ";
-	    this.ackAjaxUpdate = "Modifica effettuata correttamente";
+	    this.ackAjaxUpdate = "Modification effectuée correctement";
 	    this.ackAjaxRemove = "Utente eliminato!"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
@@ -573,15 +570,16 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	   	this.nackSendingEmail = "Errore invio email"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW	    
 
 	    this.userAlreadyReg = "Utilisateur déjà enregistré";
-	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app.";
+	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackToken = "Jeton non autorisé";
-	    
+
 	    // privacy marketing push label
 	    this.checkPrivacy = "Acceptation de la confidentialité obligatoire";
 	    this.labelPrivacy = "J'autorise le <a href=\"#pages9\"> traitement de mes données personnelles </a> conformément au décret-loi du 30 juin 2003, n. 196 \"Code concernant la protection des données personnelles\" et le GDPR (Règlement de l'UE 2016/679). ";
 	    this.labelMarketing = "J'accepte de recevoir des communications marketing de KATO IMER";
 	    this.labelPush = "J'accepte de recevoir des notifications push sur mon appareil";
 	    this.codeIubendaPrivacy = "85846522";
+
 	}
 
 }
