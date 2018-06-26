@@ -133,7 +133,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.fbBtLabel = "Login with Facebook";
 	    this.gplusBtLabel = "Login with Google+";
 	    this.newRegisterBtLabel = "New registration";
-	    this.labelAlertNoconn = "Connessione assente. Impossibile effettuare login o nuove registrazioni.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelAlertNoconn = "No web connection";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 
 		// registrazione
 		this.labelOspite = "guest";
@@ -168,7 +168,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.btLabelDealer = "Dealer";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.btLabelDealers = "Dealers";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.btLabelOfficina = "Workshop";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.btLabelOfficine = "Workshops";   // NEWWWWWWWWWWWWWWWWWWWWWWWW	    
+	    this.btLabelOfficine = "Workshops";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    // lista catalogo
 	    this.titCatalogo= "Catalogue";
@@ -252,6 +252,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.fbBtLabel = "Einloggen mit Facebook";
 	    this.gplusBtLabel = "Einloggen mit Google+";
 	    this.newRegisterBtLabel = "Neue Registrierung";
+	    this.labelAlertNoconn = "No internetverbindung";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 
 		// registrazione
 		this.labelOspite = "Gast";
@@ -264,7 +265,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.btLabelRegProprietario = "Als Besitzer registrieren";
 		this.btLabelUpdateOspite = "Aktualisierung Gast";
 		this.btLabelUpdateProprietario = "Aktualisierung Besitzer";
-		this.btLabelUpgradeProprietario = "Upgrade a proprietario";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+		this.btLabelUpgradeProprietario = "Upgrade Besitzer";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 
 		this.btLabelRemoveUser = "Account löschen";
 
@@ -370,6 +371,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.fbBtLabel = "Entrar con Facebook";
 	    this.gplusBtLabel = "Entrar con Google+";
 	    this.newRegisterBtLabel= "Nuevo registro";
+	    this.labelAlertNoconn = "Ausencia de conexión a Internet.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 
 		// registrazione
 		this.labelOspite = "Huésped";
@@ -382,7 +384,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.btLabelRegProprietario = "Regístrame como propietario";
 		this.btLabelUpdateOspite = "Actualización huésped";
 		this.btLabelUpdateProprietario = "Actualización propietario";
-		this.btLabelUpgradeProprietario = "Upgrade a proprietario";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+		this.btLabelUpgradeProprietario = "Actualizar a propietario";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 
 		this.btLabelRemoveUser = "Elimina mi cuenta";
 
@@ -487,6 +489,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.fbBtLabel = "Se connecter avec Facebook";
 	    this.gplusBtLabel = "Se connecter avec Google+";
 	    this.newRegisterBtLabel= "Nouvelle inscription";
+	    this.labelAlertNoconn = "Aucun connexion Internet.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 
 		// registrazione
 		this.labelOspite = "Hôte";
@@ -499,7 +502,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.btLabelRegProprietario = "Enregistrez-moi comme propriétaire";
 		this.btLabelUpdateOspite = "Mise à jour de l’hôte";
 		this.btLabelUpdateProprietario = "Mise à jour du propriétaire";
-		this.btLabelUpgradeProprietario = "Upgrade a proprietario";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+		this.btLabelUpgradeProprietario = "Upgrade a propriétaire";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 
 		this.btLabelRemoveUser = "Supprimez mon compte";
 

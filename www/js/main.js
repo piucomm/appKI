@@ -336,13 +336,13 @@ var app = {
 
     findByName: function() {
         console.log('findByName');
-        var self = this;
+
         // this.dealerObj.findByName($('.search-key').val(), function(employees) {
         //     $('.dealer-list').html(self.employeeLiTpl(employees));
         //     self.initMenu();
         // });
-        this.dealerObj.findByName(app.typeOfItem, app.sortOfItem, $('.search-key').val());
-        self.initMenu();
+        app.dealerObj.findByName(app.typeOfItem, app.sortOfItem, $('.search-key').val());
+        app.initMenu();
     },
 
     registerEvents: function() {
@@ -561,40 +561,7 @@ var app = {
                     break;
                 case "#pages3": // pagina dealers/officine
                     if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
-
                         app.showConfirmPosition('La tua posizione verrà mostrata sulla mappa e utilizzata per fornire indicazioni, ottenere risultati di ricerca nelle vicinanze e calcolarne la distanza.','Vuoi che l\'App"KATO IMER" acceda alla tua posizione?');
-                        
-                        context = { btLabelDealer: app.messages.btLabelDealer, btLabelOfficine: app.messages.btLabelOfficine }
-                        $('body').html(self.searchTpl(context));
-                        contextH = { pageName: app.messages.menu4, backUrl: "#", boolMenu: 1 };
-                        $('.header').html(self.mainHeader(contextH));
-
-                        app.dealerObj.ajaxCallDealer("dealers"); // ajax call per dealer/officine
-                        app.dealerObj.ajaxCallDealer("officine"); // ajax call  per dealer/officine
-
-                        this.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, app.viewOfItem );
-
-                        $('#btDealer').on('click', function(){
-                            app.typeOfItem = "dealers";
-                            app.dealerObj.showAllItems("dealers", app.sortOfItem, app.viewOfItem);
-                        });
-                        $('#btOfficina').on('click', function(){
-                            app.dealerObj.showAllItems("officine", app.sortOfItem, app.viewOfItem);
-                            app.typeOfItem = "officine", "distance";
-                        });
-
-                        $('.btListDealer').on('click', function(){
-                            app.viewOfItem = "list";
-                            app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, "list");
-                        });
-
-                        $('.btListMap').on('click', function(){
-                            app.viewOfItem = "map";
-                            app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, "map");
-                        });
-       
-                        $('.search-key').on('keyup', $.proxy(self.findByName, this));
-                        
                     } 
                     break;
                 case "#pages4":  // pagina Catalogo
@@ -1544,7 +1511,7 @@ var app = {
 
         }
         
-    }
+    },
 
     showConfirmPosition: function (message, title) {
         navigator.notification.confirm(
@@ -1554,6 +1521,48 @@ var app = {
             ['CONSENTI','NON CONSENTIRE']         // buttonLabels
         );
     },
+
+    onConfirmPosition: function (buttonIndex) {
+        context = { btLabelDealer: app.messages.btLabelDealer, btLabelOfficine: app.messages.btLabelOfficine }
+        $('body').html(app.searchTpl(context));
+        contextH = { pageName: app.messages.menu4, backUrl: "#", boolMenu: 1 };
+        $('.header').html(app.mainHeader(contextH));
+
+        app.dealerObj.ajaxCallDealer("dealers"); // ajax call per dealer/officine
+        app.dealerObj.ajaxCallDealer("officine"); // ajax call  per dealer/officine
+
+        if(buttonIndex == 1){ // CONSENTI
+            app.sortOfItem = "distance";
+        } else if(buttonIndex == 2) {   //NON CONSENTI
+            app.sortOfItem = "alphabet";
+        }
+        app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, app.viewOfItem );
+
+        $('#btDealer').on('click', function(){
+            app.typeOfItem = "dealers";
+            app.dealerObj.showAllItems("dealers", app.sortOfItem, app.viewOfItem);
+        });
+        
+        $('#btOfficina').on('click', function(){
+            app.dealerObj.showAllItems("officine", app.sortOfItem, app.viewOfItem);
+            app.typeOfItem = "officine", "distance";
+        });
+
+        $('.btListDealer').on('click', function(){
+            app.viewOfItem = "list";
+            app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, "list");
+        });
+
+        if(buttonIndex == 1){ // vedo la mappa solo se ho acconsentito
+            $('.btListMap').on('click', function(){
+                app.viewOfItem = "map";
+                app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, "map");
+            });
+        }
+
+        $('.search-key').on('keyup', $.proxy(app.findByName, this));
+
+    }
 
 };
 

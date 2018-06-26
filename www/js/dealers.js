@@ -68,10 +68,19 @@ var DealersOfficine = function(successCallback, errorCallback) {
             dataDistance = i + Math.floor((Math.random() * 100) +1);
             dataInitials = dataItems[i].nome.toString().charCodeAt(0);
 
+            switch(orderBy) {
+                case "distance":
+                    kmDistance = ' - ' + dataDistance+' Km';
+                break;
+                case "alphabet":
+                    kmDistance = '';
+                break;
+            }
+            
             $('ul.dealers-list').attr('class',"dealers-list "+typeItem).append(
             $('<li>').attr('data-distance',dataDistance).attr('data-letters',dataInitials).append(
                 $('<a>').attr('href','#dealoff1?iditem='+dataItems[i].id).append(
-                    '<div class="nomeItem" >'+dataItems[i].nome+'<br/><span class="addressItem">'+dataItems[i].citta+' - '+dataItems[i].nazione+' - '+dataDistance+' Km </span></div>')
+                    '<div class="nomeItem" >'+dataItems[i].nome+'<br/><span class="addressItem">'+dataItems[i].citta+' - '+dataItems[i].nazione + kmDistance +' </span></div>')
             ));
         }
 
@@ -164,8 +173,8 @@ var DealersOfficine = function(successCallback, errorCallback) {
         }
 
         function sort_li_alph(a,b){
-            if('a'.charCodeAt(0)) a += 100;
-            if('a'.charCodeAt(0)) b += 100;
+            // if('a'.charCodeAt(0)) a += 100;
+            // if('b'.charCodeAt(0)) b += 100;
             return($(b).data('letters') < $(a).data('letters')) ? 1 : -1;
         }
     }
