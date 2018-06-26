@@ -561,6 +561,8 @@ var app = {
                     break;
                 case "#pages3": // pagina dealers/officine
                     if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
+
+                        app.showConfirmPosition('La tua posizione verrà mostrata sulla mappa e utilizzata per fornire indicazioni, ottenere risultati di ricerca nelle vicinanze e calcolarne la distanza.','Vuoi che l\'App"KATO IMER" acceda alla tua posizione?');
                         
                         context = { btLabelDealer: app.messages.btLabelDealer, btLabelOfficine: app.messages.btLabelOfficine }
                         $('body').html(self.searchTpl(context));
@@ -568,7 +570,7 @@ var app = {
                         $('.header').html(self.mainHeader(contextH));
 
                         app.dealerObj.ajaxCallDealer("dealers"); // ajax call per dealer/officine
-                        app.dealerObj.ajaxCallDealer("officine"); // ajax call per dealer/officine
+                        app.dealerObj.ajaxCallDealer("officine"); // ajax call  per dealer/officine
 
                         this.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, app.viewOfItem );
 
@@ -1543,6 +1545,15 @@ var app = {
         }
         
     }
+
+    showConfirmPosition: function (message, title) {
+        navigator.notification.confirm(
+            message, // message
+            app.onConfirmPosition,            // callback to invoke with index of button pressed
+            title,           // title
+            ['CONSENTI','NON CONSENTIRE']         // buttonLabels
+        );
+    },
 
 };
 
