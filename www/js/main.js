@@ -99,6 +99,8 @@ var app = {
             } , function () { localStorage.setItem("language", 'it-IT'); } // errore, setto l'italiano 
         );
 
+        window.FirebasePlugin.grantPermission();
+
         window.FirebasePlugin.getToken(function(token) {
         // save this server-side and use it to push notifications to this device
             console.log("FireBaseeeeeeeeeeeeeeeeeeeeee ok "+token);
