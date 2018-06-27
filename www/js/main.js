@@ -99,6 +99,19 @@ var app = {
             } , function () { localStorage.setItem("language", 'it-IT'); } // errore, setto l'italiano 
         );
 
+        window.FirebasePlugin.getToken(function(token) {
+        // save this server-side and use it to push notifications to this device
+            console.log("FireBaseeeeeeeeeeeeeeeeeeeeee ok "+token);
+        }, function(error) {
+            console.error("FireBaseeeeeeeeeeeeeeeeeeeeee Error "+error);
+        });
+
+        window.FirebasePlugin.onNotificationOpen(function(notification) {
+            app.showAlert(notification,notification);
+        }, function(error) {
+            console.log("Notificationnnnnnnnnnn error",error);
+        });
+
         app.messages = new MessageTranslation(); // label traduzioni
         app.winHeight = $(window).height();
         app.dealerObj = new DealersOfficine(); // inizializzo l'oggetto per la classe dealers/officine
@@ -1239,7 +1252,7 @@ var app = {
         var fbLoginSuccess = function (userData) {
           console.log("UserInfo: ", userData);
         }
-         
+
         facebookConnectPlugin.login(["public_profile","email"],function(result){
             //calling api after login success
             facebookConnectPlugin.api("/me?fields=email,name,picture",
@@ -1269,6 +1282,7 @@ var app = {
     checkGooglePlugin: function() {
         window.plugins.googleplus.login(
         {
+            'scopes': 'https://www.googleapis.com/auth/contacts.readonly profile email',
           'webClientId': '428188435311-vhk6b8hhtr9lhmiobs9d9cil5nlkh7l2.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
           'offline': true // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
         },
@@ -1288,7 +1302,7 @@ var app = {
             */
         },
         function (msg) {
-          $("#serviceMessageLogin").html('Impossibile autenticarsi con Google+');
+          $("#serviceMessageLogin").html('Impossibile autenticarsi con Google+' + msg);
         }
         );
     },

@@ -246,11 +246,9 @@ var CatalogoItems = function(successCallback, errorCallback) {
                         $(".slideshow-container").swipe({
                             //Single swipe handler for left swipes
                             swipeLeft:function(event, direction, distance, duration, fingerCount) {
-                                console.log(" SWIPEEEEEEEEEEEEEEEEEEEEE "+direction);
                                 app.plusSlides(-1);
                             },
                             swipeRight:function(event, direction, distance, duration, fingerCount) {
-                                console.log(" SWIPEEEEEEEEEEEEEEEEEEEEE "+direction);
                                 app.plusSlides(1);
                             },
                             //Default is 75px, set to 0 for demo so any distance triggers swipe
