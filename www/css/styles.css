@@ -608,7 +608,7 @@ h2#title-item small {
 
         /* Next & previous buttons */
         #content-item .slideshow-container .prev, #content-item .slideshow-container .next {
-            display:block; /* display:none; */
+            display:none;
             cursor: pointer;
             position: absolute;
             top: 50%;
@@ -665,10 +665,10 @@ h2#title-item small {
         }
 
         #content-item .mySlides.fade {
-            -webkit-animation: fade 0.5s ease-in;
+/*            -webkit-animation: fade 0.5s ease-in;
             -moz-animation: fade 0.5s ease-in;
             -o-animation: fade 0.5s ease-in;
-            animation: fade 0.5s ease-in;
+            animation: fade 0.5s ease-in;*/
         }
 
         @-webkit-keyframes fade {

@@ -243,6 +243,20 @@ var CatalogoItems = function(successCallback, errorCallback) {
                             );
                         }
 
+                        $(".slideshow-container").swipe({
+                            //Single swipe handler for left swipes
+                            swipeLeft:function(event, direction, distance, duration, fingerCount) {
+                                console.log(" SWIPEEEEEEEEEEEEEEEEEEEEE "+direction);
+                                app.plusSlides(-1);
+                            },
+                            swipeRight:function(event, direction, distance, duration, fingerCount) {
+                                console.log(" SWIPEEEEEEEEEEEEEEEEEEEEE "+direction);
+                                app.plusSlides(1);
+                            },
+                            //Default is 75px, set to 0 for demo so any distance triggers swipe
+                            threshold:0
+                        });
+
                         // visualizzo la gallery se ho almeno una immagine presente
                         if(dataCatalog[0].imgUrl[0] != 0) {
                             app.showSlides(app.slideIndex);
@@ -267,10 +281,10 @@ var CatalogoItems = function(successCallback, errorCallback) {
             $('#content-item').append(
             $('<div class="img-item">').append(
                 $('<img/>', {
-                                id: 'gallery-item',
-                                class: 'gallery-item',
-                                src: dataLocal.rows.item(0).immagine
-                                })
+                    id: 'gallery-item',
+                    class: 'gallery-item',
+                    src: dataLocal.rows.item(0).immagine
+                    })
                 ),
                 $('<div class="text-item">').append(
                 dataLocal.rows.item(0).descrizione)
