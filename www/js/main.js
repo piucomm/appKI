@@ -63,6 +63,8 @@ var app = {
 
         this.map = "";
 
+        this.slideIndex = 1; // 0
+
         this.registerEvents();
         
     },
@@ -561,8 +563,7 @@ var app = {
                     break;
                 case "#pages3": // pagina dealers/officine
                     if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
-                        app.showConfirmPosition('La tua posizione verrà mostrata sulla mappa e utilizzata per fornire indicazioni, ottenere risultati di ricerca nelle vicinanze e calcolarne la distanza.','Vuoi che l\'App"KATO IMER" acceda alla tua posizione?');
-                    } 
+                        app.showConfirmPosition(app.messages.textAlertPosition,app.messages.titleAlertPosition);                    } 
                     break;
                 case "#pages4":  // pagina Catalogo
                     $('body').html(self.catalogList());
@@ -696,11 +697,11 @@ var app = {
 
                 var matchParamsIDcat = hash.match(/idcat=(\d+)/)
                 if (matchParamsIDcat) {
-                    var catId = matchParamsIDcat[1];
+                    var catID = matchParamsIDcat[1];
                 }
 
                 context1 = { idItem: itemID, labelBtManuale: app.messages.labelBtManuale};
-                contextH = { pageName: catTit, backUrl: "#cat1?idcat="+catId+"&titcat="+catTit, boolMenu: 1 }; // titolo pagina prodotto
+                contextH = { pageName: catTit, backUrl: "#cat1?idcat="+catID+"&titcat="+catTit, boolMenu: 1 }; // titolo pagina prodotto
                 $('body').html(self.itemPage(context1));
                 $('.header').html(self.mainHeader(contextH));
 
@@ -711,7 +712,6 @@ var app = {
                         tx.executeSql("SELECT * FROM items WHERE id = "+itemID,[], app.getSuccessItem, app.getErrorItem);
                     });
                 }
-                
 
                 $('#btManuale').on('click', function(){
                     app.requestManuale();
@@ -1518,7 +1518,7 @@ var app = {
             message, // message
             app.onConfirmPosition,            // callback to invoke with index of button pressed
             title,           // title
-            ['CONSENTI','NON CONSENTIRE']         // buttonLabels
+            [app.messages.ackPosition, app.messages.nackPosition]         // buttonLabels
         );
     },
 
@@ -1562,7 +1562,46 @@ var app = {
 
         $('.search-key').on('keyup', $.proxy(app.findByName, this));
 
+    },
+
+
+    // Next/previous controls
+    plusSlides: function (n) {
+        app.showSlides(app.slideIndex += n);
+    },
+
+    // Thumbnail image controls
+    currentSlide: function (n) {
+        app.showSlides(app.slideIndex = n);
+    },
+
+    showSlides: function (n) {
+          var i;
+          var slides = document.getElementsByClassName("mySlides");
+          var dots = document.getElementsByClassName("dot");
+          if (n > slides.length) {app.slideIndex = 1} 
+          if (n < 1) {app.slideIndex = slides.length}
+          for (i = 0; i < slides.length; i++) {
+              slides[i].style.display = "none"; 
+          }
+          for (i = 0; i < dots.length; i++) {
+              dots[i].className = dots[i].className.replace(" active", "");
+          }
+          slides[app.slideIndex-1].style.display = "block"; 
+          dots[app.slideIndex-1].className += " active";
+        // var i;
+        // var slides = document.getElementsByClassName("mySlides");
+        // for (i = 0; i < slides.length; i++) {
+        //     slides[i].style.display = "none";
+        //     $(slides[i]).removeClass("fade");
+        // }
+        // app.slideIndex++;
+        // if (app.slideIndex > slides.length) {app.slideIndex = 1} 
+        // slides[app.slideIndex-1].style.display = "block"; 
+        // $(slides[app.slideIndex-1]).addClass("fade");
+        // setTimeout(app.showSlides, 6000); // Change image every 2 seconds
     }
+
 
 };
 

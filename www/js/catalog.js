@@ -122,7 +122,6 @@ var CatalogoItems = function(successCallback, errorCallback) {
                                     "<div>"+dataCatalog[i].titolo+"<small>"+dataCatalog[i].sottotitolo+"</small></div>")
                             )); 
                         }
-                        console.log("dataCatalog[i].attributi "+dataCatalog[i].attributi);
                     }
 
                     // salvo nello storage sql locale, devo salvare sempre o se il catalogo è aggiornato?
@@ -188,13 +187,46 @@ var CatalogoItems = function(successCallback, errorCallback) {
                         $('h2#title-item').html(dataCatalog[i].titolo+" <small>"+tonnellaggio[1]+"</small>");
                         $('#subtitle-item').html(dataCatalog[i].sottotitolo);
                         $('#content-item').append(
-                            $('<div class="img-item">').append(
-                                $('<img/>', {
-                                id: 'gallery-item',
-                                class: 'gallery-item',
-                                src: dataCatalog[i].immagine
-                                })
-                            ),
+                            $('<div class="slideshow-container">').append(
+                                $('<div class="mySlides fade">').append(
+                                    $('<img/>', {
+                                    id: 'gallery-item',
+                                    class: 'gallery-item',
+                                    src: dataCatalog[i].immagine
+                                    })
+                                )
+                            )
+                        );
+
+                        if(dataCatalog[0].imgUrl[0] != 0) { // Dots navigation
+                            $('#content-item').append($('<div id="dotNav"><span class="dot" onclick="app.currentSlide(1)"></span></div>'));
+                        } else {
+                            $("#content-item .slideshow-container .mySlides").show();
+                        }
+
+                        if(dataCatalog[i].imgUrl[0] != 0) {
+                            for (var ii = 0; ii < dataCatalog[i].imgUrl.length; ii++) {
+                                var indexSlide = ii + 2;
+                                // console.log("url "+dataCatalog[0].imgUrl[ii]);
+                                $('.slideshow-container').append(
+                                    $('<div class="mySlides">').append(
+                                        $('<img/>', {
+                                        id: 'gallery-item',
+                                        class: 'gallery-item',
+                                        src: dataCatalog[i].imgUrl[ii]
+                                        })
+                                    )
+                                ),
+                                $('#dotNav').append($('<span class="dot" onclick="app.currentSlide('+indexSlide+')"></span>'));
+                            }
+                            // Arrows navigation
+                            $('.slideshow-container').append(
+                              $('<a class="prev" onclick="app.plusSlides(-1)">&#10094;</a>'),
+                              $('<a class="next" onclick="app.plusSlides(1)">&#10095;</a>')
+                            )
+                        }
+
+                        $('#content-item').append(
                             $('<div class="text-item">').append(
                             dataCatalog[i].descrizione)
                         ); 
@@ -209,6 +241,12 @@ var CatalogoItems = function(successCallback, errorCallback) {
                             $('#button-item').append(
                                 $('<button id="btScheda" class="rounded-button half-size" onclick="location.href="'+dataCatalog[i].attach2+'" ">'+app.messages.labelBtSchedatecnica+'</button>')
                             );
+                        }
+
+                        // visualizzo la gallery se ho almeno una immagine presente
+                        if(dataCatalog[0].imgUrl[0] != 0) {
+                            app.showSlides(app.slideIndex);
+                            // app.showSlides();
                         }
 
                     }
@@ -239,7 +277,6 @@ var CatalogoItems = function(successCallback, errorCallback) {
             ); 
 
         }
-    }    
-
+    }
 
 }
