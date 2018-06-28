@@ -175,8 +175,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.btLabelOfficina = "Workshop";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.btLabelOfficine = "Workshops";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
-	    this.titleAlertPosition = "Vuoi che l'App\"KATO IMER\" acceda alla tua posizione?";
-	    this.textAlertPosition = "La tua posizione verrà mostrata sulla mappa e utilizzata per fornire indicazioni, ottenere risultati di ricerca nelle vicinanze e calcolarne la distanza.";
+	    this.titleAlertPosition = "Do you want the \"KATO IMER\" App to access your location?";
+	    this.textAlertPosition = "Your location will be shown on the map and used to provide directions, get nearby search results and calculate the distance.";
 	    this.ackPosition = "Consenti";
 	    this.nackPosition = "Non consentire";
 
@@ -299,8 +299,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.btLabelOfficina = "Werkstatt";
 	    this.btLabelOfficine = "Werkstatt";
 
-	    this.titleAlertPosition = "Vuoi che l'App\"KATO IMER\" acceda alla tua posizione?";
-	    this.textAlertPosition = "La tua posizione verrà mostrata sulla mappa e utilizzata per fornire indicazioni, ottenere risultati di ricerca nelle vicinanze e calcolarne la distanza.";
+	    this.titleAlertPosition = "Möchten Sie, dass die \"KATO IMER\" App auf Ihre Position zugreifen kann?";
+	    this.textAlertPosition = "Ihre Position wird auf der Karte angezeigt und für Hinweise und Suchergebnisse in der Nähe mit Berechnung der Entfernung verwendet.";
 	    this.ackPosition = "Consenti";
 	    this.nackPosition = "Non consentire";
 
@@ -422,9 +422,9 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.btLabelOfficina = "Taller";
 	    this.btLabelOfficine = "Talleres";
 
-	    this.titleAlertPosition = "Vuoi che l'App\"KATO IMER\" acceda alla tua posizione?";
-	    this.textAlertPosition = "La tua posizione verrà mostrata sulla mappa e utilizzata per fornire indicazioni, ottenere risultati di ricerca nelle vicinanze e calcolarne la distanza.";
-	    this.ackPosition = "Consenti";
+	    this.titleAlertPosition = "¿Quieres que la Aplicación \"KATO IMER\" acceda a tu posición?";
+	    this.textAlertPosition = "Tu posición se mostrará en el mapa y se utilizará para ofrecer indicaciones, obtener resultados de búsqueda en las cercanías y calcular su distancia.";
+    	this.ackPosition = "Consenti";
 	    this.nackPosition = "Non consentire";
 
 	    // lista catalogo
@@ -545,8 +545,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.btLabelOfficina = "Atelier";
 	    this.btLabelOfficine = "Ateliers";
 
-	    this.titleAlertPosition = "Vuoi che l'App\"KATO IMER\" acceda alla tua posizione?";
-	    this.textAlertPosition = "La tua posizione verrà mostrata sulla mappa e utilizzata per fornire indicazioni, ottenere risultati di ricerca nelle vicinanze e calcolarne la distanza.";
+	    this.titleAlertPosition = "Voulez-vous que l'Appli \"KATO IMER\" accède à votre position ?";
+	    this.textAlertPosition = "Votre position sera montrée sur la carte et utilisée pour fournir des indications, obtenir des résultats de recherche dans les alentours et en calculer la distance.";
 	    this.ackPosition = "Consenti";
 	    this.nackPosition = "Non consentire";
 

@@ -99,7 +99,7 @@ var app = {
             } , function () { localStorage.setItem("language", 'it-IT'); } // errore, setto l'italiano 
         );
 
-        window.FirebasePlugin.grantPermission();
+        // window.FirebasePlugin.grantPermission(); // solo per IOS
 
         window.FirebasePlugin.getToken(function(token) {
         // save this server-side and use it to push notifications to this device
@@ -109,7 +109,7 @@ var app = {
         });
 
         window.FirebasePlugin.onNotificationOpen(function(notification) {
-            app.showAlert(notification,notification);
+            app.showAlert(notification.body,notification.body);
         }, function(error) {
             console.log("Notificationnnnnnnnnnn error",error);
         });
@@ -1282,11 +1282,9 @@ var app = {
     },
 
     checkGooglePlugin: function() {
+        console.log("click google+ login");
         window.plugins.googleplus.login(
         {
-            'scopes': 'https://www.googleapis.com/auth/contacts.readonly profile email',
-          'webClientId': '428188435311-vhk6b8hhtr9lhmiobs9d9cil5nlkh7l2.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
-          'offline': true // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
         },
         function (obj) {
             $("#serviceMessageLogin").html('Autenticazione Ok riuscita...');
@@ -1304,7 +1302,7 @@ var app = {
             */
         },
         function (msg) {
-          $("#serviceMessageLogin").html('Impossibile autenticarsi con Google+' + msg);
+            $("#serviceMessageLogin").html('Impossibile autenticarsi con Google+' + msg);
         }
         );
     },
