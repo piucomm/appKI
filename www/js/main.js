@@ -100,7 +100,6 @@ var app = {
         );
 
         // window.FirebasePlugin.grantPermission(); // solo per IOS
-
         window.FirebasePlugin.getToken(function(token) {
         // save this server-side and use it to push notifications to this device
             console.log("FireBaseeeeeeeeeeeeeeeeeeeeee ok "+token);
@@ -109,7 +108,9 @@ var app = {
         });
 
         window.FirebasePlugin.onNotificationOpen(function(notification) {
-            app.showAlert(notification.body,notification.body);
+            if(localStorage.getItem("push") == 1){
+                app.showAlert(notification.body,notification.body);
+            }
         }, function(error) {
             console.log("Notificationnnnnnnnnnn error",error);
         });
@@ -186,7 +187,6 @@ var app = {
     },
 
     getLocalCatalogHome: function(tx) {
-        console.log("Ok. leggo i dati in locale.");
         tx.executeSql("SELECT * FROM cats",[], app.getSuccessCatLocalHome, app.getErrorCatLocalHome);
         $('#serviceMessageRegisterHome').html("Ok. leggo i dati in locale.");
         
@@ -200,7 +200,6 @@ var app = {
     getErrorCatLocalHome: function(tx,result) { 
         $("#footer-button .preloader5").hide();
         $('#serviceMessageRegisterHome').html("Errore lettura catalogo locale");
-        console.log("Errore get cats local");
     },
 
     renderRegisterView: function() {
@@ -266,7 +265,7 @@ var app = {
                // Adding new div container after last occurance of element class
                $(".element:last").after("<div class='element' id='div_"+ nextindex +"'></div>");
                // Adding element to <div>
-               $("#div_" + nextindex).append("<input type='text' placeholder='Modello' id='cod_"+ nextindex +"' class='colModello'><input type='text' placeholder='Num. Seriale' id='_"+ nextindex +"' class='colModello' ><div id='remove_" + nextindex + "' class='remove'><div class='btRemoveModel'>-</div></div>");
+               $("#div_" + nextindex).append("<input type='text' placeholder='"+app.messages.labelModelMacchinari+"' id='cod_"+ nextindex +"' class='colModello'><input type='text' placeholder='"+app.messages.labelSerialMacchinari+"' id='_"+ nextindex +"' class='colModello' ><div id='remove_" + nextindex + "' class='remove'><div class='btRemoveModel'>-</div></div>");
               }
              
         });
@@ -463,7 +462,7 @@ var app = {
             for (var i = 1; i < modelliArr.length; i++) {
                 nextindex = i + 1;
                 $(".elementUpd:last").after("<div class='elementUpd' id='divUpd_"+ nextindex +"'></div>");
-                $("#divUpd_" + nextindex).append("<input type='hidden' id='idUpd_"+ nextindex +"' ><input type='text' placeholder='Modello' id='codUpd_"+ nextindex +"' class='colModello'><input type='text' placeholder='Num. Seriale' id='serUpd_"+ nextindex +"' class='colModello' ><div id='removeUpd_" + nextindex + "' class='remove'><div class='btRemoveModelUpd'>-</div></div>");
+                $("#divUpd_" + nextindex).append("<input type='hidden' id='idUpd_"+ nextindex +"' ><input type='text' placeholder='"+app.messages.labelModelMacchinari+"' id='codUpd_"+ nextindex +"' class='colModello'><input type='text' placeholder='"+app.messages.labelSerialMacchinari+"' id='serUpd_"+ nextindex +"' class='colModello' ><div id='removeUpd_" + nextindex + "' class='remove'><div class='btRemoveModelUpd'>-</div></div>");
                 $("#idUpd_" + nextindex).val(modelliArr[i].idm);
                 $("#codUpd_" + nextindex).val(modelliArr[i].mod);
                 $("#serUpd_" + nextindex).val(modelliArr[i].ser);
@@ -483,7 +482,7 @@ var app = {
                // Adding new div container after last occurance of element class
                $(".elementUpd:last").after("<div class='elementUpd' id='divUpd_"+ nextindex +"'></div>");
                // Adding element to <div>
-               $("#divUpd_" + nextindex).append("<input type='hidden' id='idUpd_"+ nextindex +"' ><input type='text' placeholder='Modello' id='codUpd_"+ nextindex +"' class='colModello'><input type='text' placeholder='Num. Seriale' id='serUpd_"+ nextindex +"' class='colModello' ><div id='removeUpd_" + nextindex + "' class='remove'><div class='btRemoveModelUpd'>-</div></div>");
+               $("#divUpd_" + nextindex).append("<input type='hidden' id='idUpd_"+ nextindex +"' ><input type='text' placeholder='"+app.messages.labelModelMacchinari+"' id='codUpd_"+ nextindex +"' class='colModello'><input type='text' placeholder='"+app.messages.labelSerialMacchinari+"' id='serUpd_"+ nextindex +"' class='colModello' ><div id='removeUpd_" + nextindex + "' class='remove'><div class='btRemoveModelUpd'>-</div></div>");
               }
              
         });
@@ -499,7 +498,7 @@ var app = {
         }); 
 
         if(isUpgrade==1){
-            $('#updateProprietario').html('Conferma l\'upgrade a '+app.messages.labelProprietario);
+            $('#updateProprietario').html(app.messages.confirmUpgradeProprietario+' '+app.messages.labelProprietario);
         } else {
             $('#upgradeOspite').on('click', function(){
                 app.renderUserProfile(1);  // 1 è isUpgrade
@@ -515,7 +514,7 @@ var app = {
 
 
         $('#removeUser').on('click', function(){
-            app.showConfirmDeleteUser('L\'operazione non può essere annullata','Vuoi davvero eliminare il tuo utente');
+            app.showConfirmDeleteUser(app.messages.txtRemoveUser,app.messages.titleRemoveUser);
         });
 
     },
@@ -854,6 +853,7 @@ var app = {
             localStorage.setItem("email", "");
             localStorage.setItem("ospite", 0);
             localStorage.setItem("proprietario", 0);
+            localStorage.setItem("push", 0);
             localStorage.setItem("localCatalogoDate", 0);
             localStorage.setItem("localCatalogoListDate", 0);
             history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
@@ -882,7 +882,7 @@ var app = {
     checkLogin: function() {
         var email=$("#email").val();
         var password=$("#password").val();
-        var dataString="email="+email+"&password="+password+"&login=";
+        var dataString="email="+email+"&password="+password+"&tokenK="+app.tokenAppKato+"&login=";
         if($.trim(email).length>0 & $.trim(password).length>0)
         {
             $.ajax({
@@ -902,6 +902,7 @@ var app = {
                         localStorage.setItem("proprietario", data.proprietario);
                         localStorage.setItem("localCatalogoDate", 0);
                         localStorage.setItem("localCatalogoListDate", 0);
+                        localStorage.setItem("push", data.push);
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
                         app.renderHomeView();
                     } else if(data.status=="failed") {
@@ -912,8 +913,9 @@ var app = {
                         localStorage.setItem("proprietario", 0);
                         localStorage.setItem("localCatalogoDate", 0);
                         localStorage.setItem("localCatalogoListDate", 0);
+                        localStorage.setItem("push", 0);
                         $("#login").html('Login');
-                        $("#serviceMessageLogin").html('Utente non trovato!');
+                        $("#serviceMessageLogin").html(app.messages.labelUserNotFound);
                     }
                 },
                 error: function() {
@@ -924,6 +926,7 @@ var app = {
                     localStorage.setItem("proprietario", 0);
                     localStorage.setItem("localCatalogoDate", 0);
                     localStorage.setItem("localCatalogoListDate", 0);
+                    localStorage.setItem("push", 0);
                     $("#serviceMessageLogin").html(app.messages.nackAjax001);
                 }
             });
@@ -934,6 +937,7 @@ var app = {
             localStorage.setItem("email", "");
             localStorage.setItem("ospite", 0);
             localStorage.setItem("proprietario", 0);
+            localStorage.setItem("push", 0);
             console.log("login field error... ");
             $("#serviceMessageLogin").html(app.messages.emptyField);
         }
@@ -1029,7 +1033,8 @@ var app = {
                 checkMark: authMarketing,
                 checkPush: authPush,
                 arrayModels: arrayModelSerial,
-                tokenK: app.tokenAppKato
+                tokenK: app.tokenAppKato,
+                lin: localStorage.getItem("language")
             };
 
             $.ajax({
@@ -1139,7 +1144,8 @@ var app = {
                 checkMark: authMarketing,
                 checkPush: authPush,
                 arrayModels: arrayModelSerial,
-                tokenK: app.tokenAppKato
+                tokenK: app.tokenAppKato,
+                lin: localStorage.getItem("language")
             };
 
             $.ajax({
@@ -1182,7 +1188,11 @@ var app = {
 
         console.log("Richiesta manuale per "+emailRequest+" modelRequest "+modelRequest);
 
-        var dataString="email="+emailRequest+"&model="+modelRequest+"&tokenK="+app.tokenAppKato;
+        var dataString = { email:  emailRequest,
+                model: modelRequest,
+                tokenK: app.tokenAppKato,
+                lin: localStorage.getItem("language")
+        };
 
         $.ajax({
             type: "POST",
@@ -1215,7 +1225,16 @@ var app = {
         var oggettoRequest=$("#oggettoRequest").val();
         var modelRequest=$("#modelRequest").val();
         var txtRequest=$("#txtRequest").val();
-        var dataString="email="+emailRequest+"&nome="+nomeRequest+"&model="+modelRequest+"&oggetto="+oggettoRequest+"&testo="+txtRequest+"&tokenK="+app.tokenAppKato;
+
+        var dataString = { nome: nomeRequest,
+                email:  emailRequest,
+                model: modelRequest,
+                oggetto: oggettoRequest,
+                testo: txtRequest,
+                tokenK: app.tokenAppKato,
+                lin: localStorage.getItem("language")
+            };
+        
         if($.trim(emailRequest).length>0 && $.trim(oggettoRequest).length>0 && $.trim(modelRequest).length>0 && $.trim(txtRequest).length>0)
         {
             $.ajax({
@@ -1262,21 +1281,22 @@ var app = {
              ,function(userData){
                 //API success callback
                 //alert(JSON.stringify(userData.email)); userData.name userData.email
-                $("#serviceMessageLogin").html('Autenticazione Facebook riuscita...');
+                $("#serviceMessageLogin").html(app.messages.ackAuth);
                 localStorage.setItem('login',1);
                 localStorage.setItem("email", userData.email);
                 localStorage.setItem("ospite", 1);
                 localStorage.setItem("proprietario", 0);
+                localStorage.setItem("push", 0);
                 app.renderHomeView();
             },function(error){
                 //API error callback
                 //alert(JSON.stringify(error));
-                $("#serviceMessageLogin").html('Autenticazione non riuscita');
+                $("#serviceMessageLogin").html(app.messages.nackAuth);
             });
         },function(error){
             //authenication error callback
             //alert(JSON.stringify(error));
-            $("#serviceMessageLogin").html('Impossibile autenticarsi con Facebook');
+            $("#serviceMessageLogin").html(app.messages.errorAuth);
         });
 
     },
@@ -1287,11 +1307,12 @@ var app = {
         {
         },
         function (obj) {
-            $("#serviceMessageLogin").html('Autenticazione Ok riuscita...');
+            $("#serviceMessageLogin").html(app.messages.ackAuth);
             localStorage.setItem('login',1);
             localStorage.setItem("email", obj.email);
             localStorage.setItem("ospite", 1);
             localStorage.setItem("proprietario", 0);
+            localStorage.setItem("push", 0);
             app.renderHomeView();
             /* obj.familyName  -- cognome
             obj.givenName  -- nome
@@ -1301,8 +1322,8 @@ var app = {
             obj.imageUrl  -- imageUrl
             */
         },
-        function (msg) {
-            $("#serviceMessageLogin").html('Impossibile autenticarsi con Google+' + msg);
+        function (error) {
+            $("#serviceMessageLogin").html(app.messages.nackAuth + error);
         }
         );
     },
@@ -1333,7 +1354,6 @@ var app = {
                 
             }
         });
-        console.log("privacyContent "+privacyContent);
         return privacyContent;
         
     },
@@ -1510,6 +1530,7 @@ var app = {
                         localStorage.setItem("email", "");
                         localStorage.setItem("ospite", 0);
                         localStorage.setItem("proprietario", 0);
+                        localStorage.setItem("push", 0);
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
                         app.renderHomeView();
                         $("#serviceMessageLogin").html(app.messages.ackAjaxRemove);
@@ -1590,19 +1611,20 @@ var app = {
     },
 
     showSlides: function (n) {
-          var i;
-          var slides = document.getElementsByClassName("mySlides");
-          var dots = document.getElementsByClassName("dot");
-          if (n > slides.length) {app.slideIndex = 1} 
-          if (n < 1) {app.slideIndex = slides.length}
-          for (i = 0; i < slides.length; i++) {
-              slides[i].style.display = "none"; 
-          }
-          for (i = 0; i < dots.length; i++) {
-              dots[i].className = dots[i].className.replace(" active", "");
-          }
-          slides[app.slideIndex-1].style.display = "block"; 
-          dots[app.slideIndex-1].className += " active";
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {app.slideIndex = 1} 
+        if (n < 1) {app.slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none"; 
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[app.slideIndex-1].style.display = "block"; 
+        dots[app.slideIndex-1].className += " active";
+        // slider automatico
         // var i;
         // var slides = document.getElementsByClassName("mySlides");
         // for (i = 0; i < slides.length; i++) {

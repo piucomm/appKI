@@ -22,6 +22,9 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.gplusBtLabel = "Login con Google+";
 	    this.newRegisterBtLabel = "Nuova registrazione";
 	    this.labelAlertNoconn = "Connessione assente. Impossibile effettuare login o nuove registrazioni.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.ackAuth = "Autenticazione riuscita";    // NEWWW 29.06.2018
+	    this.nackAuth = "Autenticazione non riuscita";    // NEWWW 29.06.2018
+	    this.errorAuth = "Impossibile effettuare l'utenticazione";     // NEWWW 29.06.2018
 
 		// registrazione
 		this.labelOspite = "ospite";
@@ -33,6 +36,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.btLabelUpdateOspite = "Aggiornamento ospite";
 		this.btLabelUpdateProprietario = "Aggiornamento proprietario";
 		this.btLabelUpgradeProprietario = "Upgrade a proprietario";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+		this.confirmUpgradeProprietario = "Conferma l'upgrade a";   // NEWWW 29.06.2018
+		this.labelUserNotFound = "Utente non trovato!";    // NEWWW 29.06.2018
 		this.btLabelRemoveUser = "Rimuovi il mio account";
 	    this.nameReg = "Nome";
 	    this.emailReg = "Email";
@@ -43,6 +48,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.labelModelMacchinari = "Modello";
 	    this.labelSerialMacchinari = "Num. Seriale";
 	    this.labelBtAggiungi = "Aggiungi";
+	    this.titleRemoveUser = "Vuoi davvero eliminare il tuo utente";   // NEWWW 29.06.2018
+	    this.txtRemoveUser = "L'operazione non può essere annullata";   // NEWWW 29.06.2018
 
 	    // home
 	    this.btSearchDealer = "Ricerca Dealers/Officine";
@@ -139,6 +146,9 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.gplusBtLabel = "Login with Google+";
 	    this.newRegisterBtLabel = "New registration";
 	    this.labelAlertNoconn = "No web connection";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+	   	this.ackAuth = "Autenticazione riuscita";    // NEWWW 29.06.2018
+	    this.nackAuth = "Autenticazione non riuscita";    // NEWWW 29.06.2018
+	    this.errorAuth = "Impossibile effettuare l'utenticazione";     // NEWWW 29.06.2018
 
 		// registrazione
 		this.labelOspite = "guest";
@@ -152,6 +162,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.btLabelUpdateOspite = "Update guest";
 		this.btLabelUpdateProprietario = "Update owner";
 		this.btLabelUpgradeProprietario = "Upgrade to owner";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+		this.confirmUpgradeProprietario = "Conferma l'upgrade a";   // NEWWW 29.06.2018
+		this.labelUserNotFound = "Utente non trovato!";    // NEWWW 29.06.2018
 
 		this.btLabelRemoveUser = "Remove my account";
 
@@ -165,6 +177,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.labelModelMacchinari = "Model";
 	    this.labelSerialMacchinari = "Serial number";
 	    this.labelBtAggiungi = "Add";
+	    this.titleRemoveUser = "Vuoi davvero eliminare il tuo utente";   // NEWWW 29.06.2018
+	    this.txtRemoveUser = "L'operazione non può essere annullata";   // NEWWW 29.06.2018
 
 	    // home
 	    this.btSearchDealer = "Search Dealers/Workshops";
@@ -263,6 +277,9 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.gplusBtLabel = "Einloggen mit Google+";
 	    this.newRegisterBtLabel = "Neue Registrierung";
 	    this.labelAlertNoconn = "No internetverbindung";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.ackAuth = "Autenticazione riuscita";    // NEWWW 29.06.2018
+	    this.nackAuth = "Autenticazione non riuscita";    // NEWWW 29.06.2018
+	    this.errorAuth = "Impossibile effettuare l'utenticazione";     // NEWWW 29.06.2018
 
 		// registrazione
 		this.labelOspite = "Gast";
@@ -276,6 +293,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.btLabelUpdateOspite = "Aktualisierung Gast";
 		this.btLabelUpdateProprietario = "Aktualisierung Besitzer";
 		this.btLabelUpgradeProprietario = "Upgrade Besitzer";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+		this.confirmUpgradeProprietario = "Conferma l'upgrade a";   // NEWWW 29.06.2018
+		this.labelUserNotFound = "Utente non trovato!";    // NEWWW 29.06.2018
 
 		this.btLabelRemoveUser = "Account löschen";
 
@@ -289,6 +308,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.labelModelMacchinari = "Modell";
 	    this.labelSerialMacchinari = "Seriennummer";
 	    this.labelBtAggiungi = "Hinzufügen";
+	    this.titleRemoveUser = "Vuoi davvero eliminare il tuo utente";   // NEWWW 29.06.2018
+	    this.txtRemoveUser = "L'operazione non può essere annullata";   // NEWWW 29.06.2018
 
 	    // home
 	    this.btSearchDealer = "Suche Händler/Werkstatt";
@@ -386,6 +407,9 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.gplusBtLabel = "Entrar con Google+";
 	    this.newRegisterBtLabel= "Nuevo registro";
 	    this.labelAlertNoconn = "Ausencia de conexión a Internet.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.ackAuth = "Autenticazione riuscita";    // NEWWW 29.06.2018
+	    this.nackAuth = "Autenticazione non riuscita";    // NEWWW 29.06.2018
+	    this.errorAuth = "Impossibile effettuare l'utenticazione";     // NEWWW 29.06.2018
 
 		// registrazione
 		this.labelOspite = "Huésped";
@@ -399,6 +423,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.btLabelUpdateOspite = "Actualización huésped";
 		this.btLabelUpdateProprietario = "Actualización propietario";
 		this.btLabelUpgradeProprietario = "Actualizar a propietario";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+		this.confirmUpgradeProprietario = "Conferma l'upgrade a";   // NEWWW 29.06.2018
+		this.labelUserNotFound = "Utente non trovato!";    // NEWWW 29.06.2018
 
 		this.btLabelRemoveUser = "Elimina mi cuenta";
 
@@ -412,6 +438,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.labelModelMacchinari = "Modelo";
 	    this.labelSerialMacchinari = "Num. Serial";
 	    this.labelBtAggiungi = "Agregar";
+	    this.titleRemoveUser = "Vuoi davvero eliminare il tuo utente";   // NEWWW 29.06.2018
+	    this.txtRemoveUser = "L'operazione non può essere annullata";   // NEWWW 29.06.2018
 
 	    // home
 	    this.btSearchDealer = "Búsqueda Distribuidores/Talleres";
@@ -509,6 +537,9 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.gplusBtLabel = "Se connecter avec Google+";
 	    this.newRegisterBtLabel= "Nouvelle inscription";
 	    this.labelAlertNoconn = "Aucun connexion Internet.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.ackAuth = "Autenticazione riuscita";    // NEWWW 29.06.2018
+	    this.nackAuth = "Autenticazione non riuscita";    // NEWWW 29.06.2018
+	    this.errorAuth = "Impossibile effettuare l'utenticazione";     // NEWWW 29.06.2018
 
 		// registrazione
 		this.labelOspite = "Hôte";
@@ -522,6 +553,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.btLabelUpdateOspite = "Mise à jour de l’hôte";
 		this.btLabelUpdateProprietario = "Mise à jour du propriétaire";
 		this.btLabelUpgradeProprietario = "Upgrade a propriétaire";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+		this.confirmUpgradeProprietario = "Conferma l'upgrade a";   // NEWWW 29.06.2018
+		this.labelUserNotFound = "Utente non trovato!";    // NEWWW 29.06.2018
 
 		this.btLabelRemoveUser = "Supprimez mon compte";
 
@@ -535,6 +568,8 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.labelModelMacchinari = "Modèle";
 	    this.labelSerialMacchinari = "Numéro de série";
 	    this.labelBtAggiungi = "Ajouter";
+	    this.titleRemoveUser = "Vuoi davvero eliminare il tuo utente";   // NEWWW 29.06.2018
+	    this.txtRemoveUser = "L'operazione non può essere annullata";   // NEWWW 29.06.2018
 
 	    // home
 	    this.btSearchDealer = "Rechercher Revendeurs/Ateliers";

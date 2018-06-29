@@ -10,7 +10,6 @@ var DealersOfficine = function(successCallback, errorCallback) {
         });
 
         this.viewList(dataODByName, typeItem, orderBy);
-
         // callLater(callback, dataOfficine);
     }
 
@@ -52,8 +51,6 @@ var DealersOfficine = function(successCallback, errorCallback) {
             $('#btOfficina').addClass("active");
         }   
 
-        // console.log("showAllID "+dataOfficineDealers);
-        //callLater(callback, employees);
     }
 
     this.viewList = function(dataItems,typeItem, orderBy) {
@@ -64,6 +61,7 @@ var DealersOfficine = function(successCallback, errorCallback) {
         $('ul.dealers-list').empty();
         
         for (var i = 0; i < dataItems.length; i++) {
+            // COMMENTATO getDIstance per non consumare risorse Firebase
             //dataDistance = this.getDistance(dataItems[i].lat, dataItems[i].long);
             dataDistance = i + Math.floor((Math.random() * 100) +1);
             dataInitials = dataItems[i].nome.toString().charCodeAt(0);
@@ -93,8 +91,8 @@ var DealersOfficine = function(successCallback, errorCallback) {
         var dataInitials = 0;
         var iconMarker = "";
 
-        var latD = 43.48832915873673; //parseFloat(localStorage.getItem("latDevice"));
-        var longD = 11.12504082682124; //parseFloat(localStorage.getItem("longDevice"));
+        var latD = 43.48832915873673; //parseFloat(localStorage.getItem("latDevice")); // COMMENTATO getDIstance per non consumare risorse Firebase
+        var longD = 11.12504082682124; //parseFloat(localStorage.getItem("longDevice")); // COMMENTATO getDIstance per non consumare risorse Firebase
 
 
         $('#dealers-map').empty();
@@ -193,7 +191,7 @@ var DealersOfficine = function(successCallback, errorCallback) {
     this.ajaxCallDealer = function(typeData) {
         $.ajax({
             method: 'GET',
-            url: 'https://app.katoimer.com/appadmin/officineApp.php?'+typeData+'=1',
+            url: 'https://app.katoimer.com/appadmin/officineApp.php?'+typeData+'=1&tokenK='+app.tokenAppKato,
             crossDomain : true,
             dataType: 'json', 
             async: false,

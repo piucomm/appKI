@@ -4,7 +4,7 @@ var CatalogoItems = function(successCallback, errorCallback) {
         var self = this;
         if(isLocal == 0) { // ho connessione, versione live
             // recupero le categorie
-            var dataString="lang="+lin+"&type=listcat"; // "+lin+"
+            var dataString="lang="+lin+"&type=listcat&tokenK="+app.tokenAppKato; // "+lin+"
             $.ajax({
                 type: 'POST',
                 url: 'https://app.katoimer.com/appadmin/catalogApp.php',
@@ -67,7 +67,7 @@ var CatalogoItems = function(successCallback, errorCallback) {
     this.getLastUpdate = function(lin) {
         var self = this;
         var dataLast;
-        var dataString="lang="+lin+"&type=lastUpdate";
+        var dataString="lang="+lin+"&type=lastUpdate&tokenK="+app.tokenAppKato;
         $.ajax({
             type: 'POST',
             url: 'https://app.katoimer.com/appadmin/catalogApp.php',
@@ -102,7 +102,7 @@ var CatalogoItems = function(successCallback, errorCallback) {
     this.getListItems = function(lin, idcat, isLocal, dataLocal) {
         var self = this;
         if(isLocal == 0) { // ho connessione, versione live
-            var dataString="lang="+lin+"&idcat="+idcat+"&type=listitems";
+            var dataString="lang="+lin+"&idcat="+idcat+"&type=listitems&tokenK="+app.tokenAppKato;
             $.ajax({
                 type: 'POST',
                 url: 'https://app.katoimer.com/appadmin/catalogApp.php',
@@ -165,7 +165,7 @@ var CatalogoItems = function(successCallback, errorCallback) {
         if(isLocal == 0) { // ho connessione, versione live
             $('#serviceMessageManuale .preloader5').hide();
             $('#btManuale').prop('disabled', false);
-            var dataString="lang="+lin+"&item="+iditem+"&idcat="+idcat+"&type=item";
+            var dataString="lang="+lin+"&item="+iditem+"&idcat="+idcat+"&type=item&tokenK="+app.tokenAppKato;
             $.ajax({
                 type: 'POST',
                 url: 'https://app.katoimer.com/appadmin/catalogApp.php',
@@ -176,8 +176,7 @@ var CatalogoItems = function(successCallback, errorCallback) {
                 beforeSend: function(){ //$("#footer-button").html('Charging catalogue...');
                 },
                 success: function (response){ 
-                    console.log(response.data);
-
+                    //console.log(response.data);
                     dataCatalog = JSON.parse(response.data);
                     for (var i = 0; i < dataCatalog.length; i++) {
                         var tonnellaggio = "";
@@ -246,10 +245,10 @@ var CatalogoItems = function(successCallback, errorCallback) {
                         $(".slideshow-container").swipe({
                             //Single swipe handler for left swipes
                             swipeLeft:function(event, direction, distance, duration, fingerCount) {
-                                app.plusSlides(-1);
+                                app.plusSlides(1);
                             },
                             swipeRight:function(event, direction, distance, duration, fingerCount) {
-                                app.plusSlides(1);
+                                app.plusSlides(-1);
                             },
                             //Default is 75px, set to 0 for demo so any distance triggers swipe
                             threshold:0
@@ -264,9 +263,9 @@ var CatalogoItems = function(successCallback, errorCallback) {
                     }
                 },
                 error: function(error){
-                             //alert(response.success);
+                    //alert(response.success);
                     console.log("Errore AJAX - getItem " + error);
-                            // window.location = "main.html";
+                    // window.location = "main.html";
                 }
             }); 
 
