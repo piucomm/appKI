@@ -145,7 +145,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.fbBtLabel = "Login with Facebook";
 	    this.gplusBtLabel = "Login with Google+";
 	    this.newRegisterBtLabel = "New registration";
-	    this.labelAlertNoconn = "No web connection";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelAlertNoconn = "No connection Cannot login or perform new recordings.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 	   	this.ackAuth = "Autenticazione riuscita";    // NEWWW 29.06.2018
 	    this.nackAuth = "Autenticazione non riuscita";    // NEWWW 29.06.2018
 	    this.errorAuth = "Impossibile effettuare l'utenticazione";     // NEWWW 29.06.2018
@@ -199,18 +199,18 @@ var MessageTranslation = function(successCallback, errorCallback) {
 
 	    //dettaglio catalogo
 	    this.labelBtBrochure = "Brochure";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelBtSchedatecnica = "Scheda tecnica";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelBtManuale = "Richiedi manuale operatore";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtSchedatecnica = "Technical file";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtManuale = "Request operator manual";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    // lista news
 	    this.titNews= "News";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    // assistenza
 	    this.titlePageHelp= "Send your request";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.oggettoForm= "Object";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.oggettoForm= "Subject";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.textForm= "Request";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.btHelp= "Send request";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelObbligatori= "* mandatory fields";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelObbligatori= "* required fields";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 
 	    //katoimer
@@ -237,12 +237,12 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
 	    this.emptyField = "* Required fields";
 	    this.pwNotEqual = "Passwords do not match";
-	    this.pwWrongEmail = "Formato email errato."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.ackSendingEmail = "Email inviata correttamente"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-	   	this.nackSendingEmail = "Errore invio email"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.pwWrongEmail = "Incorrect e-mail format."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.ackSendingEmail = "E-mail sent correctly"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	   	this.nackSendingEmail = "E-mail sending error"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    this.userAlreadyReg = "Already registered user";
-	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.userRemoved = "User removed from system. Thank you for using our app."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackToken = "Token not allowed";
 
 	    // privacy marketing push label
@@ -276,7 +276,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.fbBtLabel = "Einloggen mit Facebook";
 	    this.gplusBtLabel = "Einloggen mit Google+";
 	    this.newRegisterBtLabel = "Neue Registrierung";
-	    this.labelAlertNoconn = "No internetverbindung";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelAlertNoconn = "Verbindung fehlt. Es ist nicht möglich, sich einzuloggen oder neu zu registrieren.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.ackAuth = "Autenticazione riuscita";    // NEWWW 29.06.2018
 	    this.nackAuth = "Autenticazione non riuscita";    // NEWWW 29.06.2018
 	    this.errorAuth = "Impossibile effettuare l'utenticazione";     // NEWWW 29.06.2018
@@ -292,7 +292,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.btLabelRegProprietario = "Als Besitzer registrieren";
 		this.btLabelUpdateOspite = "Aktualisierung Gast";
 		this.btLabelUpdateProprietario = "Aktualisierung Besitzer";
-		this.btLabelUpgradeProprietario = "Upgrade Besitzer";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+		this.btLabelUpgradeProprietario = "Upgrade zum Besitzer";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 		this.confirmUpgradeProprietario = "Conferma l'upgrade a";   // NEWWW 29.06.2018
 		this.labelUserNotFound = "Utente non trovato!";    // NEWWW 29.06.2018
 
@@ -332,15 +332,15 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.titNews= "News";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    //dettaglio catalogo
-	    this.labelBtBrochure = "Brochure";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelBtSchedatecnica = "Scheda tecnica";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelBtManuale = "Richiedi manuale operatore";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtBrochure = "Broschüre";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtSchedatecnica = "Technisches Datenblatt";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtManuale = "Bedienerhandbuch anfordern";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    // assistenza
-	    this.titlePageHelp= "Inviaci la tua richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	   	this.oggettoForm= "Oggetto";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.textForm= "Testo richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.btHelp= "Invia richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.titlePageHelp= "Senden Sie uns Ihre Anfrage";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	   	this.oggettoForm= "Betreff";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.textForm= "Text der Anfrage";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btHelp= "Anfrage senden";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.labelObbligatori= "* pflichtfelder";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    //katoimer
@@ -362,17 +362,17 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjaxRequest = "Error sending request";
 	    this.ackAjaxIscritto = "Abonnement ";
 	    this.ackAjaxUpdate = "Änderung erfolgreich vorgenommen";
-	    this.ackAjaxRemove = "Utente eliminato!"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.ackAjaxRemove = "Benutzer gelöscht"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
 	    this.emptyField = "* Pflichtfelder";
 	    this.pwNotEqual = "Passwörter stimmen nicht überein";
-	    this.pwWrongEmail = "Formato email errato."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.ackSendingEmail = "Email inviata correttamente"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-	   	this.nackSendingEmail = "Errore invio email"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW	    
+	    this.pwWrongEmail = "Falsches E-Mail-Format."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.ackSendingEmail = "E-Mail korrekt gesendet"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	   	this.nackSendingEmail = "Fehler beim Senden der E-Mail"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW	    
 
 		this.userAlreadyReg = "Bereits registrierter Benutzer";
-		this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+		this.userRemoved = "Benutzer aus dem System gelöscht. Vielen Dank für die Nutzung unserer App."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackToken = "Token nicht erlaubt";
 
 	    // privacy marketing push label
@@ -406,7 +406,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.fbBtLabel = "Entrar con Facebook";
 	    this.gplusBtLabel = "Entrar con Google+";
 	    this.newRegisterBtLabel= "Nuevo registro";
-	    this.labelAlertNoconn = "Ausencia de conexión a Internet.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelAlertNoconn = "Sin conexión. Imposible acceder o realizar nuevos registros.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.ackAuth = "Autenticazione riuscita";    // NEWWW 29.06.2018
 	    this.nackAuth = "Autenticazione non riuscita";    // NEWWW 29.06.2018
 	    this.errorAuth = "Impossibile effettuare l'utenticazione";     // NEWWW 29.06.2018
@@ -422,7 +422,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.btLabelRegProprietario = "Regístrame como propietario";
 		this.btLabelUpdateOspite = "Actualización huésped";
 		this.btLabelUpdateProprietario = "Actualización propietario";
-		this.btLabelUpgradeProprietario = "Actualizar a propietario";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+		this.btLabelUpgradeProprietario = "Conversión al nivel de propietario";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 		this.confirmUpgradeProprietario = "Conferma l'upgrade a";   // NEWWW 29.06.2018
 		this.labelUserNotFound = "Utente non trovato!";    // NEWWW 29.06.2018
 
@@ -459,18 +459,18 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.titCatalogo= "Catálogo";
 
 	    //dettaglio catalogo
-	    this.labelBtBrochure = "Brochure";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelBtSchedatecnica = "Scheda tecnica";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelBtManuale = "Richiedi manuale operatore";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtBrochure = "Folleto";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtSchedatecnica = "Ficha técnica";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtManuale = "Solicita el manual del operador";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    // lista news
-	    this.titNews= "News";
+	    this.titNews= "Noticias";
 
 	    // assistenza
-	    this.titlePageHelp= "Inviaci la tua richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.oggettoForm= "Oggetto";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.textForm= "Testo richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.btHelp= "Invia richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.titlePageHelp= "Envía tu solicitud";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.oggettoForm= "Objeto";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.textForm= "Texto de solicitud";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btHelp= "Envía la solicitud";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.labelObbligatori= "* campos obligatorios";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    //katoimer
@@ -492,17 +492,17 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjaxRequest = "Errore enviando solicitud";
 	    this.ackAjaxIscritto = "Subscrición ";
 	    this.ackAjaxUpdate = "Modificación realizada correctamente";
-	    this.ackAjaxRemove = "Utente eliminato!"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.ackAjaxRemove = "¡Usuario eliminado!"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
 	    this.emptyField = "* Campos requeridos";
 	    this.pwNotEqual = "Las contraseñas no son iguales";
-	    this.pwWrongEmail = "Formato email errato."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.ackSendingEmail = "Email inviata correttamente"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-	   	this.nackSendingEmail = "Errore invio email"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW	    
+	    this.pwWrongEmail = "Formato de correo electrónico erróneo."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.ackSendingEmail = "Correo electrónico enviado correctamente"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	   	this.nackSendingEmail = "Error al enviar el correo electrónico"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW	    
 
 	    this.userAlreadyReg = "Usuario ya registrado";
-	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.userRemoved = "Usuario eliminado del sistema. Gracias por haber usado nuestra aplicación."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackToken = "Token no permitido";
 
 	    // privacy marketing push label
@@ -536,7 +536,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.fbBtLabel = "Se connecter avec Facebook";
 	    this.gplusBtLabel = "Se connecter avec Google+";
 	    this.newRegisterBtLabel= "Nouvelle inscription";
-	    this.labelAlertNoconn = "Aucun connexion Internet.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelAlertNoconn = "Connexion absente. Impossible d'effectuer le login ou de nouveaux enregistrements.";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.ackAuth = "Autenticazione riuscita";    // NEWWW 29.06.2018
 	    this.nackAuth = "Autenticazione non riuscita";    // NEWWW 29.06.2018
 	    this.errorAuth = "Impossibile effettuare l'utenticazione";     // NEWWW 29.06.2018
@@ -552,7 +552,7 @@ var MessageTranslation = function(successCallback, errorCallback) {
 		this.btLabelRegProprietario = "Enregistrez-moi comme propriétaire";
 		this.btLabelUpdateOspite = "Mise à jour de l’hôte";
 		this.btLabelUpdateProprietario = "Mise à jour du propriétaire";
-		this.btLabelUpgradeProprietario = "Upgrade a propriétaire";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
+		this.btLabelUpgradeProprietario = "Upgrade en propriétaire";   // NEWWWWWWWWWWWWWWWWWWWWWWWWW
 		this.confirmUpgradeProprietario = "Conferma l'upgrade a";   // NEWWW 29.06.2018
 		this.labelUserNotFound = "Utente non trovato!";    // NEWWW 29.06.2018
 
@@ -590,18 +590,18 @@ var MessageTranslation = function(successCallback, errorCallback) {
 
 	    //dettaglio catalogo
 	    this.labelBtBrochure = "Brochure";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelBtSchedatecnica = "Scheda tecnica";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelBtManuale = "Richiedi manuale operatore";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtSchedatecnica = "Fiche technique";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelBtManuale = "Demandez le manuel opérateur";   // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    // lista news
 	    this.titNews= "News";
 
 	    // assistenza
-	    this.titlePageHelp= "Inviaci la tua richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.oggettoForm= "Oggetto";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.textForm= "Testo richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.btHelp= "Invia richiesta";  // NEWWWWWWWWWWWWWWWWWWWWWWW
-	    this.labelObbligatori= "* champs obligatoire";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.titlePageHelp= "Envoyez-nous votre demande";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.oggettoForm= "Objet";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.textForm= "Texte demande";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.btHelp= "Envoyer demande";  // NEWWWWWWWWWWWWWWWWWWWWWWW
+	    this.labelObbligatori= "* champs obligatoires";  // NEWWWWWWWWWWWWWWWWWWWWWWWW
 
 	    //katoimer
 	    this.titKato = "";
@@ -622,17 +622,17 @@ var MessageTranslation = function(successCallback, errorCallback) {
 	    this.nackAjaxRequest = "Erreur demande d'envoi";
 	    this.ackAjaxIscritto = "Abonnement ";
 	    this.ackAjaxUpdate = "Modification effectuée correctement";
-	    this.ackAjaxRemove = "Utente eliminato!"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.ackAjaxRemove = "Utilisateur supprimé!"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackAjax001 = "Internal error COD: 001"; // errore sending ajax request
 	    this.nackAjax002 = "Internal error COD: 002"; // errore sending ajax request
 	    this.emptyField = "* Champs obligatoires";
 	    this.pwNotEqual = "Passwords ne correspondent pas";
-	    this.pwWrongEmail = "Formato email errato."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-	    this.ackSendingEmail = "Email inviata correttamente"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-	   	this.nackSendingEmail = "Errore invio email"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW	    
+	    this.pwWrongEmail = "Format e-mail erroné"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.ackSendingEmail = "E-mail envoyé correctement"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	   	this.nackSendingEmail = "Erreur envoi e-mail"; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW	    
 
 	    this.userAlreadyReg = "Utilisateur déjà enregistré";
-	    this.userRemoved = "Utente eliminato dal sistema. Grazie per aver usato la nostra app."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+	    this.userRemoved = "Utilisateur supprimé du système. Merci d’avoir utilisé notre application."; // NEWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 	    this.nackToken = "Jeton non autorisé";
 
 	    // privacy marketing push label
