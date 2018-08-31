@@ -611,7 +611,8 @@ var app = {
                             labelOggetto: app.messages.oggettoForm,
                             labelRequest: app.messages.textForm,
                             btInvia: app.messages.btHelp,
-                            labelObbligatori: app.messages.labelObbligatori
+                            labelObbligatori: app.messages.labelObbligatori,
+                            labelPrivacy: app.messages.labelPrivacy
                         };
                         $('body').html(self.staticAssistenzaPage(contextP));
                         contextH = { pageName: app.messages.menu8, backUrl: "#", boolMenu: 1 };
@@ -1225,6 +1226,9 @@ var app = {
         var oggettoRequest=$("#oggettoRequest").val();
         var modelRequest=$("#modelRequest").val();
         var txtRequest=$("#txtRequest").val();
+        var authPrivacy = 0;
+
+        if(document.getElementById("privacyCheckManuale").checked == true){ authPrivacy = 1; }  // checkbox privacy
 
         var dataString = { nome: nomeRequest,
                 email:  emailRequest,
@@ -1237,32 +1241,36 @@ var app = {
         
         if($.trim(emailRequest).length>0 && $.trim(oggettoRequest).length>0 && $.trim(modelRequest).length>0 && $.trim(txtRequest).length>0)
         {
-            $.ajax({
-                type: "POST",
-                url: 'https://app.katoimer.com/appadmin/addRequestApp.php',
-                data: dataString,
-                dataType: "json",
-                crossDomain: true,
-                cache: false,
-                beforeSend: function(){ $("#serviceMessageRequest .preloader5").show(); },
-                success: function(data){
-                    $("#serviceMessageRequest .preloader5").hide();
-                    $("#nomeRequest").val("");
-                    $("#modelRequest").val("");
-                    $("#oggettoRequest").val("");
-                    $("#txtRequest").val("");
-                    if(data.status==1) {
-                        $("#serviceMessageRequest").html(app.messages.ackAjaxRequest);
-                    } else if(data.status==0) {
-                        $("#serviceMessageRequest").html(app.messages.nackAjaxRequest);
-                    }
-                },
-                error: function() {
-                    $("#serviceMessageRequest .preloader5").hide();
-                    $("#serviceMessageRequest").html(app.messages.nackAjax001);
-                }
-            });
 
+            if(authPrivacy != 0){
+                $.ajax({
+                    type: "POST",
+                    url: 'https://app.katoimer.com/appadmin/addRequestApp.php',
+                    data: dataString,
+                    dataType: "json",
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function(){ $("#serviceMessageRequest .preloader5").show(); },
+                    success: function(data){
+                        $("#serviceMessageRequest .preloader5").hide();
+                        $("#nomeRequest").val("");
+                        $("#modelRequest").val("");
+                        $("#oggettoRequest").val("");
+                        $("#txtRequest").val("");
+                        if(data.status==1) {
+                            $("#serviceMessageRequest").html(app.messages.ackAjaxRequest);
+                        } else if(data.status==0) {
+                            $("#serviceMessageRequest").html(app.messages.nackAjaxRequest);
+                        }
+                    },
+                    error: function() {
+                        $("#serviceMessageRequest .preloader5").hide();
+                        $("#serviceMessageRequest").html(app.messages.nackAjax001);
+                    }
+                });
+            } else {
+                $("#serviceMessageRequest").html(app.messages.checkPrivacy);
+            }
         } else {
             $("#serviceMessageRequest").html(app.messages.emptyField);
         }
