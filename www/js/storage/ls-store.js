@@ -160,7 +160,7 @@ var LocalStorageStore = function(successCallback, errorCallback) {
     this.ajaxCallDealer = function(typeData) {
         $.ajax({
             method: 'GET',
-            url: 'https://app.katoimer.com/appadmin/officineApp.php?'+typeData+'=1', //employeesApp.php  officineApp.php
+            url: 'https://app.katoimer.com/appadmin/officineapp.php?'+typeData+'=1&tokenK='+app.tokenAppKato, //employeesApp.php  officineApp.php
             crossDomain : true,
             dataType: 'json', 
             async: false,

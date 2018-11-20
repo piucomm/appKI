@@ -68,10 +68,14 @@
                 {{{menu3}}}</button></li>
                 <li><button onclick="location.href='#pages3';" id="menuDxRicerca" >
                 {{{menu4}}}</button></li> <!-- solo online -->
-                <li><button onclick="location.href='#pages7';" id="menuDxNews" >
+                <li><button onclick="location.href='#catnews1?idcat=314&titcat=News';" id="menuDxNews" >  <!-- #pages7 -->
                 {{{menu5}}}</button></li> <!-- solo online -->
+                <li><button onclick="location.href='#catnews1?idcat=321&titcat=Advertising';" id="menuDxAdv" >
+                {{{menu6}}}</button></li> <!-- solo online -->
                 <li><button onclick="location.href='#pages5';" id="menuDxContatti" >
                 {{{menu7}}}</button></li>
+                <li><button onclick="location.href='#pages0';" id="menuDxFaq" >
+                {{{menu12}}}</button></li>
                 <li><button onclick="location.href='#pages6';" id="menuDxHelp" >
                 {{{menu8}}}</button></li>
                 <li><button onclick="window.open('https://www.youtube.com/user/IHIMERspa');" id="menuDxYoutube" >
@@ -94,12 +98,27 @@
             <h1><img src="img/logo-header-neg.png" class="logo-header" /></h1>
         </div>
         {{#if pageName}}
-        <div class='barraTitle'>
-            {{{pageName}}}
-        </div>{{/if}}
+        <div class='barraTitle'>{{{pageName}}}</div>
+        {{/if}}
+        {{#if pageHeader}}
+        <div class='barraHeader'>{{{pageHeader}}}</div>
+        {{/if}}
     </script>
 
     <script id="login-tpl" type="text/x-handlebars-template">
+
+        {{#if_equal contentCookie ""}}
+
+        {{else}}
+            <div class='cookieModal'>
+                <div class='divModal'>
+                    <p id="txtModal" >{{{contentCookie}}}</p>
+                    <div id='btAckCookie' class='button button-clear'>{{buttonCookie}}</div>
+                    <div id='btNackCookie' class='button button-clear'>{{buttonClose}}</div>
+                </div>
+            </div>
+        {{/if_equal}}
+
         <div class='header large-header' >
             <h1><img src="img/logo-header-neg.png" class="logo-header" /></h1>
         </div>
@@ -118,6 +137,7 @@
         </div>
 
         <div class='footer-button'>
+            <div class='footer-blue'>
             <ul class="flag-list">
                 <li ><div id="it-IT">IT</div></li>
                 <li ><div id="en-EN">EN</div></li>
@@ -125,6 +145,7 @@
                 <li ><div id="es-ES">ES</div></li>
                 <li ><div id="fr-FR">FR</div></li>
             </ul>
+            </div>
         </div>
     </script>
 
@@ -135,7 +156,7 @@
             <button class="button megaBt ospite" id="btOspite">{{{labelOspite}}}</button>
             <button class="button megaBt proprietario" id="btProprietario">{{{labelProprietario}}}</button>
         </div>
-        <div class="content-page internal-page scrollRegistrazione">
+        <div class="content-page internal-page scrollRegistrazione" id="nuovaregistrazione" >
             <div id="serviceMessageRegister" >
                 <div class="preloader5">
                     <span></span>
@@ -217,22 +238,49 @@
             <button id="btHelp" class="button rounded-button half-size" onclick="location.href='#pages6';"  >{{{labelBtAssistenza}}}</button>
             <button id="btProfile" class="button rounded-button half-size" onclick="location.href='#userprofile';"  >{{{labelBtAreaUtente}}}</button> 
 
-            <div id="serviceMessageRegisterHome" ></div>
+            <div id="serviceMessageRegisterHome" >{{{txtMessage}}}</div>
+
+            <div id="claimHome">{{{claimHome}}}</div>
+
             <!-- <button class="btCheckConn">Get Network Info</button> -->
         </div>
 
         <div class='footer-button' id='footer-button'>
-            <div class="preloader5 white">
+            <button onclick="location.href='#pages4';" class="button linkCatalogueHome">
+                <div class="btCatalogueHome">
+                    <div class="labelBt" >{{{labelBtCatalogueHome}}}</div>
+                </div>
+            </button>
+
+            <div class='footer-blue'>
+                <img src="img/flag-lobby.png" class="imgFlagHome" >
+                <div class="txtFlagHome" >{{{labelFlagHome}}}</div>
+            </div>
+
+            <!-- <div class="preloader5 white">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
             <ul class="catalog-list" >
-            </ul>
+            </ul> -->
         </div>
     </script>
 
     <script id="search-tpl" type="text/x-handlebars-template">
+
+        {{#if_equal contentModal ""}}
+
+        {{else}}
+            <div class='positionModal'>
+                <div class='divModal'>
+                    <p>{{{contentModal}}}</p>
+                    <div id='btAckModal' class='button button-clear'>{{buttonModal}}</div>
+                    <div id='btNackModal' class='button button-clear'>{{buttonClose}}</div>
+                </div>
+            </div>
+        {{/if_equal}}
+
         <div id="main-menu" class="main-menu"></div>
         <div class='header'></div>
 
@@ -244,10 +292,21 @@
         <div class="dealerTable">
             <div class="btListDealer"></div>
             <div class="btListMap"></div>
+            <div class='select-country'><select id="selCountry" ></select></div>
             <div class='search-bar'><input class='search-key' type="search"/></div>
         </div>
         
         <div class="scrollDealers">
+
+            <div id="serviceMessageDealersList" >
+                <div class="preloader5">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="txt"></div>
+            </div>
+
             <ul class='dealers-list'></ul>
             <div id="dealers-map" ></div>
         </div>
@@ -277,9 +336,9 @@
                 {{this.cap}} - {{this.citta}}<br/>
                 <strong>{{this.nazione}}</strong>
                 </li>
-                <li>{{#if this.telefono}}Tel.: {{this.telefono}}<br/>{{/if}}
+                <li>{{#if this.telefono}}Tel.: <a href="tel:{{this.telefono}}">{{this.telefono}}</a><br/>{{/if}}
                 {{#if this.fax}}Fax: {{this.fax}}<br/>{{/if}}
-                {{#if this.email}}Email: {{this.email}}{{/if}}
+                {{#if this.email}}Email: <a href="mailto:{{this.email}}" >{{this.email}}</a>{{/if}}
                 </li>
                 <li>
                 {{#if this.telefono}}<a href="tel:{{telefono}}" class="buttonLink" ><img src="img/icon_phone.png"></a>{{/if}}
@@ -297,6 +356,16 @@
         <div class="content-page scrollStandard" >
             <ul class="catalog-list-int" >
             </ul>
+
+            <div id="serviceMessageCatalogo" >
+                <div class="preloader5">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="txt"></div>
+            </div>
+
         </div>
     </script>
 
@@ -304,10 +373,20 @@
         <div id="main-menu" class="main-menu"></div>
         <div class='header'></div>
 
-        <div class="content-page  scrollStandard" >
+        <div class="content-page  scrollCategoryList" >
             <h2 id="title-cat"></h2>
             
             <ul class="category-list"></ul>
+            
+            <div id="serviceMessageCatlist" >
+                <div class="preloader5">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="txt"></div>
+            </div>
+
         </div>
     </script>
 
@@ -315,23 +394,25 @@
         <div id="main-menu" class="main-menu"></div>
         <div class='header'></div>
 
-        <div class="content-page internal-page scrollStandard" >
+        <div class="content-page internal-page scrollStandard" id="schedaProdotto" >
             <h2 id="title-item"></h2>
             <div id="subtitle-item"></div>
+            <div id="attribute-item"></div>
             <div id="content-item">
 
             </div>
 
-            <div id="serviceMessageManuale" >
+            <div id="button-item">
+                <button id="btManuale" class="rounded-button tratto">{{{labelBtManuale}}}</button>
+            </div>
+
+            <div id="serviceMessageItem" >
                 <div class="preloader5">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
-            </div>            
-
-            <div id="button-item">
-                <button id="btManuale" class="rounded-button tratto">{{{labelBtManuale}}}</button>
+                <div class="txt"></div>
             </div>
 
         </div>
@@ -341,13 +422,14 @@
         <div id="main-menu" class="main-menu"></div>
         <div class='header'></div>
 
-        <div class="content-page internal-page scrollStandard">
+        <div class="content-page internal-page scrollStandard" id="profiloUtente">
             <div id="serviceMessageProfile" >
                 <div class="preloader5">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
+                <div class="txt"></div>
             </div>
 
             <div class="userName" id="userName">{{loginName}}</div>
@@ -372,7 +454,7 @@
 
             <div class="formBlock formProprietarioUser" style="display:none;" >
 
-                <small>{{{messOwner}}}</small>
+                <small>{{{messOwner}}}</small><br/>
 
                 <input type="hidden" id="proprietarioUser" name="s" value="1" />
                 <label for="nomePUser" >{{{labelNome}}} *</label>
@@ -432,11 +514,23 @@
         </div>
     </script>
 
-    <script id="assistenzaPage" type="text/x-handlebars-template">
+
+    <script id="faqPage" type="text/x-handlebars-template">
         <div id="main-menu" class="main-menu"></div>
         <div class='header'></div>
 
         <div class="content-page internal-page scrollStandard" >
+            {{#if pageTitle}}<h2>{{{pageTitle}}}</h2>{{/if}}
+            {{{pageContent}}}
+        </div>
+    </script>
+
+
+    <script id="assistenzaPage" type="text/x-handlebars-template">
+        <div id="main-menu" class="main-menu"></div>
+        <div class='header'></div>
+
+        <div class="content-page internal-page scrollStandard" id="assistenzaContent" >
             <div class="formBlock">
 
                 <h2>{{{pageTitle}}}</h2>
@@ -486,7 +580,7 @@
         <div id="main-menu" class="main-menu"></div>
         <div class='header'></div>
 
-        <div class="content-page  scrollStandard" >
+        <div class="content-page scrollStandard" >
             <h2 id="title-cat"></h2>
             
             <ul class="news-list"></ul>
@@ -532,6 +626,14 @@
             }
             return new Handlebars.SafeString(theString)
         });
+
+        Handlebars.registerHelper('if_equal', function(a, b, opts) {
+            if (a == b) {
+                return opts.fn(this)
+            } else {
+                return opts.inverse(this)
+            }
+        })
 
         app.initialize();
     </script>

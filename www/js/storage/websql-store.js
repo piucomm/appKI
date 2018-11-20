@@ -7,7 +7,7 @@ var WebSqlStore = function(successCallback, errorCallback) {
             function(tx) {
                 self.tranx = tx;
                 self.createTable();
-                    //self.addItemsData();
+                //self.addItemsData();
                     
             },
             function(error) {
@@ -36,7 +36,10 @@ var WebSqlStore = function(successCallback, errorCallback) {
             "sottotitolo VARCHAR(200), " +
             "descrizione VARCHAR(100), " +
             "immagine VARCHAR(50), " +
-            "attributi VARCHAR(255), " +
+            "tonnellaggio VARCHAR(50), " +
+            "pesooperativo VARCHAR(50), " +
+            "caricooperativo VARCHAR(50), " +
+            "peso VARCHAR(50), " +
             "id_cat INTEGER, " +
             "titolo_cat VARCHAR(200))";
         tx.executeSql(sql, null,
@@ -85,26 +88,29 @@ var WebSqlStore = function(successCallback, errorCallback) {
             var nowDate = new Date().getTime();
             localStorage.setItem("localCatalogoListDate", nowDate);
 
-            var l = products.length;
+            var prodl = products.length;
             var sql = "INSERT OR REPLACE INTO items " +
-                "(id, titolo, sottotitolo, descrizione, attributi, id_cat, titolo_cat) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
-            var e;
+                "(id, titolo, sottotitolo, descrizione, tonnellaggio, pesooperativo, caricooperativo, peso, id_cat, titolo_cat) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            var proditem;
             var tonnellaggio = new Array();
             var dataImg = "";
-            for (var i = 0; i < l; i++) {
-                e = products[i];
+                
+            for (var i = 0; i < prodl; i++) {
+                proditem = products[i];
+                dataImg = self.getImageDataURL("https://app.katoimer.com/appadmin/upload/"+proditem.immagine);
 
-                dataImg = self.getImageDataURL("https://app.katoimer.com/appadmin/upload/"+e.immagine);
+                console.log("DEBUG::: Insert data items... "+proditem.titolo);
 
-                tx.executeSql(sql, [e.id, e.titolo, e.sottotitolo, e.descrizione, e.attributi, e.id_cat, e.titolo_cat],
+                tx.executeSql(sql, [proditem.id, proditem.titolo, proditem.sottotitolo, proditem.descrizione, proditem.tonnellaggio, proditem.pesooperativo, proditem.caricooperativo, proditem.peso, proditem.id_cat, proditem.titolo_cat],
                     function() {
-                        console.log('INSERT success');
+                        console.log("DEBUG::: SUCCESS Insert data items... "+proditem.titolo);
                     },
                     function(tx, error) {
-                         console.log('INSERT error: ' + error.message);
-                    });
+                        console.log("DEBUG::: ERROR Insert data items... "+proditem.titolo);
+                });
             }
+
         }
     }
 
@@ -129,43 +135,42 @@ var WebSqlStore = function(successCallback, errorCallback) {
         }
     }
 
-    this.addCatData = function(products) { 
+    this.addCatData = function(cats) { 
         return function(tx) {
 
             var nowDate = new Date().getTime();
-            localStorage.setItem("localCatalogoDate", nowDate);
+            localStorage.setItem("localCatalogoDate", nowDate); // setto la data di ultimo salvataggio in locale
 
-            var l = products.length;
+            var catl = cats.length;
             var sql = "INSERT OR REPLACE INTO cats " +
                 "(id, titolo, descrizione, id_cat) " +
                 "VALUES (?, ?, ?, ?)";
-            var e;
-            for (var i = 0; i < l; i++) {
-                e = products[i];
-                tx.executeSql(sql, [e.id, e.titolo, e.descrizione, e.id_cat],
+            var cat;
+            for (var i = 0; i < catl; i++) {
+                cat = cats[i];
+                tx.executeSql(sql, [cat.id, cat.titolo, cat.descrizione, cat.id_cat],
                     function() {
                         console.log('INSERT success');
                     },
                     function(tx, error) {
                         console.log('INSERT error: ' + error.message);
-                    });
+                });
             }
+
         }
     }
 
-    this.addNewsData = function(products) { 
+    this.addNewsData = function(news) { 
         return function(tx) {
-            // var products = [
-            //     {"id": 1, "titolo": "Ryan", "descrizione": "Howard", "immagine":"Vice President, North East", "id_cat": 0}
-            //     ];
-            var l = products.length;
+
+            var newsl = news.length;
             var sql = "INSERT OR REPLACE INTO news " +
                 "(id, titolo, descrizione, immagine, id_cat) " +
                 "VALUES (?, ?, ?, ?, ?)";
-            var e;
-            for (var i = 0; i < l; i++) {
-                e = products[i];
-                tx.executeSql(sql, [e.id, e.titolo, e.descrizione, e.immagine, e.id_cat],
+            var itemnew;
+            for (var i = 0; i < newsl; i++) {
+                itemnew = news[i];
+                tx.executeSql(sql, [itemnew.id, itemnew.titolo, itemnew.descrizione, itemnew.immagine, itemnew.id_cat],
                     function() {
                         console.log('INSERT success');
                     },
@@ -238,6 +243,24 @@ var WebSqlStore = function(successCallback, errorCallback) {
         );
     };
 
+    /* rimuovo la tabella passata come parametro */
+    this.deleteTable = function(table) {
+        var self = this;
+        return function(tx) {
+ 
+            var sql = "DELETE FROM "+table;
+            tx.executeSql(sql, null,
+                function() {
+                    console.log('Delete table '+table+' success');
+                },
+                function(tx, error) {
+                    console.log('Delete table  '+table+'  error: ' + error.message);
+                });
+        }
+    }
+
+
     this.initializeDatabase(successCallback, errorCallback);
+
 
 }

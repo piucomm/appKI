@@ -26,6 +26,7 @@ var app = {
 
         this.staticPage1 = Handlebars.compile($("#page1").html());
         this.staticContactPage = Handlebars.compile($("#contactPage").html());
+        this.staticPageFaq = Handlebars.compile($("#faqPage").html());
         this.staticAssistenzaPage = Handlebars.compile($("#assistenzaPage").html());
 
         this.catalogList = Handlebars.compile($("#cataloglist-tpl").html());
@@ -100,6 +101,7 @@ var app = {
         );
 
         // window.FirebasePlugin.grantPermission(); // solo per IOS
+
         window.FirebasePlugin.getToken(function(token) {
         // save this server-side and use it to push notifications to this device
             console.log("FireBaseeeeeeeeeeeeeeeeeeeeee ok "+token);
@@ -108,11 +110,11 @@ var app = {
         });
 
         window.FirebasePlugin.onNotificationOpen(function(notification) {
-            if(localStorage.getItem("push") == 1){
-                app.showAlert(notification.body,notification.body);
-            }
+            if(localStorage.getItem("push") == 1){ // solo per Android
+                app.showAlert(notification.body,"KATOIMER"); // solo per Android
+            } // solo per Android
         }, function(error) {
-            console.log("Notificationnnnnnnnnnn error",error);
+            console.log("Notification error",error);
         });
 
         app.messages = new MessageTranslation(); // label traduzioni
@@ -122,7 +124,7 @@ var app = {
 
     },
 
-    renderHomeView: function() {
+    renderHomeView: function(txtMessage) {
         
         app.setLanguage(localStorage.getItem('language')); // setto la lingua corrente
 
@@ -131,12 +133,39 @@ var app = {
 
         if(localStorage.getItem('login') == 0 || localStorage.getItem('login') == null) { // il login in localStorage è false, devo fare il login se ho connessione...
             
-            context ={labelBtLogin: app.messages.logiBtLabel,
+            var contCookie = app.messages.contentCookie;
+
+            if(localStorage.getItem('ackCookie') == 1){
+                contCookie = "";
+            }
+
+            context ={ contentCookie: contCookie,
+                buttonCookie: app.messages.buttonCookie,
+                buttonClose: app.messages.buttonClose,
+                labelBtLogin: app.messages.logiBtLabel,
                 labelBtFb: app.messages.fbBtLabel,
                 labelBtGplus: app.messages.gplusBtLabel,
                 labelBtNewReg: app.messages.newRegisterBtLabel
             }
             $('body').html(this.loginTpl(context));
+
+            $('#btAckCookie').on('click', function(){
+                console.log("accetto i cookies");
+                localStorage.setItem('ackCookie', 1);
+                $('.cookieModal').hide();
+            });
+
+            $('#btNackCookie').on('click', function(){
+                console.log("chiudi app");
+                localStorage.setItem('ackCookie', 0);
+                if (navigator.app) {
+                        navigator.app.exitApp();
+                } else if (navigator.device) {
+                    navigator.device.exitApp();
+                } else {
+                    window.close();
+                }
+            });
 
             $('#btNewRegistration').on('click', this.renderRegisterView);
             $('#login').on('click', this.checkLogin);
@@ -158,7 +187,11 @@ var app = {
             history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
             context = { labelBtRicerca: app.messages.menu4,
                 labelBtAssistenza: app.messages.menu8,
-                labelBtAreaUtente: app.messages.menu10
+                labelBtAreaUtente: app.messages.menu10,
+                labelFlagHome: app.messages.labelFlagHome,
+                labelBtCatalogueHome: app.messages.labelBtCatalogueHome,
+                claimHome: app.messages.claimHome,
+                txtMessage: txtMessage
             }
 
             $('body').html(this.homeTpl(context));
@@ -175,32 +208,32 @@ var app = {
 
             $("#btSearchDealer").html(app.messages.btSearchDealer);
             
-            if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
-                app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list", 0); // carico il catalogo nella lingua corrente
-            } else {
-                //versione locale del catalogo
-                app.db.transaction(this.getLocalCatalogHome);
-            }
+            // if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
+            //     app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list", 0); // carico il catalogo nella lingua corrente
+            // } else {
+            //     //versione locale del catalogo
+            //     app.db.transaction(this.getLocalCatalogHome);
+            // }
 
         }
 
     },
 
-    getLocalCatalogHome: function(tx) {
-        tx.executeSql("SELECT * FROM cats",[], app.getSuccessCatLocalHome, app.getErrorCatLocalHome);
-        $('#serviceMessageRegisterHome').html("Ok. leggo i dati in locale.");
+    // getLocalCatalogHome: function(tx) {
+    //     tx.executeSql("SELECT * FROM cats",[], app.getSuccessCatLocalHome, app.getErrorCatLocalHome);
+    //     $('#serviceMessageRegisterHome').html("Ok. leggo i dati in locale.");
         
-    },
+    // },
 
-    getSuccessCatLocalHome: function(tx,results) {
-        $("#footer-button .preloader5").hide();
-        app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list", 1, results);
-    },
+    // getSuccessCatLocalHome: function(tx,results) {
+    //     $("#footer-button .preloader5").hide();
+    //     app.catalog.getListCatalog(localStorage.getItem( "language"), "ul.catalog-list", 1, results);
+    // },
 
-    getErrorCatLocalHome: function(tx,result) { 
-        $("#footer-button .preloader5").hide();
-        $('#serviceMessageRegisterHome').html("Errore lettura catalogo locale");
-    },
+    // getErrorCatLocalHome: function(tx,result) { 
+    //     $("#footer-button .preloader5").hide();
+    //     $('#serviceMessageRegisterHome').html("Errore lettura catalogo locale");
+    // },
 
     renderRegisterView: function() {
         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
@@ -310,15 +343,18 @@ var app = {
         /* HOME PAGE */
         $('#btSearchDealer').prop('disabled', true);
         $('#btHelp').prop('disabled', true);
+        $('#btProfile').prop('disabled', true);
 
         /* MENU DX */
         $('#menuDxRicerca').prop('disabled', true);
         $('#menuDxNews').prop('disabled', true);
+        $('#menuDxAdv').prop('disabled', true);
         $('#menuDxHelp').prop('disabled', true);
         $('#menuDxYoutube').prop('disabled', true);
-        $('#menuDxYoutube').prop('disabled', true);
+        $('#menuDxUser').prop('disabled', true);
 
         $('#serviceMessageLogin').html(app.messages.labelAlertNoconn);
+        app.renderHomeView(app.messages.labelAlertNoconnHome);
     },
 
     onOnline: function() {
@@ -334,15 +370,18 @@ var app = {
         /* HOME PAGE */
         $('#btSearchDealer').prop('disabled', false);
         $('#btHelp').prop('disabled', false);
+        $('#btProfile').prop('disabled', false);
 
         /* MENU DX */
         $('#menuDxRicerca').prop('disabled', false);
         $('#menuDxNews').prop('disabled', false);
+        $('#menuDxAdv').prop('disabled', false);
         $('#menuDxHelp').prop('disabled', false);
         $('#menuDxYoutube').prop('disabled', false);
-        $('#menuDxYoutube').prop('disabled', false);
+        $('#menuDxUser').prop('disabled', false);
 
         $('#serviceMessageLogin').html("");
+        $('#serviceMessageRegisterHome').html("");
     },
 
     // Update DOM on a Received Event
@@ -353,11 +392,14 @@ var app = {
     findByName: function() {
         console.log('findByName');
 
-        // this.dealerObj.findByName($('.search-key').val(), function(employees) {
-        //     $('.dealer-list').html(self.employeeLiTpl(employees));
-        //     self.initMenu();
-        // });
         app.dealerObj.findByName(app.typeOfItem, app.sortOfItem, $('.search-key').val());
+        app.initMenu();
+    },
+
+    selectCountries: function() {
+        console.log('selectCountries '+$('select#selCountry').val());
+        $('.search-key').val("");
+        app.dealerObj.selectCountry(app.typeOfItem, app.sortOfItem, $('select#selCountry').val());
         app.initMenu();
     },
 
@@ -390,19 +432,25 @@ var app = {
         var userData = JSON.parse(app.getUserData()); //recupero i dati ajax dell'utente
 
         var userRole, modelliArr;
-        var checkPriv = "", checkMark = "", checkPush = "";
+        var checkPriv = "", checkMark = "", checkPush = "", statoAtt = 0;
+
+        statoAtt = userData[0].statoAtt;
 
         if(userData[0].authPrivacy == 1){ checkPriv = "checked"; }
         if(userData[0].authMarketing == 1){ checkMark = "checked"; }
         if(userData[0].authPush == 1){ checkPush = "checked"; }
 
-        if(isUpgrade==1){
-            userRole = "upgrade to:"+app.messages.labelProprietario;
+        if(isUpgrade == 1 || statoAtt == 2){
+            userRole = "upgrading to: "+app.messages.labelProprietario;
         } else {
             if(userData[0].ospite == 1){
                 userRole = app.messages.labelOspite;
+                localStorage.setItem("ospite", 1);
+                localStorage.setItem("proprietario", 0);
             } else if(userData[0].proprietario == 1) { 
                 userRole = app.messages.labelProprietario;
+                localStorage.setItem("ospite", 0);
+                localStorage.setItem("proprietario", 1);
             }
         }
 
@@ -497,6 +545,14 @@ var app = {
             $("#divUpd_" + deleteindex).remove();// Remove <div> with id
         }); 
 
+        if(statoAtt == 2){ // se sono in attesa di attivazione proprietario disattivo i bottoni upgrade e update
+            $('#upgradeOspite').hide();
+            $('#updateOspite').hide();
+        } else {
+            $('#upgradeOspite').show();
+            $('#updateOspite').show();
+        }
+
         if(isUpgrade==1){
             $('#updateProprietario').html(app.messages.confirmUpgradeProprietario+' '+app.messages.labelProprietario);
         } else {
@@ -506,10 +562,14 @@ var app = {
         }
 
         $('#updateOspite').on('click', function(){
-            app.updateRegistrazione('ospite');
+            app.updateRegistrazione('ospite', 1);
         }); 
         $('#updateProprietario').on('click', function(){
-            app.updateRegistrazione('proprietario');
+            if(isUpgrade==1){ // ADD 5 sett 2018
+                app.updateRegistrazione('proprietario',2); // upgrade, in attivazione
+            } else {
+                app.updateRegistrazione('proprietario',1);
+            }
         });
 
 
@@ -577,7 +637,92 @@ var app = {
                     break;
                 case "#pages3": // pagina dealers/officine
                     if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
-                        app.showConfirmPosition(app.messages.textAlertPosition,app.messages.titleAlertPosition);                    } 
+
+                        var contModal= "<strong>"+app.messages.titleAlertPosition+"</strong><br/>"+app.messages.textAlertPosition;
+
+                        if(localStorage.getItem('ackModal') == 1){
+                            contModal = "";
+                        }
+
+                        context = { contentModal: contModal,
+                            buttonModal: app.messages.ackPosition,
+                            buttonClose: app.messages.nackPosition,
+                            btLabelDealer: app.messages.btLabelDealer, 
+                            btLabelOfficine: app.messages.btLabelOfficine }
+
+                        $('body').html(app.searchTpl(context));
+                        contextH = { pageName: app.messages.menu4, backUrl: "#", boolMenu: 1 };
+                        $('.header').html(app.mainHeader(contextH));
+
+                        if(localStorage.getItem(app.typeOfItem) == "" || localStorage.getItem(app.typeOfItem) == null ){
+                            app.dealerObj.ajaxCallDealer(app.typeOfItem, localStorage.getItem("latDevice") , localStorage.getItem("longDevice") ); // ajax call per dealer                            
+                        } else {
+                            app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, app.viewOfItem);
+                        }
+
+                        $('#btDealer').on('click', function(){
+                            app.typeOfItem = "dealers";
+                            $('#btOfficina').removeClass("active");
+                            $('#btDealer').removeClass("active");
+                            $('#btDealer').addClass("active");
+                            if(localStorage.getItem(app.typeOfItem) == "" || localStorage.getItem(app.typeOfItem) == null ){
+                                app.dealerObj.ajaxCallDealer(app.typeOfItem, localStorage.getItem("latDevice") , localStorage.getItem("longDevice") ); // ajax call per dealer
+                            } else {
+                                app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, app.viewOfItem);
+                            }
+                        });
+                        
+                        $('#btOfficina').on('click', function(){
+                            app.typeOfItem = "officine";
+                            $('#btDealer').removeClass("active");
+                            $('#btOfficina').removeClass("active");
+                            $('#btOfficina').addClass("active");
+                            if(localStorage.getItem(app.typeOfItem) == "" || localStorage.getItem(app.typeOfItem) == null ){
+                                app.dealerObj.ajaxCallDealer(app.typeOfItem, localStorage.getItem("latDevice") , localStorage.getItem("longDevice") ); // ajax call per dealer
+                            } else {
+                                app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, app.viewOfItem);
+                            }
+                        });
+
+                        $('.btListDealer').on('click', function(){
+                            app.viewOfItem = "list";
+                            app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, "list");
+                            $('select#selCountry').removeAttr('disabled');
+                            $('.search-key').removeAttr('disabled');
+                        });
+
+                         $('.btListMap').on('click', function(){
+                            app.viewOfItem = "map";
+                            app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, "map");
+                            $('select#selCountry').attr('disabled','disabled');
+                            $('.search-key').attr('disabled','disabled');
+                        });
+
+                        $('#btAckModal').on('click', function(){  // accetto posizione
+                            console.log("accetto modale");
+                            $('.positionModal').hide();
+                            localStorage.setItem('ackModal', 1);
+                            //recupero posizione corrente utente
+                            navigator.geolocation.getCurrentPosition(app.getSuccessPosition, app.getErrorPosition, { enableHighAccuracy: true, timeout: 30000 });
+                        });
+
+                        $('#btNackModal').on('click', function(){ // rifiuto posizione
+                            console.log("chiudi modale");
+                            $('.positionModal').hide();
+                            localStorage.setItem('ackModal', 0);
+                            localStorage.setItem("latDevice", 0);
+                            localStorage.setItem("longDevice", 0);
+
+                            app.sortOfItem = "alphabet";
+
+                            app.dealerObj.ajaxCallDealer("dealers",0 ,0); // ajax call per dealer
+                        });
+
+                        $('.search-key').on('keyup', $.proxy(app.findByName, this));
+                        $('select#selCountry').on('change', $.proxy(app.selectCountries, this));
+
+                        // app.showConfirmPosition(app.messages.textAlertPosition,app.messages.titleAlertPosition);
+                    }
                     break;
                 case "#pages4":  // pagina Catalogo
                     $('body').html(self.catalogList());
@@ -641,6 +786,44 @@ var app = {
                         $('.header').html(self.mainHeader(contextH));
                     }
                     break;
+                case "#pages0":  // pagina Faq
+
+                    var faqList = "";
+
+                    for (ifaq = 0; ifaq < app.messages.questionsFaq.length; ifaq++) {
+                        faqList += "<button class=\"accordion\">"+app.messages.questionsFaq[ifaq]+"</button>";
+                        faqList += "<div class=\"panel\">";
+                        faqList += "<p>"+app.messages.answersFaq[ifaq]+"</p>";
+                        faqList += "</div>";
+                    }
+
+                    contextP = { pageTitle: app.messages.titFaq,
+                                pageContent: faqList };
+                    $('body').html(self.staticPageFaq(contextP));
+                    contextH = { pageName: app.messages.menu12, backUrl: "#", boolMenu: 1 };
+                    $('.header').html(self.mainHeader(contextH));
+
+                    var acc = document.getElementsByClassName("accordion");
+                    var i;
+
+                    for (i = 0; i < acc.length; i++) {
+                        acc[i].addEventListener("click", function() {
+                            /* Toggle between adding and removing the "active" class,
+                            to highlight the button that controls the panel */
+                            this.classList.toggle("active");
+
+                            /* Toggle between hiding and showing the active panel */
+                            var panel = this.nextElementSibling;
+                            if (panel.style.display === "block") {
+                                panel.style.display = "none";
+                            } else {
+                                panel.style.display = "block";
+                            }
+                        });
+                    }
+
+                    break;
+
                 default:
                     $('body').html(self.homeTpl());
                     contextH = { };
@@ -678,16 +861,27 @@ var app = {
         } else if (matchCat) { // pagina categoria catalogo
             var matchParamsId = hash.match(/idcat=(\d+)/)
             if (matchParamsId) {
-                var catID = matchParamsId[1];
+                var catID = Number(matchParamsId[1]);
             }
             var matchParamsTit = hash.match(/titcat=(\S+)/)
             if (matchParamsTit) {
                 var catTit = matchParamsTit[1].toString(); //.replace(/%20/g, " ");
             }
 
-            catTit = catTit.replace(/%20/g, ' ');
+            var labelHeader = "";
+            switch(catID){
+                case 2: labelHeader = app.messages.labelPesoOp; break;
+                case 271: labelHeader = app.messages.labelCaricoOp; break;
+                case 302: labelHeader = app.messages.labelCaricoOp; break;
+                case 272: labelHeader = app.messages.labelCaricoOp; break;
+                case 270: labelHeader = app.messages.labelCaricoOp; break;
+                case 326: labelHeader = app.messages.labelPeso; break;
+            }
 
-            contextH = { pageName: catTit, backUrl: "#", boolMenu: 1 }; // titolo pagina categoria hash+" "+
+            //catTit = catTit.replace(/%20/g, ' ');
+            var catTit2 = decodeURI(catTit);
+
+            contextH = { pageName: catTit2, backUrl: "#pages4", boolMenu: 1, pageHeader: labelHeader }; // titolo pagina categoria hash+" "+
             $('body').html(self.categoryPage());
             $('.header').html(self.mainHeader(contextH));
             if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
@@ -699,40 +893,45 @@ var app = {
             }
 
         } else if (matchItem) { // pagina dettaglio prodotto
+            var matchParamsId = hash.match(/iditem=(\d+)/)
+            if (matchParamsId) {
+                var itemID = matchParamsId[1];
+            }
+            var matchParamsTit = hash.match(/titcat=(\S+)/)
+            if (matchParamsTit) {
+                var catTit = matchParamsTit[1].toString();
+            }
+            var catTit2 = decodeURI(catTit);
+
+            var matchParamsIDcat = hash.match(/idcat=(\d+)/)
+            if (matchParamsIDcat) {
+                var catID = matchParamsIDcat[1];
+            }
+
+            context1 = { idItem: itemID, labelBtManuale: app.messages.labelBtManuale};
+            contextH = { pageName: catTit2, backUrl: "#cat1?idcat="+catID+"&titcat="+catTit, boolMenu: 1 }; // titolo pagina prodotto
+            $('body').html(self.itemPage(context1));
+            $('.header').html(self.mainHeader(contextH));
+
             if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
-                var matchParamsId = hash.match(/iditem=(\d+)/)
-                if (matchParamsId) {
-                    var itemID = matchParamsId[1];
-                }
-                var matchParamsTit = hash.match(/titcat=(\S+)/)
-                if (matchParamsTit) {
-                    var catTit = matchParamsTit[1].toString();
-                }
-                catTit = catTit.replace(/%20/g, ' ');
-
-                var matchParamsIDcat = hash.match(/idcat=(\d+)/)
-                if (matchParamsIDcat) {
-                    var catID = matchParamsIDcat[1];
-                }
-
-                context1 = { idItem: itemID, labelBtManuale: app.messages.labelBtManuale};
-                contextH = { pageName: catTit, backUrl: "#cat1?idcat="+catID+"&titcat="+catTit, boolMenu: 1 }; // titolo pagina prodotto
-                $('body').html(self.itemPage(context1));
-                $('.header').html(self.mainHeader(contextH));
-
-                if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
                     app.catalog.getItemCat(localStorage.getItem( "language"), itemID, catID, 0); // carico il macchinario
-                } else {
+                    $('#btManuale').prop('disabled', false);
+                    if(localStorage.getItem('proprietario') == 1) { $('#btManuale').show(); } else { $('#btManuale').hide(); }
+                    $('#btBrochure').prop('disabled', false);
+                    $('#btScheda').prop('disabled', false);
+            } else {
                     app.db.transaction(function(tx){
                         tx.executeSql("SELECT * FROM items WHERE id = "+itemID,[], app.getSuccessItem, app.getErrorItem);
                     });
-                }
-
-                $('#btManuale').on('click', function(){
-                    app.requestManuale();
-                }); 
-
+                    $('#btManuale').hide();
+                    $('#btBrochure').prop('disabled', true);
+                    $('#btScheda').prop('disabled', true);
             }
+
+            $('#btManuale').on('click', function(){
+                app.requestManuale();
+            }); 
+
         } else if (matchCatNews) { // pagina categoria news
             if(localStorage.getItem('isConn') == 1) { // se ho una connessione ad internet
                 var matchParamsId = hash.match(/idcat=(\d+)/)
@@ -743,9 +942,10 @@ var app = {
                 if (matchParamsTit) {
                     var catTit = matchParamsTit[1].toString();
                 }
-                catTit = catTit.replace(/%20/g, ' ');
 
-                contextH = { pageName: catTit, backUrl: "#pages7", boolMenu: 1 }; // titolo pagina categoria
+                var catTit2 = decodeURI(catTit);
+
+                contextH = { pageName: catTit2, backUrl: "#", boolMenu: 1 }; // titolo pagina categoria, backUrl: "#pages7"
                 $('body').html(self.catNewsPage());
                 $('.header').html(self.mainHeader(contextH));
                 app.news.getListNews(localStorage.getItem( "language"), catID); // carico gli items di quella categoria
@@ -761,7 +961,7 @@ var app = {
                 if (matchParamsTit) {
                     var catTit = matchParamsTit[1].toString();
                 }
-                catTit = catTit.replace(/%20/g, ' ');
+                var catTit2 = decodeURI(catTit);
 
                 var matchParamsIDcat = hash.match(/idcat=(\d+)/)
                 if (matchParamsIDcat) {
@@ -769,7 +969,7 @@ var app = {
                 }
 
                 context1 = { idItem: itemID};
-                contextH = { pageName: catTit, backUrl: "#catnews1?idcat="+catId+"&titcat="+catTit, boolMenu: 1 }; // titolo pagina prodotto
+                contextH = { pageName: catTit2, backUrl: "#catnews1?idcat="+catId+"&titcat="+catTit, boolMenu: 1 }; // titolo pagina prodotto
                 $('body').html(self.newsPage(context1));
                 $('.header').html(self.mainHeader(contextH));
                 app.news.getNews(localStorage.getItem( "language"), itemID, catID); // carico il dettaglio news
@@ -806,7 +1006,6 @@ var app = {
         console.log("Errore get item local");
     },
 
-
     initMenu: function() { 
         var self = this;
         
@@ -815,9 +1014,12 @@ var app = {
 
         var userRole;
 
-        if(localStorage.getItem('ospite') == 1){ userRole = "Ospite"; 
-        } else if(localStorage.getItem('proprietario') == 1) { userRole = "Proprietario"; }
-        
+        if(localStorage.getItem('ospite') == 1){ 
+            userRole = app.messages.labelOspite;
+        } else if(localStorage.getItem('proprietario') == 1) { 
+            userRole = app.messages.labelProprietario;
+        }
+ 
         var context = {loginName: ""};
         if(localStorage.getItem('login') == 1){ // se sono loggato
             context = {
@@ -834,7 +1036,8 @@ var app = {
                 menu8: app.messages.menu8,
                 menu9: app.messages.menu9,
                 menu10: app.messages.menu10,
-                menu11: app.messages.menu11
+                menu11: app.messages.menu11,
+                menu12: app.messages.menu12
             };
         }
 
@@ -857,6 +1060,27 @@ var app = {
             localStorage.setItem("push", 0);
             localStorage.setItem("localCatalogoDate", 0);
             localStorage.setItem("localCatalogoListDate", 0);
+            localStorage.setItem("latDevice", 0);
+            localStorage.setItem("longDevice", 0);
+            localStorage.setItem('ackCookie', 0);
+            localStorage.setItem('ackModal', 0);
+
+            app.db.transaction(app.sqlStorage.deleteTable("cats")); // svuoto la tabella locale cats
+            app.db.transaction(app.sqlStorage.deleteTable("items")); // svuoto la tabella locale items
+            app.db.transaction(app.sqlStorage.deleteTable("news")); // svuoto la tabella locale news
+
+            if(localStorage.getItem('isConn') != 1) { // se NON ho una connessione ad internet
+                $('#login').prop('disabled', true);
+                $('#btFbLogin').prop('disabled', true);
+                $('#btGplusLogin').prop('disabled', true);
+                $('#btNewRegistration').prop('disabled', true);
+            } else {
+                $('#login').prop('disabled', false);
+                $('#btFbLogin').prop('disabled', false);
+                $('#btGplusLogin').prop('disabled', false);
+                $('#btNewRegistration').prop('disabled', false);
+            }
+
             history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
             self.renderHomeView();
         });
@@ -864,19 +1088,27 @@ var app = {
         if(localStorage.getItem('isConn') != 1) { // se NON ho una connessione ad internet
             $('#menuDxRicerca').prop('disabled', true);
             $('#menuDxNews').prop('disabled', true);
+            $('#menuDxAdv').prop('disabled', true);
             $('#menuDxHelp').prop('disabled', true);
             $('#menuDxYoutube').prop('disabled', true);
-            $('#menuDxYoutube').prop('disabled', true);
+            $('#menuDxUser').prop('disabled', true);
+            /* HOME PAGE */
+            $('#btSearchDealer').prop('disabled', true);
+            $('#btHelp').prop('disabled', true);
+            $('#btProfile').prop('disabled', true);
         } else {
             $('#menuDxRicerca').prop('disabled', false);
             $('#menuDxNews').prop('disabled', false);
+            $('#menuDxAdv').prop('disabled', false);
             $('#menuDxHelp').prop('disabled', false);
             $('#menuDxYoutube').prop('disabled', false);
-            $('#menuDxYoutube').prop('disabled', false);
+            $('#menuDxUser').prop('disabled', false);
+            /* HOME PAGE */
+            $('#btSearchDealer').prop('disabled', false);
+            $('#btHelp').prop('disabled', false);
+            $('#btProfile').prop('disabled', false);
         }
         
-
-        // var html = self.mainMenu(context);
     },
 
     // check if user can be logged
@@ -904,6 +1136,9 @@ var app = {
                         localStorage.setItem("localCatalogoDate", 0);
                         localStorage.setItem("localCatalogoListDate", 0);
                         localStorage.setItem("push", data.push);
+                        localStorage.setItem("statoAtt", data.statoAtt);
+                        localStorage.setItem("latDevice", 0);
+                        localStorage.setItem("longDevice", 0);
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
                         app.renderHomeView();
                     } else if(data.status=="failed") {
@@ -915,6 +1150,9 @@ var app = {
                         localStorage.setItem("localCatalogoDate", 0);
                         localStorage.setItem("localCatalogoListDate", 0);
                         localStorage.setItem("push", 0);
+                        localStorage.setItem("statoAtt", 0);
+                        localStorage.setItem("latDevice", 0);
+                        localStorage.setItem("longDevice", 0);
                         $("#login").html('Login');
                         $("#serviceMessageLogin").html(app.messages.labelUserNotFound);
                     }
@@ -928,6 +1166,7 @@ var app = {
                     localStorage.setItem("localCatalogoDate", 0);
                     localStorage.setItem("localCatalogoListDate", 0);
                     localStorage.setItem("push", 0);
+                    localStorage.setItem("statoAtt", 0);
                     $("#serviceMessageLogin").html(app.messages.nackAjax001);
                 }
             });
@@ -939,12 +1178,13 @@ var app = {
             localStorage.setItem("ospite", 0);
             localStorage.setItem("proprietario", 0);
             localStorage.setItem("push", 0);
+            localStorage.setItem("statoAtt", 0);
             console.log("login field error... ");
             $("#serviceMessageLogin").html(app.messages.emptyField);
         }
     },
 
-    // registrazione nuovo utente ospite/proprietario
+    /* REGISTRAZIONE UTENTE OSPITE/PROPRIETARIO */
     addRegistrazione: function(typeReg) {
 
         var email, password, password2, nome, phone, stato, dataString, arrayModelSerial;
@@ -1045,8 +1285,9 @@ var app = {
                 dataType: "json",
                 crossDomain: true,
                 cache: false,
-                beforeSend: function(){ $("#serviceMessageLogin").html(app.messages.sendAjax); },
+                beforeSend: function(){ $("#serviceMessageRegister .preloader5").show(); $("#serviceMessageRegister").html(app.messages.sendAjax); },
                 success: function(data){
+                    $("#serviceMessageRegister .preloader5").hide();
                     if(data.status==1) {
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
                         app.renderHomeView();
@@ -1066,8 +1307,8 @@ var app = {
 
     },
 
-    // modifica utente ospite/proprietario
-    updateRegistrazione: function(typeUpd) {
+    /* AGGIORNAMENTO UTENTE OSPITE/PROPRIETARIO */
+    updateRegistrazione: function(typeUpd, statusUpd) {  // status 2 è un upgrade // ADD 5 sett 2018
 
         var email, password, nome, phone, stato, dataStringUpd, arrayModelSerial;
         var flagO = 0, flagP = 0, authPrivacy = 0, authMarketing = 0, authPush = 0;
@@ -1080,7 +1321,7 @@ var app = {
 
         if(typeUpd == "ospite") {
             nome= "";
-            email=$("#userName").val();
+            email=$("#userName").html();
             phone= "";
             flagO = 1;
             stato = 1; // già attivo
@@ -1094,10 +1335,10 @@ var app = {
             nome=$("#nomePUser").val();
             email= localStorage.getItem('email');
             phone=$("#telPUser").val();
-            // password=$("#passwordP").val();
-            // password2=$("#passwordP2").val();
+            password=$("#passwordP").val();
+            password2=$("#passwordP2").val();
             flagP = 1;
-            stato = 1; // attivo
+            stato = statusUpd; // 1 attivo, 2 in attivazione (per upgrade) // ADD 5 sett 2018
             if($.trim(nome).length>0){
                 boolRequestedFields = 1;
             }
@@ -1123,15 +1364,16 @@ var app = {
         // if($.trim(password) == $.trim(password2)) { 
         //     boolPasswords = 1;
         // }
+        document.getElementById("profiloUtente").scrollTop = 0; // scroll to top div
 
         if(boolRequestedFields != 1){
-            $("#serviceMessageProfile").html(app.messages.emptyField);
+            $("#serviceMessageProfile .txt").html(app.messages.emptyField);
         // } else if (boolPasswords != 1) {
         //     $("#serviceMessageProfile").html(app.messages.pwNotEqual);
         } else if (boolModels != 1) {
-            $("#serviceMessageProfile").html(app.messages.errorNoModels);
+            $("#serviceMessageProfile .txt").html(app.messages.errorNoModels);
         } else if (authPrivacy != 1) {
-            $("#serviceMessageProfile").html(app.messages.checkPrivacy);
+            $("#serviceMessageProfile .txt").html(app.messages.checkPrivacy);
         } else {
         
             dataStringUpd = { id: localStorage.getItem("idUser"),
@@ -1156,26 +1398,33 @@ var app = {
                 dataType: "json",
                 crossDomain: true,
                 cache: false,
-                beforeSend: function(){ $("#serviceMessageRequest .preloader5").show(); $("#serviceMessageProfile").html(app.messages.sendAjax); },
+                beforeSend: function(){ $("#serviceMessageProfile .preloader5").show(); $("#serviceMessageProfile .txt").html(app.messages.sendAjax); },
                 success: function(data){
-                    $("#serviceMessageRequest .preloader5").hide();
+                    $("#serviceMessageProfile .preloader5").hide();
                     if(data.status==1) {
                         // localStorage.setItem("ospite", 0);
                         // localStorage.setItem("proprietario", 1);
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
-                        app.renderUserProfile(0);
-                        $("#serviceMessageProfile").html(app.messages.ackAjaxUpdate);
+                        
+                        if(data.isUpg == 2){ // arrivo da un upgrade a proprietario, vado alla home e rimane dentro come Ospite
+                            app.renderHomeView(app.messages.ackRequestUpgradeProprietario);
+                            $("#serviceMessageLogin").html(app.messages.btLabelUpgradeProprietario);
+                        } else { // arrivo da un update
+                            app.renderUserProfile(0);
+                            $("#serviceMessageProfile .txt").html(app.messages.ackAjaxUpdate);
+                        }
+                        
                         // in data.mess ho la mail dell'iscritto
                     } else if(data.status==0) {
                         messError = app.codifyErr(data.cod)
-                        $("#serviceMessageProfile").html(messError);
+                        $("#serviceMessageProfile .txt").html(messError);
                     }
                 },
                 error: function() {
                     history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
                     app.renderUserProfile(0);
                     $("#serviceMessageRequest .preloader5").hide();
-                    $("#serviceMessageProfile").html(app.messages.nackAjax001);
+                    $("#serviceMessageProfile .txt").html(app.messages.nackAjax001);
                 }
             });
 
@@ -1183,16 +1432,15 @@ var app = {
 
     },
 
+    /* RICHIESTA MANUALE OPERATORE (SOLO PROPRIETARIO) */
     requestManuale: function() {
         var emailRequest=localStorage.getItem('email');
         var modelRequest=$('h2#title-item').html();
 
-        console.log("Richiesta manuale per "+emailRequest+" modelRequest "+modelRequest);
-
         var dataString = { email:  emailRequest,
-                model: modelRequest,
-                tokenK: app.tokenAppKato,
-                lin: localStorage.getItem("language")
+            model: modelRequest,
+            tokenK: app.tokenAppKato,
+            lin: localStorage.getItem("language")
         };
 
         $.ajax({
@@ -1202,18 +1450,18 @@ var app = {
             dataType: "json",
             crossDomain: true,
             cache: false,
-            beforeSend: function(){ $("#serviceMessageManuale .preloader5").show(); },
+            beforeSend: function(){ $("#serviceMessageItem .preloader5").show(); $("#serviceMessageItem .txt").html(app.messages.sendAjax); },
             success: function(data){
-                $("#serviceMessageRequest .preloader5").hide();
+                $("#serviceMessageItem .preloader5").hide();
                 if(data.status==1) {
-                    $("#serviceMessageManuale").html(app.messages.ackAjaxRequest);
+                    $("#serviceMessageItem .txt").html(app.messages.ackAjaxRequest);
                 } else if(data.status==0) {
-                    $("#serviceMessageManuale").html(app.messages.nackAjaxRequest);
+                    $("#serviceMessageItem .txt").html(app.messages.nackAjaxRequest);
                 }
             },
             error: function() {
-                $("#serviceMessageManuale .preloader5").hide();
-                $("#serviceMessageManuale").html(app.messages.nackAjax001);
+                $("#serviceMessageItem .preloader5").hide();
+                $("#serviceMessageItem .txt").html(app.messages.nackAjax001);
             }
         });
 
@@ -1223,14 +1471,25 @@ var app = {
     addRequest: function() {
         var emailRequest=$("#emailRequest").val();
         var nomeRequest=$("#nomeRequest").val();
+        nomeRequest=$.trim(nomeRequest);
         var oggettoRequest=$("#oggettoRequest").val();
+        oggettoRequest = $.trim(oggettoRequest);
         var modelRequest=$("#modelRequest").val();
+        modelRequest=$.trim(modelRequest);
         var txtRequest=$("#txtRequest").val();
-        var authPrivacy = 0;
+        txtRequest=$.trim(txtRequest);
 
+        var authPrivacy = 0;
         if(document.getElementById("privacyCheckManuale").checked == true){ authPrivacy = 1; }  // checkbox privacy
 
-        var dataString = { nome: nomeRequest,
+        document.getElementById("assistenzaContent").scrollTop = 0; // scroll to top div
+
+        if(authPrivacy != 1){
+            $("#serviceMessageRequest").html(app.messages.checkPrivacy);
+        } else if( oggettoRequest.length === 0 && modelRequest.length === 0 && txtRequest.length === 0) {
+            $("#serviceMessageRequest").html(app.messages.emptyField);
+        } else {
+            var dataString = { nome: nomeRequest,
                 email:  emailRequest,
                 model: modelRequest,
                 oggetto: oggettoRequest,
@@ -1238,42 +1497,35 @@ var app = {
                 tokenK: app.tokenAppKato,
                 lin: localStorage.getItem("language")
             };
-        
-        if($.trim(emailRequest).length>0 && $.trim(oggettoRequest).length>0 && $.trim(modelRequest).length>0 && $.trim(txtRequest).length>0)
-        {
 
-            if(authPrivacy != 0){
-                $.ajax({
-                    type: "POST",
-                    url: 'https://app.katoimer.com/appadmin/addRequestApp.php',
-                    data: dataString,
-                    dataType: "json",
-                    crossDomain: true,
-                    cache: false,
-                    beforeSend: function(){ $("#serviceMessageRequest .preloader5").show(); },
-                    success: function(data){
-                        $("#serviceMessageRequest .preloader5").hide();
-                        $("#nomeRequest").val("");
-                        $("#modelRequest").val("");
-                        $("#oggettoRequest").val("");
-                        $("#txtRequest").val("");
-                        if(data.status==1) {
-                            $("#serviceMessageRequest").html(app.messages.ackAjaxRequest);
-                        } else if(data.status==0) {
-                            $("#serviceMessageRequest").html(app.messages.nackAjaxRequest);
-                        }
-                    },
-                    error: function() {
-                        $("#serviceMessageRequest .preloader5").hide();
-                        $("#serviceMessageRequest").html(app.messages.nackAjax001);
+            $.ajax({
+                type: "POST",
+                url: 'https://app.katoimer.com/appadmin/addRequestApp.php',
+                data: dataString,
+                dataType: "json",
+                crossDomain: true,
+                cache: false,
+                beforeSend: function(){ $("#serviceMessageRequest .preloader5").show(); },
+                success: function(data){
+                    $("#serviceMessageRequest .preloader5").hide();
+                    $("#serviceMessageRequest .txt").html("");
+                    $("#nomeRequest").val("");
+                    $("#modelRequest").val("");
+                    $("#oggettoRequest").val("");
+                    $("#txtRequest").val("");
+                    if(data.status==1) {
+                        app.renderHomeView(app.messages.ackAjaxRequest);
+                    } else if(data.status==0) {
+                        $("#serviceMessageRequest").html(app.messages.nackAjaxRequest);
                     }
-                });
-            } else {
-                $("#serviceMessageRequest").html(app.messages.checkPrivacy);
-            }
-        } else {
-            $("#serviceMessageRequest").html(app.messages.emptyField);
+                },
+                error: function() {
+                    $("#serviceMessageRequest .preloader5").hide();
+                    $("#serviceMessageRequest").html(app.messages.nackAjax001);
+                }
+            });
         }
+
     },
 
     checkFbLogin: function() {
@@ -1295,6 +1547,8 @@ var app = {
                 localStorage.setItem("ospite", 1);
                 localStorage.setItem("proprietario", 0);
                 localStorage.setItem("push", 0);
+                localStorage.setItem("latDevice", 0);
+                localStorage.setItem("longDevice", 0);
                 app.renderHomeView();
             },function(error){
                 //API error callback
@@ -1321,6 +1575,8 @@ var app = {
             localStorage.setItem("ospite", 1);
             localStorage.setItem("proprietario", 0);
             localStorage.setItem("push", 0);
+            localStorage.setItem("latDevice", 0);
+            localStorage.setItem("longDevice", 0);
             app.renderHomeView();
             /* obj.familyName  -- cognome
             obj.givenName  -- nome
@@ -1453,6 +1709,10 @@ var app = {
         $("#btFbLogin").html(app.messages.fbBtLabel);
         $("#btGplusLogin").html(app.messages.gplusBtLabel);
         $("#serviceMessageLogin").html(app.messages.labelObbligatori);
+
+        $("#txtModal").html(app.messages.contentCookie);
+        $("#btAckCookie").html(app.messages.buttonCookie);
+        $("#btNackCookie").html(app.messages.buttonClose);
         
     },
 
@@ -1519,7 +1779,11 @@ var app = {
         console.log("confirm "+buttonIndex);
         if(buttonIndex == 1){
             // elimino l'utente
-            dataString = { idUser: localStorage.getItem("idUser"), email: localStorage.getItem('email'), tokenK: app.tokenAppKato };
+            dataString = { idUser: localStorage.getItem("idUser"), 
+                email: localStorage.getItem('email'), 
+                tokenK: app.tokenAppKato,
+                lin: localStorage.getItem("language")
+            };
 
             $.ajax({
                 type: "POST",
@@ -1539,6 +1803,8 @@ var app = {
                         localStorage.setItem("ospite", 0);
                         localStorage.setItem("proprietario", 0);
                         localStorage.setItem("push", 0);
+                        localStorage.setItem("latDevice", 0);
+                        localStorage.setItem("longDevice", 0);
                         history.pushState('', document.title, window.location.pathname); // ripulisce la url dagli hash
                         app.renderHomeView();
                         $("#serviceMessageLogin").html(app.messages.ackAjaxRemove);
@@ -1548,7 +1814,7 @@ var app = {
                     }
                 },
                 error: function() {
-                    $("#serviceMessageRegister").html(app.messages.nackAjax001);
+                    $("#serviceMessageProfile").html(app.messages.nackAjax001);
                 }
             });
 
@@ -1558,7 +1824,7 @@ var app = {
 
     showConfirmPosition: function (message, title) {
         navigator.notification.confirm(
-            message, // message
+            message,
             app.onConfirmPosition,            // callback to invoke with index of button pressed
             title,           // title
             [app.messages.ackPosition, app.messages.nackPosition]         // buttonLabels
@@ -1566,47 +1832,84 @@ var app = {
     },
 
     onConfirmPosition: function (buttonIndex) {
-        context = { btLabelDealer: app.messages.btLabelDealer, btLabelOfficine: app.messages.btLabelOfficine }
-        $('body').html(app.searchTpl(context));
-        contextH = { pageName: app.messages.menu4, backUrl: "#", boolMenu: 1 };
-        $('.header').html(app.mainHeader(contextH));
-
-        app.dealerObj.ajaxCallDealer("dealers"); // ajax call per dealer/officine
-        app.dealerObj.ajaxCallDealer("officine"); // ajax call  per dealer/officine
 
         if(buttonIndex == 1){ // CONSENTI
-            app.sortOfItem = "distance";
+            // recupero posizione corrente utente
+            navigator.geolocation.getCurrentPosition(app.getSuccessPosition, app.getErrorPosition, { enableHighAccuracy: true, timeout: 30000 });
+
         } else if(buttonIndex == 2) {   //NON CONSENTI
+            localStorage.setItem("latDevice", 0);
+            localStorage.setItem("longDevice", 0);
+
             app.sortOfItem = "alphabet";
-        }
-        app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, app.viewOfItem );
 
-        $('#btDealer').on('click', function(){
-            app.typeOfItem = "dealers";
-            app.dealerObj.showAllItems("dealers", app.sortOfItem, app.viewOfItem);
-        });
-        
-        $('#btOfficina').on('click', function(){
-            app.dealerObj.showAllItems("officine", app.sortOfItem, app.viewOfItem);
-            app.typeOfItem = "officine", "distance";
-        });
+            // app.dealerObj.ajaxCallDealer("officine",0 ,0 ); // ajax call  per officine
+            app.dealerObj.ajaxCallDealer("dealers",0 ,0); // ajax call per dealer
 
-        $('.btListDealer').on('click', function(){
-            app.viewOfItem = "list";
-            app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, "list");
-        });
-
-        if(buttonIndex == 1){ // vedo la mappa solo se ho acconsentito
-            $('.btListMap').on('click', function(){
-                app.viewOfItem = "map";
-                app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, "map");
-            });
-        }
-
-        $('.search-key').on('keyup', $.proxy(app.findByName, this));
+            // app.dealerObj.showAllItems(app.typeOfItem, app.sortOfItem, app.viewOfItem );
+        } 
 
     },
 
+    getSuccessPosition: function(position){
+        var positionObject = {};
+
+        if ('coords' in position) {
+            positionObject.coords = {};
+
+            if ('latitude' in position.coords) {
+                positionObject.coords.latitude = position.coords.latitude;
+            }
+            if ('longitude' in position.coords) {
+                positionObject.coords.longitude = position.coords.longitude;
+            }
+            if ('accuracy' in position.coords) {
+                positionObject.coords.accuracy = position.coords.accuracy;
+            }
+            if ('altitude' in position.coords) {
+                positionObject.coords.altitude = position.coords.altitude;
+            }
+            if ('altitudeAccuracy' in position.coords) {
+                positionObject.coords.altitudeAccuracy = position.coords.altitudeAccuracy;
+            }
+            if ('heading' in position.coords) {
+                positionObject.coords.heading = position.coords.heading;
+            }
+            if ('speed' in position.coords) {
+                positionObject.coords.speed = position.coords.speed;
+            }
+        }
+
+        if ('timestamp' in position) {
+             positionObject.timestamp = position.timestamp;
+        }
+
+        // Use the positionObject instead of the position 'object'
+        console.log(JSON.stringify(positionObject));  
+
+        // localStorage.setItem("latDevice", 43.484519);
+        // localStorage.setItem("longDevice", 11.128464);
+        localStorage.setItem("latDevice", positionObject.coords.latitude);
+        localStorage.setItem("longDevice", positionObject.coords.longitude);
+        
+        app.sortOfItem = "distance";
+
+        // app.dealerObj.ajaxCallDealer("officine", localStorage.getItem("latDevice") , localStorage.getItem("longDevice") ); // ajax call per dealer
+        app.dealerObj.ajaxCallDealer("dealers", localStorage.getItem("latDevice") , localStorage.getItem("longDevice") ); // ajax call per dealer
+
+    },
+    
+    getErrorPosition: function(error){
+        console.log('Position error code: '    + error.code    + '\n' +
+                  'message: ' + error.message + '\n');
+        localStorage.setItem("latDevice", 0);
+        localStorage.setItem("longDevice", 0);
+
+        app.sortOfItem = "alphabet";
+
+        //app.dealerObj.ajaxCallDealer("officine",0 ,0 ); // ajax call  per officine
+        app.dealerObj.ajaxCallDealer("dealers",0 ,0); // ajax call per dealer
+    },
 
     // Next/previous controls
     plusSlides: function (n) {
